@@ -1,0 +1,38 @@
+# Base
+pytz==2018.7
+python-slugify==1.2.6
+
+Pillow>=6.2.2
+
+psycopg2==2.9 --no-binary psycopg2
+
+# oAuth
+# oauthlib == 3.1
+# django-oauth-toolkit == 1.5.0
+
+# Django
+# django>=2.2.10
+django==3.2.0
+
+# Environment
+django-environ==0.4.5
+
+# django REST framework
+djangorestframework == 3.12.0
+
+# Django simple-jwt
+djangorestframework-simplejwt == 4.6.0
+
+# Passwords security
+argon2-cffi==20.1.0
+
+# Static files
+whitenoise==4.1.2
+
+# Celery
+tornado>=4.2.0,<6.0.0
+nbconvert==5.3.1
+redis>=3.2
+django-redis==4.10.0
+celery==5.2.0
+flower==1.0.0
