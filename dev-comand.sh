@@ -33,6 +33,10 @@ case $COMMAND in
     echo "build containers..."
     docker-compose build
     ;;
+  "test")
+    echo "runing test..."
+    docker-compose run --rm django pytest
+    ;;
   *)
 
     echo "command no found:"
@@ -46,6 +50,7 @@ case $COMMAND in
     echo -e "- run-django"
     echo -e "- down-containers"
     echo -e "- build-containers"
-    
+    echo -e "- test"
+
 esac
 

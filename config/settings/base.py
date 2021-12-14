@@ -49,7 +49,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
 ]
 LOCAL_APPS = [
-    # 'bk_service.users.apps.UsersAppConfig',
+    # 'bk_service.pings.apps.PingsAppConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
