@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: set compose file
+      run: COMPOSE_FILE=local.yml
+
+    - name: Build the Docker images
+      run: docker-compose build
+
+    - name: up the Docker images
+      run: docker-compose up
+
+    - name: Run test
+      run: docker-compose run --rm django pytest
