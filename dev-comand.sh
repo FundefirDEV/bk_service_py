@@ -9,7 +9,7 @@ case $COMMAND in
     echo "runing django migrate..."
     docker-compose run --rm django python manage.py migrate 
     echo "load data from localizations.json and create super user... "
-    docker-compose run --rm django python manage.py loaddata bk_service/users/fixtures/localizations.json  
+    docker-compose run --rm django python manage.py loaddata bk_service/localizations/fixtures/localizations.json  
     docker-compose run --rm django python manage.py loaddata bk_service/users/fixtures/users.json
     echo "from django.contrib.auth import get_user_model ; User = get_user_model(); User.objects.create_superuser(username='admin' , first_name= 'admin' , last_name= 'admin', email='admin@admin.com', password='admin1234', phone_number='+123456789',city_id = 0, gender='M' , is_verified=True)" | docker-compose run --rm django python manage.py shell 
     ;;

@@ -50,6 +50,7 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'bk_service.users.apps.UsersAppConfig',
+    'bk_service.localizations.apps.LocalizationsAppConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
