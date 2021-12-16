@@ -1,4 +1,2 @@
-Comparte Ride
+Bk_service in python !
 =============
-
-Group-bounded, invite-only, carpooling platform

@@ -277,3 +277,6 @@ bk_service/media/
 .env
 .envs/*
 !.envs/.local/
+
+# VS CODE
+.vscode/
