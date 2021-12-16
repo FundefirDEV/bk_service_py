@@ -6,6 +6,8 @@ export COMPOSE_FILE=local.yml
 
 case $COMMAND in
   "loaddata")
+    echo "runing django makemigrations..."
+    docker-compose run --rm django python manage.py makemigrations 
     echo "runing django migrate..."
     docker-compose run --rm django python manage.py migrate 
     echo "load data from location.json and create super user... "
