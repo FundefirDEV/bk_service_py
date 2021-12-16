@@ -1,3 +1,3 @@
-from .citys import *
+from .cities import *
 from .states import *
-from .countrys import *
+from .countries import *

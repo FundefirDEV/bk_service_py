@@ -4,7 +4,7 @@
 from django.db import models
 
 # Models
-from .countrys import Country
+from .countries import Country
 
 
 class State(models.Model):
