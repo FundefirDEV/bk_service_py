@@ -1,0 +1,59 @@
+[
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "username": "alex",
+            "first_name": "Alex",
+            "last_name": "Ray",
+            "email": "alex@mail.com",
+            "password": "admin1234",
+            "is_active": true,
+            "phone_number": "+1234567891",
+            "gender": "M",
+            "city": 1,
+            "is_staff": false,
+            "is_verified": true,
+            "created_at": "2020-12-24",
+            "updated_at": "2020-12-24"
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 2,
+        "fields": {
+            "username": "gibran",
+            "first_name": "Gibran",
+            "last_name": "Ray",
+            "email": "gibran@mail.com",
+            "password": "admin1234",
+            "is_active": true,
+            "phone_number": "+1234567892",
+            "gender": "M",
+            "city": 0,
+            "is_staff": false,
+            "is_verified": true,
+            "created_at": "2020-12-24",
+            "updated_at": "2020-12-24"
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 3,
+        "fields": {
+            "username": "jaime",
+            "first_name": "Jaime",
+            "last_name": "colon",
+            "email": "jaime@mail.com",
+            "password": "admin1234",
+            "is_active": true,
+            "phone_number": "+1234567893",
+            "gender": "M",
+            "city": 0,
+            "is_staff": false,
+            "is_verified": true,
+            "created_at": "2020-12-24",
+            "updated_at": "2020-12-24"
+        }
+    }
+]

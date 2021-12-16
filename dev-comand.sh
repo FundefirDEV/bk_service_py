@@ -6,15 +6,20 @@ export COMPOSE_FILE=local.yml
 
 case $COMMAND in
   "loaddata")
-    # echo "load data from circle.json and create super user... "
-    # docker-compose run --rm django python manage.py loaddata bk_service/circles/fixtures/circles.json
-    echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@admin.com', 'admin1234')" | docker-compose run --rm django python manage.py shell
+    echo "runing django migrate..."
+    docker-compose run --rm django python manage.py migrate 
+    echo "load data from localizations.json and create super user... "
+    docker-compose run --rm django python manage.py loaddata bk_service/users/fixtures/localizations.json  
+    docker-compose run --rm django python manage.py loaddata bk_service/users/fixtures/users.json
+    echo "from django.contrib.auth import get_user_model ; User = get_user_model(); User.objects.create_superuser(username='admin' , first_name= 'admin' , last_name= 'admin', email='admin@admin.com', password='admin1234', phone_number='+123456789',city_id = 0, gender='M' , is_verified=True)" | docker-compose run --rm django python manage.py shell 
     ;;
   "clear-db")
     echo "cleaning db..."
     docker-compose down
     echo 'database deleted: '
-    docker volume rm bk_service_py_local_postgres_data
+    docker volume rm -f $(docker volume ls -q)
+    echo 're-build containers : '
+    docker-compose build
     ;;
   "run-django")
     echo "runing django..."
@@ -37,6 +42,19 @@ case $COMMAND in
     echo "runing test..."
     docker-compose run --rm django pytest
     ;;
+  "makemigrations")
+    echo "runing django makemigrations..."
+    docker-compose run --rm django python manage.py makemigrations 
+    ;;
+  "migrate")
+    echo "runing django migrate..."
+    docker-compose run --rm django python manage.py migrate 
+    ;;
+
+  "shell")
+    echo "runing django shell..."
+    docker-compose run --rm django python manage.py shell_plus
+    ;;
   *)
 
     echo "command no found:"
@@ -51,6 +69,10 @@ case $COMMAND in
     echo -e "- down-containers"
     echo -e "- build-containers"
     echo -e "- test"
+    echo -e "- makemigrations"
+    echo -e "- migrate"
 
 esac
+
+
 

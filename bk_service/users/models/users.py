@@ -10,6 +10,9 @@ from django.core.validators import RegexValidator
 from bk_service.utils.models import BkServiceModel
 from bk_service.utils.enums import Gender
 
+# Models
+from .citys import City
+
 
 class User(BkServiceModel, AbstractUser):
     """User model """
@@ -30,7 +33,7 @@ class User(BkServiceModel, AbstractUser):
 
     gender = models.CharField(max_length=1, blank=False, choices=Gender.choices)
 
-    city = models.OneToOneField('users.City', on_delete=models.PROTECT)
+    city = models.ForeignKey(City, on_delete=models.PROTECT)
 
     is_verified = models.BooleanField(
         'verified',
@@ -48,4 +51,4 @@ class User(BkServiceModel, AbstractUser):
         return self.username
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone_number', 'gender', ]
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone_number', 'gender', 'city']

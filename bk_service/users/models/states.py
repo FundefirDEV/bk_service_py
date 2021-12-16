@@ -3,11 +3,14 @@
 # Django
 from django.db import models
 
+# Models
+from .countrys import Country
+
 
 class State(models.Model):
     """ State model """
 
-    country = models.OneToOneField('users.Country', on_delete=models.PROTECT)
+    country = models.ForeignKey(Country, on_delete=models.PROTECT)
     name = models.CharField(max_length=18, blank=False, unique=True)
     is_active = models.BooleanField(default=True)
 

@@ -3,11 +3,14 @@
 # Django
 from django.db import models
 
+# Models
+from .states import State
+
 
 class City(models.Model):
     """ City model """
 
-    state = models.OneToOneField('users.State', on_delete=models.PROTECT)
+    state = models.ForeignKey(State,  on_delete=models.PROTECT)
     name = models.CharField(max_length=18, blank=False, unique=True)
     is_active = models.BooleanField(default=True)
 

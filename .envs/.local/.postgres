@@ -1,6 +1,14 @@
-# PostgreSQL
+PostgreSQL
 POSTGRES_HOST=postgres
 POSTGRES_PORT=5432
 POSTGRES_DB=bk_service
 POSTGRES_USER=sBLRWyyPsInwHftmHAWmYJURGWBGFpLs
 POSTGRES_PASSWORD=tuXL3XSF8O7tsGrcGHoMos4tVNtL3tnrRshSCZokGnIfk4ArDyzaa297k2WgQPSL
+
+
+# POSTGRES_HOST=stage-qa.cymef5vjs5w9.us-east-2.rds.amazonaws.com
+# POSTGRES_PORT=5432
+# POSTGRES_DB=bk_services_qa
+# POSTGRES_USER=postgres
+# POSTGRES_PASSWORD=Jto3eF884Yk6oVBHpQmL
+

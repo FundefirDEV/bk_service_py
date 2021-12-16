@@ -19,7 +19,7 @@ jobs:
     - name: Build the Docker images
       run: docker-compose -f local.yml build
 
-    - name: Build the Docker images
+    - name: Run Migrate
       run: docker-compose -f local.yml run --rm django python manage.py migrate 
 
     - name: Run test

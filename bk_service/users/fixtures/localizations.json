@@ -1,0 +1,56 @@
+[
+    {
+        "model": "users.country",
+        "pk": 0,
+        "fields": {
+            "name": "COLOMBIA",
+            "code": "CO",
+            "is_active": true
+        }
+    },
+    {
+        "model": "users.state",
+        "pk": 0,
+        "fields": {
+            "name": "BOGOTÁ",
+            "country": 0,
+            "is_active": true
+        }
+    },
+    {
+        "model": "users.city",
+        "pk": 0,
+        "fields": {
+            "name": "CAPITAL FEDERAL",
+            "state": 0,
+            "is_active": true
+        }
+    },
+    {
+        "model": "users.country",
+        "pk": 1,
+        "fields": {
+            "name": "ARGENTINA",
+            "code": "AR",
+            "is_active": true
+        }
+    },
+    {
+        "model": "users.state",
+        "pk": 1,
+        "fields": {
+            "name": "BUENOS AIRES",
+            "country": 1,
+            "is_active": true
+        }
+    },
+    {
+        "model": "users.city",
+        "pk": 1,
+        "fields": {
+            "name": "CABA",
+            "state": 1,
+            "is_active": true
+        }
+    }
+]
