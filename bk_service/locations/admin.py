@@ -4,7 +4,7 @@
 from django.contrib import admin
 
 # Models
-from bk_service.localizations.models import Country
+from bk_service.locations.models import Country
 
 
 @admin.register(Country)

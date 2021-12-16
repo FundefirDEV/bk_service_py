@@ -11,7 +11,7 @@ from bk_service.utils.models import BkServiceModel
 from bk_service.utils.enums import Gender
 
 # Models
-from bk_service.localizations.models import City
+from bk_service.locations.models import City
 
 
 class User(BkServiceModel, AbstractUser):

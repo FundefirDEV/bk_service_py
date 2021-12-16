@@ -1,6 +1,6 @@
 [
     {
-        "model": "localizations.country",
+        "model": "locations.country",
         "pk": 0,
         "fields": {
             "name": "COLOMBIA",
@@ -9,7 +9,7 @@
         }
     },
     {
-        "model": "localizations.state",
+        "model": "locations.state",
         "pk": 0,
         "fields": {
             "name": "BOGOTÁ",
@@ -18,7 +18,7 @@
         }
     },
     {
-        "model": "localizations.city",
+        "model": "locations.city",
         "pk": 0,
         "fields": {
             "name": "CAPITAL FEDERAL",
@@ -27,7 +27,7 @@
         }
     },
     {
-        "model": "localizations.country",
+        "model": "locations.country",
         "pk": 1,
         "fields": {
             "name": "ARGENTINA",
@@ -36,7 +36,7 @@
         }
     },
     {
-        "model": "localizations.state",
+        "model": "locations.state",
         "pk": 1,
         "fields": {
             "name": "BUENOS AIRES",
@@ -45,7 +45,7 @@
         }
     },
     {
-        "model": "localizations.city",
+        "model": "locations.city",
         "pk": 1,
         "fields": {
             "name": "CABA",
