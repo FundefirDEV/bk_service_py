@@ -1,4 +1,4 @@
-""" Partners models """
+""" PartnerDetail models """
 
 # Django
 from django.db import models
@@ -11,7 +11,7 @@ from bk_service.utils.enums.banks import Scholarship
 class PartnerDetail(BkServiceModel, models.Model):
     """ PartnerDetail model """
 
-    # partner = models.OneToOneField('banks.Partner', on_delete=models.CASCADE)
+    partner = models.OneToOneField('banks.Partner', on_delete=models.CASCADE)
 
     earnings = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
     active_credit = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
@@ -19,11 +19,7 @@ class PartnerDetail(BkServiceModel, models.Model):
 
     document_number = models.CharField(max_length=30, blank=True, unique=True)
     profession = models.CharField(max_length=150, blank=True)
-    scholarship = models.CharField(max_length=30, blank=False, choices=Scholarship.choices)
+    scholarship = models.CharField(max_length=30, blank=False, choices=Scholarship.choices, default=Scholarship.noData)
     birth_date = models.DateTimeField()
 
-    def __str__(self):
-        """ Return Username """
-        return str(self.partner.user.username)
-
-    REQUIRED_FIELDS = ['phone_number', 'role', 'bank', 'user', 'partner_detail', ]
+    REQUIRED_FIELDS = ['earnings', 'active_credit', 'shares', 'partner']

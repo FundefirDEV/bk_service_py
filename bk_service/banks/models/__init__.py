@@ -1,2 +1,2 @@
-from .partners import Partner
-from .partner_details import PartnerDetail
+from .partners import *
+from .partner_details import *

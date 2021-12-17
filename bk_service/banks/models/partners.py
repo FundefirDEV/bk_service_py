@@ -4,10 +4,12 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
-
 # Utils
 from bk_service.utils.models import BkServiceModel
 from bk_service.utils.enums.banks import PartnerType
+
+# Models
+from .partner_details import PartnerDetail
 
 
 class Partner(BkServiceModel, models.Model):
@@ -15,7 +17,7 @@ class Partner(BkServiceModel, models.Model):
 
     # bank
     user = models.OneToOneField('users.User', on_delete=models.CASCADE)
-    partner_detail = models.OneToOneField('banks.PartnerDetail', on_delete=models.CASCADE)
+    # partner_detail = models.OneToOneField('banks.PartnerDetail', on_delete=models.CASCADE)
 
     phone_regex = RegexValidator(
         regex=r'\+?1?\d{9,15}$',
@@ -36,4 +38,9 @@ class Partner(BkServiceModel, models.Model):
         """ Return Username """
         return str(self.user.username)
 
-    REQUIRED_FIELDS = ['phone_number', 'role', 'bank', 'user', 'partner_detail', ]
+    def partner_detail(self):
+        """ Return partner detail """
+
+        return PartnerDetail.objects.get(partner_id=self.id)
+
+    REQUIRED_FIELDS = ['phone_number', 'role', 'bank', 'user', ]
