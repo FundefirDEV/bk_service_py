@@ -10,20 +10,20 @@ from bk_service.utils.enums.banks import PartnerType
 
 # Models
 from .partner_details import PartnerDetail
+from .banks import Bank
 
 
 class Partner(BkServiceModel, models.Model):
     """ Partner model """
 
-    # bank
+    # Relations
+    bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
     user = models.OneToOneField('users.User', on_delete=models.CASCADE)
-    # partner_detail = models.OneToOneField('banks.PartnerDetail', on_delete=models.CASCADE)
 
     phone_regex = RegexValidator(
         regex=r'\+?1?\d{9,15}$',
         message='phone number must be entered in the format +9999999999. Up to 15 digits allowed'
     )
-
     phone_number = models.CharField(max_length=18, blank=False, validators=[phone_regex], unique=True)
 
     role = models.CharField(max_length=8, blank=False, choices=PartnerType.choices)

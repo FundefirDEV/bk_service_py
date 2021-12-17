@@ -1,6 +1,8 @@
 {
-    "python.linting.pylintEnabled": true,
-    "python.pythonPath": "/bin/python3",
-    "python.formatting.provider": "autopep8",
-    "python.linting.enabled": false
+  "editor.formatOnSave": true,
+  "python.formatting.provider": "autopep8",
+  "python.linting.enabled": true,
+  "python.linting.lintOnSave": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintArgs": ["--load-plugin=pylint_django"]
 }
