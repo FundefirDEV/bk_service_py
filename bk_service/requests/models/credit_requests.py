@@ -14,6 +14,6 @@ class CreditRequest(RequestModelBase, models.Model):
     """ Credit Request model"""
 
     installments = models.PositiveIntegerField(blank=False, default=0)
-    use = models.CharField(max_length=40, blank=False, choices=CreditUse.choices)
-    use_detail = models.CharField(max_length=40, blank=False, choices=CreditUseDetail.choices)
+    credit_use = models.CharField(max_length=40, blank=False, choices=CreditUse.choices)
+    credit_use_detail = models.CharField(max_length=40, blank=False, choices=CreditUseDetail.choices)
     payment_type = models.CharField(max_length=40, blank=False, choices=CreditPayType.choices)

@@ -3,3 +3,8 @@ from .partner_details import *
 from .banks import *
 from .bank_rules import *
 from .meetings import *
+from .shares import *
+from .earning_shares import *
+from .credits import *
+from .schedule_installments import *
+from .payment_schedules import *
