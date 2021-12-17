@@ -16,7 +16,7 @@ class Bank(BkServiceModel, models.Model):
     city = models.ForeignKey(City,  on_delete=models.PROTECT)
     cash_balance = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
     active_credits = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
-    shares = models.IntegerField(blank=False, default=0.0)
+    shares = models.PositiveIntegerField(blank=False, default=0)
     expense_fund = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
     bad_debt_reserve = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
 

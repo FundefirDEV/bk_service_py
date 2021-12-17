@@ -15,7 +15,7 @@ class PartnerDetail(BkServiceModel, models.Model):
 
     earnings = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
     active_credit = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
-    shares = models.IntegerField(blank=False, default=0,)
+    shares = models.PositiveIntegerField(blank=False, default=0,)
 
     document_number = models.CharField(max_length=30, blank=True, unique=True)
     profession = models.CharField(max_length=150, blank=True)

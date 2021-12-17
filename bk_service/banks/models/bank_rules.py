@@ -15,7 +15,7 @@ class BankRules(BkServiceModel, models.Model):
     bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
     ordinary_interest = models.DecimalField(max_digits=10, decimal_places=4, blank=False, default=0.0)
     delay_interest = models.DecimalField(max_digits=10, decimal_places=4, blank=False, default=0.0)
-    maximun_credit_installments = models.IntegerField()
+    maximun_credit_installments = models.PositiveIntegerField(blank=False, default=0)
     maximun_credit_value = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
     share_value = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
     is_active = models.BooleanField(default=True)

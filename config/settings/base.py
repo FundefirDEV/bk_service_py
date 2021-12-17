@@ -52,6 +52,7 @@ LOCAL_APPS = [
     'bk_service.users.apps.UsersAppConfig',
     'bk_service.banks.apps.BanksAppConfig',
     'bk_service.locations.apps.LocationsAppConfig',
+    'bk_service.requests.apps.RequestsAppConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
