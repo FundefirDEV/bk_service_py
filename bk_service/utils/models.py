@@ -4,7 +4,7 @@
 
 from django.db import models
 
-# clase base de la cual todos los modelos van a heredar
+# Base model interface
 
 
 class BkServiceModel(models.Model):
@@ -13,12 +13,12 @@ class BkServiceModel(models.Model):
     created_at = models.DateTimeField(
         verbose_name='create at',
         auto_now_add=True,
-        help_text='Date time on whict the object was created'
+        help_text='Date time on which the object was created'
     )
     updated_at = models.DateTimeField(
         verbose_name='modified at',
         auto_now=True,
-        help_text='Date time on whict the object was last modified'
+        help_text='Date time on which the object was last modified'
     )
 
     class Meta:

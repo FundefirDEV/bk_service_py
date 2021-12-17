@@ -1,0 +1,21 @@
+""" EarningShare models """
+
+# Django
+from django.db import models
+
+# Models
+from bk_service.banks.models.banks import Bank
+from bk_service.banks.models.shares import Share
+from bk_service.banks.models.meetings import Meeting
+
+# Utils
+from bk_service.utils.models import BkServiceModel
+
+
+class EarningShare(BkServiceModel, models.Model):
+    share = models.ForeignKey(Share, on_delete=models.PROTECT)
+    meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
+    earning_by_share = models.DecimalField(max_digits=100, decimal_places=4)
+    total_earning_by_share = models.DecimalField(max_digits=100, decimal_places=4)
+    is_payed = models.BooleanField(default=False)
+    date_calculated = models.DateTimeField()
