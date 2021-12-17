@@ -6,8 +6,11 @@ from django.db import models
 # Models
 from .banks import Bank
 
+# Utils
+from bk_service.utils.models import BkServiceModel
 
-class BankRules(models.Model):
+
+class BankRules(BkServiceModel, models.Model):
     """ Bank rules model """
     bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
     ordinary_interest = models.DecimalField(max_digits=10, decimal_places=4, blank=False, default=0.0)

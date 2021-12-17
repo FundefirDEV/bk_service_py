@@ -6,8 +6,11 @@ from django.db import models
 # Models
 from bk_service.locations.models.cities import City
 
+# Utils
+from bk_service.utils.models import BkServiceModel
 
-class Bank(models.Model):
+
+class Bank(BkServiceModel, models.Model):
     """ Bank model """
     name = models.CharField(max_length=30, blank=False, unique=True)
     city = models.ForeignKey(City,  on_delete=models.PROTECT)

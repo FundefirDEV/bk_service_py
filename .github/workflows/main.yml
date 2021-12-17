@@ -1,26 +1,26 @@
-# name: Docker Image CI
+name: Docker Image CI
 
-# on:
-#   push:
-#     branches: [ master ]
-#   pull_request:
-#     branches: [ master ]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 # jobs:
 
-#   build:
+  # build:
 
-#     runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-#     steps:
+  #   steps:
 
-#     - uses: actions/checkout@v2
+  #   - uses: actions/checkout@v2
 
-#     - name: Build the Docker images
-#       run: docker-compose -f local.yml build
+  #   - name: Build the Docker images
+  #     run: docker-compose -f local.yml build
 
-#     - name: Run Migrate
-#       run: docker-compose -f local.yml run --rm django python manage.py migrate 
+  #   - name: Run Migrate
+  #     run: docker-compose -f local.yml run --rm django python manage.py migrate 
 
-#     - name: Run test
-#       run: docker-compose -f local.yml run --rm django pytest
+  #   - name: Run test
+  #     run: docker-compose -f local.yml run --rm django pytest
