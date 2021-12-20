@@ -1,6 +1,7 @@
 #!/bin/bash
 
 COMMAND=$1
+ARGS=$2
 
 export COMPOSE_FILE=local.yml
 
@@ -42,7 +43,7 @@ case $COMMAND in
     ;;
   "test")
     echo "runing test..."
-    docker-compose run --rm django pytest
+    docker-compose run --rm django pytest $ARGS
     ;;
   "makemigrations")
     echo "runing django makemigrations..."
