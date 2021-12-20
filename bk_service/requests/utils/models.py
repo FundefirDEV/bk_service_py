@@ -18,3 +18,7 @@ class RequestModelBase(BkServiceModel, models.Model):
     partner = models.ForeignKey(Partner, on_delete=models.PROTECT)
     amount = models.DecimalField(max_digits=10, decimal_places=4, blank=False, default=0.0)
     approval_status = models.CharField(max_length=8, blank=False, choices=ApprovalStatus.choices)
+
+    class Meta:
+        """meta options"""
+        abstract = True

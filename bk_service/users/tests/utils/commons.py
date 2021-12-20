@@ -5,7 +5,7 @@ singup_data = {
     "last_name": "manaos",
     "gender": "M",
     "city": 1,
-    "phone_number": "+123456789",
+    "phone_number": "+1234567890",
     "email": "manaos@mail.com",
     "username": "manaos@mail.com"
 }
