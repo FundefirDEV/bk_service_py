@@ -4,7 +4,8 @@ from bk_service.locations.models.states import State
 from bk_service.locations.models.cities import City
 
 
-def createLocations(countryName, countryCode, stateName, cityName):
+def createLocations(countryName='Colombia', countryCode='CO', stateName='Bogota', cityName='Bogota'):
     country = Country.objects.create(name=countryName, code=countryCode)
     state = State.objects.create(name=stateName, country=country)
-    City.objects.create(name=cityName, state=state)
+    city = City.objects.create(name=cityName, state=state)
+    return city

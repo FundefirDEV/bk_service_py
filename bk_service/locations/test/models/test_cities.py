@@ -2,8 +2,6 @@
 
 #  Django
 from django.test import TestCase
-from bk_service.locations.models.countries import Country
-from bk_service.locations.models.states import State
 from bk_service.locations.models.cities import City
 
 
@@ -11,7 +9,7 @@ from bk_service.locations.models.cities import City
 from bk_service.locations.test.utils.setup import createLocations
 
 
-class StateTestCase(TestCase):
+class CityTestCase(TestCase):
     """ City test class """
 
     def setUp(self):

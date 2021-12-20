@@ -2,7 +2,6 @@
 
 #  Django
 from django.test import TestCase
-from bk_service.locations.models.countries import Country
 from bk_service.locations.models.states import State
 
 # Utils
