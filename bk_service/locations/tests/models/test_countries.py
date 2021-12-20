@@ -5,7 +5,7 @@ from django.test import TestCase
 #  Models
 from bk_service.locations.models.countries import Country
 # Utils
-from bk_service.locations.test.utils.setup import createLocations
+from bk_service.locations.tests.utils.setup import createLocations
 
 
 class CountryTestCase(TestCase):

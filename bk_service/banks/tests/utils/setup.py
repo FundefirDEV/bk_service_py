@@ -1,6 +1,6 @@
 #  Django
 
-from bk_service.locations.test.utils.setup import createLocations
+from bk_service.locations.tests.utils.setup import createLocations
 from bk_service.users.models.users import User
 from bk_service.banks.models.partners import Partner
 from bk_service.banks.models.banks import Bank

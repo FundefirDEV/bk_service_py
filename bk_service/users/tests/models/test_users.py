@@ -3,7 +3,7 @@
 #  Django
 from django.test import TestCase
 from bk_service.users.models.users import User
-from bk_service.locations.test.utils.setup import createLocations
+from bk_service.locations.tests.utils.setup import createLocations
 
 
 class UsersTestCase(TestCase):

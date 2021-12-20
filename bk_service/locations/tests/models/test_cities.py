@@ -6,7 +6,7 @@ from bk_service.locations.models.cities import City
 
 
 # Utils
-from bk_service.locations.test.utils.setup import createLocations
+from bk_service.locations.tests.utils.setup import createLocations
 
 
 class CityTestCase(TestCase):
