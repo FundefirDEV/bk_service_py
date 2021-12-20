@@ -4,7 +4,7 @@
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinLengthValidator
 
 # Utils
 from bk_service.utils.models import BkServiceModel
@@ -25,11 +25,15 @@ class User(BkServiceModel, AbstractUser):
         }
     )
 
-    phone_regex = RegexValidator(
-        regex=r'\+?1?\d{9,15}$',
-        message='phone number must be entered in the format +9999999999. Up to 15 digits allowed'
+    phone_number = models.CharField(max_length=18, validators=[
+        MinLengthValidator(4)],  blank=False, unique=True)
+
+    region_code_regex = RegexValidator(
+        regex=r'\+?1?\d{0,9}$',
+        message='region code must be entered in the format +999.'
     )
-    phone_number = models.CharField(max_length=18, blank=False, validators=[phone_regex], unique=True)
+    phone_region_code = models.CharField(max_length=4, blank=False,
+                                         validators=[region_code_regex, MinLengthValidator(4)], unique=False)
 
     gender = models.CharField(max_length=1, blank=False, choices=Gender.choices)
 
