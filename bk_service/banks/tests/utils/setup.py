@@ -1,11 +1,12 @@
 #  Django
 
-from bk_service.locations.tests.utils.setup import createLocations
 from bk_service.users.models.users import User
 from bk_service.banks.models.partners import Partner
 from bk_service.banks.models.banks import Bank
 from bk_service.banks.models.bank_rules import BankRules
 from bk_service.banks.models.shares import Share
+from bk_service.locations.tests.utils.setup import createLocations
+from bk_service.requests.tests.utils.setup import createShareRequest
 
 # import pdb
 # pdb.set_trace()
@@ -38,5 +39,7 @@ def createPartner():
 
 def createShare():
     partner = createPartner()
-    share = Share.objects.create(bank=partner.bank, partner=partner, quantity=1, amount=10000)
+    shareRequest = createShareRequest(partner)
+    share = Share.objects.create(bank=partner.bank, share_request=shareRequest,
+                                 partner=partner, quantity=1, amount=10000)
     return share
