@@ -15,7 +15,7 @@ class State(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        """ Return Username """
+        """ Return Country """
         return str(self.name)
 
     REQUIRED_FIELDS = ['name', 'country', ]
