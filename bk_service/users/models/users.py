@@ -33,7 +33,7 @@ class User(BkServiceModel, AbstractUser):
         message='region code must be entered in the format +999.'
     )
     phone_region_code = models.CharField(max_length=4, blank=False,
-                                         validators=[region_code_regex, MinLengthValidator(4)], unique=False)
+                                         validators=[region_code_regex, MinLengthValidator(1)], unique=False)
 
     gender = models.CharField(max_length=1, blank=False, choices=Gender.choices)
 

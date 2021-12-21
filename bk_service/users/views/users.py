@@ -19,7 +19,7 @@ from bk_service.users.serializers import (
 
 # Locations Models
 from bk_service.locations.models import City
-from bk_service.banks.models import Partner
+from bk_service.banks.models import PartnerGuest
 
 
 class UserLoginAPIView(TokenObtainPairView):
@@ -70,7 +70,7 @@ class UserSingUpAPIView(APIView):
     def find_partner_guest(self, user):
 
         try:
-            partner = Partner.objects.get(
+            partner = PartnerGuest.objects.get(
                 phone_number=user.phone_number,
                 phone_region_code=user.phone_region_code,
                 is_active=False

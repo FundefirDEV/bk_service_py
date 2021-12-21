@@ -11,7 +11,7 @@ class PartnerType(models.TextChoices):
 class Scholarship(models.TextChoices):
     noData = "noData"
     primary = "primary"
-    secundary = "secundary"
+    secondary = "secondary"
     highschool = "highschool"
     university = "university"
     master = "master"
