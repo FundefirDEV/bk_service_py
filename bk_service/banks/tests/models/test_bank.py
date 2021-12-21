@@ -13,7 +13,7 @@ class BankTestCase(TestCase):
     def setUp(self):
         create_bank()
 
-    def test_State_success(self):
+    def test_bank_success(self):
         """ Bank success """
         bank = Bank.objects.get(name='new_bank')
         self.assertEqual(bank.name, 'new_bank')

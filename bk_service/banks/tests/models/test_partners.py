@@ -13,7 +13,7 @@ class PartnerTestCase(TestCase):
     def setUp(self):
         create_partner()
 
-    def test_State_success(self):
+    def test_partner_success(self):
         """ Partner success """
         partner = Partner.objects.get(id=1)
         self.assertEqual(partner.user.first_name, 'Bre')

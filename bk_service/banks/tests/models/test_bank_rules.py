@@ -13,7 +13,7 @@ class BankRulesTestCase(TestCase):
     def setUp(self):
         create_bankRules()
 
-    def test_State_success(self):
+    def test_bank_rules_success(self):
         """ Bank Rules success """
         bankRules = BankRules.objects.get(id=1)
         self.assertEqual(bankRules.bank.name, 'new_bank')

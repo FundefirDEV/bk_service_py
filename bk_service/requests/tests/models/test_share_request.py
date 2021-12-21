@@ -6,6 +6,7 @@ from bk_service.requests.models.share_requests import ShareRequest
 
 # Utils
 from bk_service.banks.tests.utils.setup import create_partner
+from bk_service.requests.tests.utils.setup import create_share_request
 
 
 class SharesRequestTestCase(TestCase):
@@ -14,7 +15,7 @@ class SharesRequestTestCase(TestCase):
     def test_share_request_success(self):
         """ Shares Request success """
         partner = create_partner()
-        ShareRequest.objects.create(partner=partner, bank=partner.bank, quantity=1, amount=10000)
+        create_share_request(partner)
         shareRequest = ShareRequest.objects.get(partner=partner)
         self.assertEqual(shareRequest.amount, 10000)
         self.assertEqual(shareRequest.quantity, 1)
