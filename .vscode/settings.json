@@ -4,5 +4,11 @@
   "python.linting.enabled": true,
   "python.linting.lintOnSave": true,
   "python.linting.pylintEnabled": true,
-  "python.linting.pylintArgs": ["--load-plugin=pylint_django"]
+  "python.linting.pylintArgs": [
+    "--load-plugin=pylint_django"
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#144f86",
+    "statusBar.background": "#1e67b9b6",
+  },
 }

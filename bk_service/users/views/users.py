@@ -8,10 +8,17 @@ from rest_framework.permissions import AllowAny
 
 # Simple JWT
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
 # Serializers
-from bk_service.users.serializers import MyTokenObtainPairSerializer, UserModelSerializer
+from bk_service.users.serializers import (
+    MyTokenObtainPairSerializer,
+    UserSignUpSerializer,
+    UserModelSerializer
+)
+
+# Locations Models
+from bk_service.locations.models import City
 
 
 class UserLoginAPIView(TokenObtainPairView):
@@ -24,14 +31,28 @@ class UserSingUpAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         data = request.data
-        serializer = UserModelSerializer(data=data)
+        serializer = UserSignUpSerializer(data=data)
+        serializer.validate(data=data)
         serializer.is_valid(raise_exception=True)
+
+        # Clear data
+        data.pop('password_confirmation')
+
+        # get City
+        city_id = data['city']
+        data['city'] = City.objects.get(pk=city_id)
+
+        # Create new User
         user = serializer.create(validated_data=data)
-        token = RefreshToken.for_user(user)
+
+        # get tokens
+        refresh_token = RefreshToken.for_user(user)
+        access_token = AccessToken.for_user(user)
 
         res = {
-            'user': serializer.data,
-            'token': str(token)
+            'refresh_token': str(refresh_token),
+            'access_token': str(access_token),
+            'partner_id': None
         }
 
         return Response(res)

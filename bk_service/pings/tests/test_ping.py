@@ -1,4 +1,4 @@
-""" Users URLs. """
+""" Ping test !"""
 
 #  Django REST Framework
 from rest_framework import status

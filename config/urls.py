@@ -10,5 +10,6 @@ urlpatterns = [
     # Django Admin
     path(settings.ADMIN_URL, admin.site.urls),
     path('', include(('bk_service.pings.urls', 'ping'), namespace='ping')),
+    path('', include(('bk_service.users.urls', 'users'), namespace='users')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
