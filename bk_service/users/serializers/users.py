@@ -81,11 +81,16 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     def validate(self, attrs):
         # The default result (access/refresh tokens)
-        data = super(MyTokenObtainPairSerializer, self).validate(attrs)
-        # Custom data you want to include
+        token_data = super(MyTokenObtainPairSerializer, self).validate(attrs)
+        # Custom token_data you want to include
         user_serializer = UserModelSerializer(self.user)
 
-        # import pdb; pdb.set_trace()
+        token_data['access_token'] = token_data.pop('access')
+        token_data['refresh_token'] = token_data.pop('refresh')
 
-        data.update({'user': user_serializer.data})
+        data = {**token_data, **user_serializer.data}
+
+        # import pdb
+        # pdb.set_trace()
+
         return data

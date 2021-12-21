@@ -11,11 +11,11 @@ from bk_service.utils.loaddata.loaddata import setup_db
 from bk_service.users.tests.utils.commons import *
 
 
-class SingUpAPITestCase(APITestCase):
-    """ singup test class """
+class SingUpSuccessAPITestCase(APITestCase):
+    """ singup success test class """
 
     def setUp(self):
-        setup_db(setup_db)
+        setup_db(setup_db, only_locations=True)
 
     def test_singup_success(self):
         """ singup success """
@@ -37,6 +37,13 @@ class SingUpAPITestCase(APITestCase):
         self.assertIsNotNone(access_token)
         self.assertIsNotNone(refresh_token)
         self.assertIsNone(partner_id)
+
+
+class SingUpFailAPITestCase(APITestCase):
+    """ singup fail test class """
+
+    def setUp(self):
+        setup_db(setup_db)
 
     def test_singup_bad_pass_confirmation(self):
         """ bad pass confirmation test """
