@@ -4,14 +4,14 @@
 from django.test import TestCase
 from bk_service.banks.models.partners import Partner
 # Utils
-from bk_service.banks.tests.utils.setup import createPartner
+from bk_service.banks.tests.utils.setup import create_partner
 
 
 class PartnerTestCase(TestCase):
     """ Partner test class """
 
     def setUp(self):
-        createPartner()
+        create_partner()
 
     def test_State_success(self):
         """ Partner success """

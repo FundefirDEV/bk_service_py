@@ -10,6 +10,9 @@ from bk_service.utils.loaddata.loaddata import setup_db
 # Utils commons
 from bk_service.users.tests.utils.commons import *
 
+# Banks test Utils
+from bk_service.banks.tests.utils.setup import *
+
 
 class SingUpSuccessAPITestCase(APITestCase):
     """ singup success test class """
@@ -23,20 +26,49 @@ class SingUpSuccessAPITestCase(APITestCase):
         url = '/users/singup/'
 
         request = self.client.post(url, singup_data, format='json')
+
         body = request.data
         status_code = request.status_code
-
-        # import pdb
-        # pdb.set_trace()
 
         access_token = body['access_token']
         refresh_token = body['refresh_token']
         partner_id = body['partner_id']
+        user_id = body['id']
 
         self.assertEqual(request.status_code, status.HTTP_200_OK)
         self.assertIsNotNone(access_token)
         self.assertIsNotNone(refresh_token)
         self.assertIsNone(partner_id)
+        self.assertIsNotNone(user_id)
+
+
+# class SingUpWithPartnerSuccessAPITestCase(APITestCase):
+#     """ singup with partner success test class """
+
+#     def setUp(self):
+#         create_partner()
+
+#     def test_singup_success(self):
+#         """ singup success """
+
+#         url = '/users/singup/'
+#         partner = create_partner()
+
+#         request = self.client.post(url, singup_data, format='json')
+
+#         body = request.data
+#         status_code = request.status_code
+
+#         access_token = body['access_token']
+#         refresh_token = body['refresh_token']
+#         partner_id = body['partner_id']
+#         user_id = body['id']
+
+#         self.assertEqual(request.status_code, status.HTTP_200_OK)
+#         self.assertIsNotNone(access_token)
+#         self.assertIsNotNone(refresh_token)
+#         self.assertIsNotNone(partner_id)
+#         self.assertIsNotNone(user_id)
 
 
 class SingUpFailAPITestCase(APITestCase):

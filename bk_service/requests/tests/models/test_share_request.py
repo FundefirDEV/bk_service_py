@@ -4,14 +4,14 @@
 from django.test import TestCase
 from bk_service.requests.models.share_requests import ShareRequest
 # Utils
-from bk_service.banks.tests.utils.setup import createPartner
+from bk_service.banks.tests.utils.setup import create_partner
 
 
 class SharesRequestTestCase(TestCase):
     """ Shares Request test class """
 
     def setUp(self):
-        partner = createPartner()
+        partner = create_partner()
         # import pdb
         # pdb.set_trace()
         ShareRequest.objects.create(partner=partner, bank=partner.bank, quantity=1, amount=10000)
