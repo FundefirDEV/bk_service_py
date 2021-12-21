@@ -47,4 +47,4 @@ class Partner(BkServiceModel, models.Model):
 
         return PartnerDetail.objects.get(partner_id=self.id)
 
-    REQUIRED_FIELDS = ['phone_number', 'role', 'bank', 'user', ]
+    REQUIRED_FIELDS = ['phone_number', 'role', 'phone_region_code', 'bank', 'user', ]
