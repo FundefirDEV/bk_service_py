@@ -5,6 +5,14 @@ ARGS=$2
 
 export COMPOSE_FILE=local.yml
 
+delete_migrations(){
+  local app=$1
+
+  sudo find ./bk_service/$app/migrations/* -delete
+  sudo touch ./bk_service/$app/migrations/__init__.py
+}
+
+
 case $COMMAND in
   "loaddata")
     echo "runing django makemigrations..."
@@ -19,8 +27,11 @@ case $COMMAND in
   "clear-db")
     echo "cleaning db..."
     echo "deleting migrations files..."
-    find . -path “*/migrations/*.py” -not -name “__init__.py” -delete
-    find . -path “*/migrations/*.pyc” -delete
+    delete_migrations "users"
+    delete_migrations "banks"
+    delete_migrations "locations"
+    delete_migrations "requests"
+
     echo "downing containers..."
     docker-compose down
     echo 'database deleted: '
@@ -80,6 +91,7 @@ case $COMMAND in
     echo -e "- migrate"
 
 esac
+
 
 
 

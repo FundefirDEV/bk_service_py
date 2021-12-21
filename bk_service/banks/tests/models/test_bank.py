@@ -4,14 +4,14 @@
 from django.test import TestCase
 from bk_service.banks.models.banks import Bank
 # Utils
-from bk_service.banks.tests.utils.setup import createBank
+from bk_service.banks.tests.utils.setup import create_bank
 
 
 class BankTestCase(TestCase):
     """ Bank test class """
 
     def setUp(self):
-        createBank()
+        create_bank()
 
     def test_State_success(self):
         """ Bank success """

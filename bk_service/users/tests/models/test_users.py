@@ -3,14 +3,14 @@
 #  Django
 from django.test import TestCase
 from bk_service.users.models.users import User
-from bk_service.locations.tests.utils.setup import createLocations
+from bk_service.locations.tests.utils.setup import create_locations
 
 
 class UsersTestCase(TestCase):
     """ User test class """
 
     def setUp(self):
-        city = createLocations()
+        city = create_locations()
         User.objects.create(username='user@mail.com', email='user@mail.com',
                             first_name='Bre', phone_number='31300000000', city=city, last_name='Bre')
 

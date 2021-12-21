@@ -5,14 +5,14 @@ from django.test import TestCase
 from bk_service.locations.models.states import State
 
 # Utils
-from bk_service.locations.tests.utils.setup import createLocations
+from bk_service.locations.tests.utils.setup import create_locations
 
 
 class StateTestCase(TestCase):
     """ State test class """
 
     def setUp(self):
-        createLocations('Colombia', 'CO', 'Bogota', 'Bogota')
+        create_locations('Colombia', 'CO', 'Bogota', 'Bogota')
 
     def test_State_success(self):
         """ State success """

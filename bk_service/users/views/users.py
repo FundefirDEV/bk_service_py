@@ -19,6 +19,7 @@ from bk_service.users.serializers import (
 
 # Locations Models
 from bk_service.locations.models import City
+from bk_service.banks.models import Partner
 
 
 class UserLoginAPIView(TokenObtainPairView):
@@ -49,10 +50,31 @@ class UserSingUpAPIView(APIView):
         refresh_token = RefreshToken.for_user(user)
         access_token = AccessToken.for_user(user)
 
+        partner = self.find_partner_guest(user)
         res = {
             'refresh_token': str(refresh_token),
             'access_token': str(access_token),
-            'partner_id': None
+            'id': user.id,
         }
 
+        if partner is not None:
+            res['partner_id'] = partner.id
+        else:
+            res['partner_id'] = None
+
+        # import pdb
+        # pdb.set_trace()
+
         return Response(res)
+
+    def find_partner_guest(self, user):
+
+        try:
+            partner = Partner.objects.get(
+                phone_number=user.phone_number,
+                phone_region_code=user.phone_region_code,
+                is_active=False
+            )
+            return partner
+        except:
+            return None
