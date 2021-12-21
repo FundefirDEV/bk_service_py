@@ -56,3 +56,11 @@ def create_schedule_installment():
     schedule_installment = ScheduleInstallment.objects.create(
         credit=credit, capital_installment=90000, ordinary_interest_percentage=1, interest_calculated=1000, total_pay_installment=0, payment_status='', payment_date=date.today())
     return schedule_installment
+
+
+def create_payment_schedules():
+    schedule_installment = create_schedule_installment()
+    payment_schedule_request = create_payment_schedule_request(schedule_installment.credit, schedule_installment)
+    payment_schedule = PaymentSchedule.objects.create(payment_schedule_request=payment_schedule_request, amount=payment_schedule_request.amount,
+                                                      partner=payment_schedule_request.partner, bank=payment_schedule_request.bank, date=date.today())
+    return payment_schedule
