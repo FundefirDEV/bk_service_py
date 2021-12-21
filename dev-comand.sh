@@ -18,6 +18,10 @@ case $COMMAND in
     ;;
   "clear-db")
     echo "cleaning db..."
+    echo "deleting migrations files..."
+    find . -path “*/migrations/*.py” -not -name “__init__.py” -delete
+    find . -path “*/migrations/*.pyc” -delete
+    echo "downing containers..."
     docker-compose down
     echo 'database deleted: '
     docker volume rm -f $(docker volume ls -q)
