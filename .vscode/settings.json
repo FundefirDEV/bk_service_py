@@ -11,4 +11,7 @@
     "activityBar.background": "#144f86",
     "statusBar.background": "#1e67b9b6",
   },
+  "cSpell.words": [
+    "simplejwt"
+  ],
 }

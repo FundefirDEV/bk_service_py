@@ -18,7 +18,7 @@ class User(BkServiceModel, AbstractUser):
     """User model """
 
     email = models.EmailField(
-        'email adress',
+        'email address',
         unique=True,
         error_messages={
             'unique': 'A user with that email already exists'
@@ -55,4 +55,4 @@ class User(BkServiceModel, AbstractUser):
         return self.username
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone_number', 'gender', 'city']
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone_number', 'phone_region_code', 'gender', 'city']
