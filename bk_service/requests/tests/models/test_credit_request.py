@@ -22,3 +22,4 @@ class CreditRequestTestCase(TestCase):
         self.assertEqual(creditRequest.credit_use_detail, '')
         self.assertEqual(creditRequest.credit_use, '')
         self.assertEqual(creditRequest.payment_type, '')
+        self.assertEqual(creditRequest.approval_status, '')

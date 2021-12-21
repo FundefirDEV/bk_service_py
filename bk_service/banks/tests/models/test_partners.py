@@ -10,12 +10,10 @@ from bk_service.banks.tests.utils.setup import create_partner
 class PartnerTestCase(TestCase):
     """ Partner test class """
 
-    def setUp(self):
-        create_partner()
-
     def test_partner_success(self):
         """ Partner success """
-        partner = Partner.objects.get(id=1)
+        partner_created = create_partner()
+        partner = Partner.objects.get(id=partner_created.id)
         self.assertEqual(partner.user.first_name, 'Bre')
         self.assertEqual(partner.bank.name, 'new_bank')
         self.assertEqual(partner.is_creator, False)

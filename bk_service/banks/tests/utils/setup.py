@@ -1,12 +1,10 @@
 #  Django
 
-from bk_service.users.models.users import User
-from bk_service.banks.models.partners import Partner
-from bk_service.banks.models.banks import Bank
-from bk_service.banks.models.bank_rules import BankRules
-from bk_service.banks.models.shares import Share
+from datetime import date
+from bk_service.users.models.users import *
+from bk_service.banks.models import *
+from bk_service.requests.tests.utils.setup import *
 from bk_service.locations.tests.utils.setup import create_locations
-from bk_service.requests.tests.utils.setup import create_share_request
 
 # import pdb
 # pdb.set_trace()
@@ -43,3 +41,18 @@ def create_share():
     share = Share.objects.create(bank=partner.bank, share_request=share_request,
                                  partner=partner, quantity=1, amount=10000)
     return share
+
+
+def create_credit():
+    partner = create_partner()
+    credit_request = create_credit_request(partner)
+    credit = Credit.objects.create(bank=partner.bank, partner=partner,
+                                   credit_request=credit_request, installments=credit_request.installments, amount=credit_request.amount)
+    return credit
+
+
+def create_schedule_installment():
+    credit = create_credit()
+    schedule_installment = ScheduleInstallment.objects.create(
+        credit=credit, capital_installment=90000, ordinary_interest_percentage=1, interest_calculated=1000, total_pay_installment=0, payment_status='', payment_date=date.today())
+    return schedule_installment
