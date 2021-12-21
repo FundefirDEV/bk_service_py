@@ -12,10 +12,12 @@ class SharesRequestTestCase(TestCase):
 
     def setUp(self):
         partner = createPartner()
-        ShareRequest.objects.create(partner_id=1, bank=partner.bank, quantity=1, amount=10000)
+        # import pdb
+        # pdb.set_trace()
+        ShareRequest.objects.create(partner=partner, bank=partner.bank, quantity=1, amount=10000)
 
     def test_State_success(self):
         """ Shares Request success """
-        shareRequest = ShareRequest.objects.get(partner_id=1)
+        shareRequest = ShareRequest.objects.get(pk=1)
         self.assertEqual(shareRequest.amount, 10000)
         self.assertEqual(shareRequest.quantity, 1)

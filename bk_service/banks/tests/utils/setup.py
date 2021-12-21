@@ -7,6 +7,9 @@ from bk_service.banks.models.banks import Bank
 from bk_service.banks.models.bank_rules import BankRules
 from bk_service.banks.models.shares import Share
 
+# import pdb
+# pdb.set_trace()
+
 
 def createBank():
     city = createLocations()
@@ -21,17 +24,19 @@ def createBankRules():
 
 
 def createUser(city):
-    User.objects.create(username='user@mail.com', email='user@mail.com',
-                        first_name='Bre', phone_number='31300000000', city=city, last_name='Bre')
+    user = User.objects.create_user(username='user@mail.com', email='user@mail.com',
+                                    first_name='Bre', phone_number='31300000000', city=city, last_name='Bre')
+    return user
 
 
 def createPartner():
     bank = createBankRules()
     user = createUser(bank.city)
-    partner = Partner.objects.create(bank=bank, user=user, user_id=1)
+    partner = Partner.objects.create(bank=bank, user=user)
     return partner
 
 
 def createShare():
     partner = createPartner()
     share = Share.objects.create(bank=partner.bank, partner=partner, quantity=1, amount=10000)
+    return share
