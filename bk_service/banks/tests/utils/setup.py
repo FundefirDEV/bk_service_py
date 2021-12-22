@@ -76,3 +76,11 @@ def create_meeting():
     bank = create_bank()
     meeting = Meeting.objects.create(bank=bank, date_meeting=date.today())
     return meeting
+
+
+def create_earning_share():
+    share = create_share()
+    meeting = Meeting.objects.create(bank=share.bank, date_meeting=date.today())
+    earning_share = EarningShare.objects.create(
+        meeting=meeting, share=share, earning_by_share=10, total_earning_by_share=100, date_calculated=date.today())
+    return earning_share
