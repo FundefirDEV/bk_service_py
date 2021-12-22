@@ -16,7 +16,7 @@ def create_bank():
     return bank
 
 
-def create_bankRules():
+def create_bank_rules():
     bank = create_bank()
     bank_rules = BankRules.objects.create(bank=bank)
     return bank
@@ -29,10 +29,16 @@ def create_user(city):
 
 
 def create_partner():
-    bank = create_bankRules()
+    bank = create_bank_rules()
     user = create_user(bank.city)
     partner = Partner.objects.create(bank=bank, user=user)
     return partner
+
+
+def create_partner_detail():
+    partner = create_partner()
+    partner_detail = PartnerDetail.objects.create(partner=partner, birth_date=date.today())
+    return partner_detail
 
 
 def create_share():
@@ -64,3 +70,9 @@ def create_payment_schedules():
     payment_schedule = PaymentSchedule.objects.create(payment_schedule_request=payment_schedule_request, amount=payment_schedule_request.amount,
                                                       partner=payment_schedule_request.partner, bank=payment_schedule_request.bank, date=date.today())
     return payment_schedule
+
+
+def create_meeting():
+    bank = create_bank()
+    meeting = Meeting.objects.create(bank=bank, date_meeting=date.today())
+    return meeting
