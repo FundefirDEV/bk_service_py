@@ -8,3 +8,4 @@ from .earning_shares import *
 from .credits import *
 from .schedule_installments import *
 from .payment_schedules import *
+from .partners_guest import *
