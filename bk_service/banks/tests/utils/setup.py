@@ -35,6 +35,18 @@ def create_partner():
     return partner
 
 
+def invite_partner(bank, phone_number, phone_region_code):
+    partner_guest = PartnerGuest.objects.create(
+        bank=bank,
+        name='new_partner_guest',
+        phone_number=phone_number,
+        phone_region_code=phone_region_code,
+        is_active=False
+    )
+
+    return partner_guest
+
+
 def create_partner_detail():
     partner = create_partner()
     partner_detail = PartnerDetail.objects.create(partner=partner, birth_date=date.today())
