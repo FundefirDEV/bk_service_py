@@ -1,7 +1,7 @@
 #!/bin/bash
 
-COMMAND=$1
-ARGS=$2
+# COMMAND=$1
+# ARGS=$2
 
 export COMPOSE_FILE=local.yml
 
@@ -12,6 +12,17 @@ delete_migrations(){
   sudo touch ./bk_service/$app/migrations/__init__.py
 }
 
+while getopts c:a:d:f: options; do
+  case $options in
+      c) COMMAND=$OPTARG;;
+      a) ARGS=$OPTARG;;
+      d) DIR=$OPTARG;;
+      f) FUNTION=$OPTARG;;
+
+  esac
+done
+
+echo "COMMAND = $COMMAND; ARGS = $ARGS ; DIR = $DIR ; FUNTION = $FUNTION"
 
 case $COMMAND in
   "loaddata")
@@ -58,7 +69,11 @@ case $COMMAND in
     ;;
   "test")
     echo "runing test..."
-    docker-compose run --rm django pytest $ARGS
+    if [[ $FUNTION != ''  ]]; then
+      docker-compose run --rm django pytest $DIR -k $FUNTION
+    else
+      docker-compose run --rm django pytest $DIR
+    fi
     ;;
   "makemigrations")
     echo "runing django makemigrations..."
@@ -75,7 +90,7 @@ case $COMMAND in
     ;;
   *)
 
-    echo "command no found:"
+    echo "command $COMMAND no found:"
     echo ""
     echo "The available commands:"
     echo ""
@@ -91,6 +106,8 @@ case $COMMAND in
     echo -e "- migrate"
 
 esac
+
+
 
 
 

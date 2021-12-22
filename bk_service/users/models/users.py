@@ -12,6 +12,7 @@ from bk_service.utils.enums import Gender
 
 # Models
 from bk_service.locations.models import City
+from bk_service.banks.models import Partner
 
 
 class User(BkServiceModel, AbstractUser):
@@ -53,6 +54,13 @@ class User(BkServiceModel, AbstractUser):
 
     def get_short_name(self):
         return self.username
+
+    def get_partner(self):
+        try:
+            partner = Partner.objects.get(user_id=self.id)
+            return partner
+        except:
+            return None
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone_number', 'phone_region_code', 'gender', 'city']

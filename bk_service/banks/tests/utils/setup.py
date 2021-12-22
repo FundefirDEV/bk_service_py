@@ -3,6 +3,7 @@
 from bk_service.locations.tests.utils.setup import createLocations
 from bk_service.users.models.users import User
 from bk_service.banks.models.partners import Partner
+from bk_service.banks.models.partners_guest import PartnerGuest
 from bk_service.banks.models.banks import Bank
 from bk_service.banks.models.bank_rules import BankRules
 from bk_service.banks.models.shares import Share
@@ -40,3 +41,15 @@ def create_share():
     partner = create_partner()
     share = Share.objects.create(bank=partner.bank, partner=partner, quantity=1, amount=10000)
     return share
+
+
+def invite_partner(bank, phone_number, phone_region_code):
+    partner_guest = PartnerGuest.objects.create(
+        bank=bank,
+        name='new_partner_guest',
+        phone_number=phone_number,
+        phone_region_code=phone_region_code,
+        is_active=False
+    )
+
+    return partner_guest
