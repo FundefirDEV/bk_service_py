@@ -21,7 +21,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 # Utils
 from bk_service.utils.enums.banks import PartnerType
 from bk_service.utils.exceptions_errors import CustomValidation
-from bk_service.utils.constants_errors import PASSWORD_CONFIRMATION, PASSWORD_TOO_COMMON
+from bk_service.utils.constants_errors import *
 
 
 class UserLoginSerializer(serializers.Serializer):
@@ -40,19 +40,79 @@ class UserSignUpSerializer(serializers.ModelSerializer):
         min_length=8,
         max_length=128,
         required=True,
-        # error_messages=error_mensage(error='manaos', error_code=101)
+        error_messages={
+            'required': build_error_message(PASSWORD_REQUIRED),
+            'invalid': build_error_message(PASSWORD_INVALID),
+        },
     )
     password_confirmation = serializers.CharField(
         min_length=8,
         max_length=128,
         required=True,
-        # error_messages=error_mensage(error='manaos', error_code=102)
+        error_messages={
+            'required': build_error_message(PASSWORD_CONFIRMATION_REQUIRED),
+            'invalid': build_error_message(PASSWORD_CONFIRMATION_INVALID),
+        },
     )
 
     class Meta:
         model = User
         fields = ['email', 'username', 'gender', 'first_name',
                   'last_name', 'phone_number', 'phone_region_code', 'city', 'password', 'password_confirmation']
+        extra_kwargs = {
+            'email': {
+                "error_messages": {
+                    'required': build_error_message(EMAIL_REQUIRED),
+                    'unique': build_error_message(EMAIL_EXIST),
+                    'invalid': build_error_message(EMAIL_INVALID),
+                }
+            },
+            'phone_number': {
+                "error_messages": {
+                    'required': build_error_message(PHONE_REQUIRED),
+                    'unique': build_error_message(PHONE_EXIST),
+                    'invalid': build_error_message(PHONE_INVALID),
+                }
+            },
+            'username': {
+                "error_messages": {
+                    'required': build_error_message(USERNAME_REQUIRED),
+                    'unique': build_error_message(USERNAME_EXIST),
+                    'invalid': build_error_message(USERNAME_INVALID),
+                },
+            },
+            'first_name': {
+                "error_messages": {
+                    'required': build_error_message(FIRST_NAME_REQUIRED),
+                    'invalid': build_error_message(FIRST_NAME_INVALID),
+                },
+            },
+            'last_name': {
+                "error_messages": {
+                    'required': build_error_message(LAST_NAME_REQUIRED),
+                    'invalid': build_error_message(LAST_NAME_INVALID),
+                },
+            },
+            'phone_region_code': {
+                "error_messages": {
+                    'required': build_error_message(PHONE_REGION_CODE_REQUIRED),
+                    'invalid': build_error_message(PHONE_REGION_CODE_INVALID),
+                }
+            },
+            'city': {
+                "error_messages": {
+                    'required': build_error_message(CITY_REQUIRED),
+                    'invalid': build_error_message(CITY_INVALID),
+                    'does_not_exist': build_error_message(CITY_INVALID)
+                }
+            },
+            'gender': {
+                "error_messages": {
+                    'required': build_error_message(GENDER_REQUIRED),
+                    'invalid': build_error_message(GENDER_INVALID),
+                }
+            },
+        }
 
     def create(self, validated_data, *args, **kwargs):
 

@@ -10,6 +10,9 @@ from django.core.validators import RegexValidator, MinLengthValidator
 from bk_service.utils.models import BkServiceModel
 from bk_service.utils.enums import Gender
 
+# Utils errors
+from bk_service.utils.constants_errors import *
+
 # Models
 from bk_service.locations.models import City
 from bk_service.banks.models import Partner
@@ -21,24 +24,70 @@ class User(BkServiceModel, AbstractUser):
     email = models.EmailField(
         'email address',
         unique=True,
+        blank=False,
         error_messages={
-            'unique': 'A user with that email already exists'
+            'required': build_error_message(EMAIL_REQUIRED),
+            'unique': build_error_message(EMAIL_EXIST),
+            'invalid': build_error_message(EMAIL_INVALID),
         }
     )
 
-    phone_number = models.CharField(max_length=18, validators=[
-        MinLengthValidator(4)],  blank=False, unique=True)
+    username = models.CharField(
+        max_length=150,
+        unique=True,
+        blank=False,
+        error_messages={
+            'required': build_error_message(USERNAME_REQUIRED),
+            'unique': build_error_message(USERNAME_EXIST),
+            'invalid': build_error_message(USERNAME_INVALID),
+        },
+    )
+
+    phone_number = models.CharField(
+        max_length=18,
+        validators=[
+            MinLengthValidator(4)],
+        blank=False,
+        unique=True,
+        error_messages={
+            'required': build_error_message(PHONE_REQUIRED),
+            'unique': build_error_message(PHONE_EXIST),
+            'invalid': build_error_message(PHONE_INVALID),
+        }
+    )
 
     region_code_regex = RegexValidator(
         regex=r'\+?1?\d{0,9}$',
-        message='region code must be entered in the format +999.'
+        message=build_error_message(PHONE_REGION_CODE_INVALID),
     )
-    phone_region_code = models.CharField(max_length=4, blank=False,
-                                         validators=[region_code_regex, MinLengthValidator(1)], unique=False)
+    phone_region_code = models.CharField(
+        max_length=4,
+        blank=False,
+        validators=[region_code_regex, MinLengthValidator(1)],
+        error_messages={
+            'required': build_error_message(PHONE_REGION_CODE_REQUIRED),
+        }
+    )
 
-    gender = models.CharField(max_length=1, blank=False, choices=Gender.choices)
+    gender = models.CharField(
+        max_length=1,
+        blank=False,
+        choices=Gender.choices,
+        error_messages={
+            'required': build_error_message(GENDER_INVALID),
+            'invalid': build_error_message(GENDER_REQUIRED),
+        }
+    )
 
-    city = models.ForeignKey(City, on_delete=models.PROTECT)
+    city = models.ForeignKey(
+        City,
+        on_delete=models.PROTECT,
+        blank=False,
+        error_messages={
+            'required': build_error_message(CITY_INVALID),
+            'invalid': build_error_message(CITY_REQUIRED),
+            'does_not_exist': build_error_message(CITY_INVALID)
+        })
 
     is_verified = models.BooleanField(
         'verified',

@@ -3,6 +3,7 @@
 #  Django REST Framework
 from rest_framework import status
 from rest_framework.test import APITestCase
+from rest_framework.exceptions import ErrorDetail
 
 # Utils
 from bk_service.utils.loaddata.loaddata import setup_db
@@ -108,7 +109,7 @@ class SingUpFailAPITestCase(APITestCase):
         self.assertEqual(body, {'error': "Password don't match.", 'error_code': 5})
 
     def test_singup_pass_too_commun(self):
-        """ bad pass confirmation test """
+        """ pass too commun test """
 
         url = '/users/singup/'
 
@@ -124,5 +125,84 @@ class SingUpFailAPITestCase(APITestCase):
         # pdb.set_trace()
 
         self.assertEqual(status_code, status.HTTP_400_BAD_REQUEST)
-        # self.assertEqual(str(body[0]), "This password is too common")
         self.assertEqual(body, {'error': 'This password is too common.', 'error_code': 4})
+
+
+class SingUpInvalidRequestAPITestCase(APITestCase):
+    """ singup invalid request test class """
+
+    city_id = 0
+
+    def setUp(self):
+        partner = create_partner()
+        self.city_id = partner.user.city.id
+
+    def test_singup_required_fields(self):
+        """ singup required test """
+
+        url = '/users/singup/'
+
+        bad_data = {
+            "bad_key": "bad_data",
+        }
+
+        request = self.client.post(url, bad_data, format='json')
+        body = request.data
+        status_code = request.status_code
+
+        # import pdb
+        # pdb.set_trace()
+
+        self.assertEqual(status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            body,
+            {
+                'email':
+                    [ErrorDetail(string=build_error_message(EMAIL_REQUIRED), code='required')],
+                'username':
+                    [ErrorDetail(string=build_error_message(USERNAME_REQUIRED), code='required')],
+                'gender':
+                    [ErrorDetail(string=build_error_message(GENDER_REQUIRED), code='required')],
+                'phone_number':
+                    [ErrorDetail(string=build_error_message(PHONE_REQUIRED), code='required')],
+                'phone_region_code':
+                    [ErrorDetail(string=build_error_message(PHONE_REGION_CODE_REQUIRED), code='required')],
+                'city':
+                    [ErrorDetail(string=build_error_message(CITY_REQUIRED), code='required')],
+                'password':
+                    [ErrorDetail(string=build_error_message(PASSWORD_REQUIRED), code='required')],
+                'password_confirmation':
+                    [ErrorDetail(string=build_error_message(PASSWORD_CONFIRMATION_REQUIRED), code='required')]
+            }
+        )
+
+    def test_singup_unique_fields(self):
+        """singup unique test """
+
+        url = '/users/singup/'
+
+        bad_singup_data = dict(singup_data)
+        bad_singup_data['username'] = 'user@mail.com'
+        bad_singup_data['email'] = 'user@mail.com'
+        bad_singup_data['phone_number'] = '31300000000'
+        bad_singup_data['city'] = self.city_id
+
+        request = self.client.post(url, bad_singup_data, format='json')
+        body = request.data
+        status_code = request.status_code
+
+        # import pdb
+        # pdb.set_trace()
+
+        self.assertEqual(status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            body,
+            {
+                'email':
+                    [ErrorDetail(string=build_error_message(EMAIL_EXIST), code='unique')],
+                'username':
+                    [ErrorDetail(string=build_error_message(USERNAME_EXIST), code='unique')],
+                'phone_number':
+                    [ErrorDetail(string=build_error_message(PHONE_EXIST), code='unique')],
+            }
+        )
