@@ -10,9 +10,21 @@ from bk_service.locations.tests.utils.setup import create_locations
 # pdb.set_trace()
 
 
+PASSWORD_TEST = 'superSecurePassword2020'
+USERNAME_TEST = 'user@mail.com'
+PHONE_TEST = '31300000000'
+PHONE_REGION_CODE_TEST = '+1'
+FIRST_NAME_TEST = 'Brea'
+LAST_NAME_TEST = 'Brea'
+
+BANK_NAME_TEST = 'new_bank'
+PARTNER_GUEST_NAME_TEST = 'new_partner_guest'
+PARTNER_GUEST_PHONE_TEST = '31300000001'
+
+
 def create_bank():
     city = create_locations()
-    bank = Bank.objects.create(name='new_bank', city=city)
+    bank = Bank.objects.create(name=BANK_NAME_TEST, city=city)
     return bank
 
 
@@ -23,8 +35,15 @@ def create_bank_rules():
 
 
 def create_user(city):
-    user = User.objects.create_user(username='user@mail.com', email='user@mail.com',
-                                    first_name='Bre', phone_number='31300000000', city=city, last_name='Bre')
+    user = User.objects.create_user(
+        username=USERNAME_TEST,
+        email=USERNAME_TEST,
+        password=PASSWORD_TEST,
+        first_name=FIRST_NAME_TEST,
+        phone_number=PHONE_TEST,
+        city=city,
+        last_name=LAST_NAME_TEST
+    )
     return user
 
 
@@ -38,7 +57,7 @@ def create_partner():
 def invite_partner(bank, phone_number, phone_region_code):
     partner_guest = PartnerGuest.objects.create(
         bank=bank,
-        name='new_partner_guest',
+        name=PARTNER_GUEST_NAME_TEST,
         phone_number=phone_number,
         phone_region_code=phone_region_code,
         is_active=False
@@ -96,3 +115,22 @@ def create_earning_share():
     earning_share = EarningShare.objects.create(
         meeting=meeting, share=share, earning_by_share=10, total_earning_by_share=100, date_calculated=date.today())
     return earning_share
+
+
+def bank_creation_data(
+    city_id=0,
+    bank_name=BANK_NAME_TEST,
+    partners_guest=[
+        {
+            "name": PARTNER_GUEST_NAME_TEST,
+            "phone_number": PARTNER_GUEST_PHONE_TEST,
+            "phone_region_code": PHONE_REGION_CODE_TEST
+
+        }
+    ]
+):
+    return {
+        "city": city_id,
+        "name": bank_name,
+        "partners": partners_guest
+    }

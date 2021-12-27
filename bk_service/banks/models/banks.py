@@ -26,4 +26,4 @@ class Bank(BkServiceModel, models.Model):
         """ Return Bank """
         return str(self.name)
 
-    REQUIRED_FIELDS = ['name', 'city', 'cash_balance', 'active_credits', 'shares', 'expense_fund', ' bad_debt_reserve']
+    REQUIRED_FIELDS = ['name', 'city', ]

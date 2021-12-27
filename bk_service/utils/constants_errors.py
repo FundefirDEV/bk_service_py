@@ -178,3 +178,55 @@ PASSWORD_CONFIRMATION_INVALID = Errors(
     error_code=26,
     error_mensage='The password confirmation is invalid.'
 )
+
+BANK_NAME_REQUIRE = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=27,
+    error_mensage='The bank name is required.'
+)
+
+BANK_NAME_EXIST = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=28,
+    error_mensage='This bank name already exists.'
+)
+
+PARTNER_GUEST_NAME_REQUIRE = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=29,
+    error_mensage='The partner guest name is required.'
+)
+
+PARTNER_GUEST_PHONE_REQUIRE = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=30,
+    error_mensage='The partner guest phone number is required.'
+)
+
+PARTNER_GUEST_PHONE_EXIST = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=31,
+    error_mensage='This partner guest phone already exists.'
+)
+
+PARTNER_GUEST_PHONE_REGION_CODE_REQUIRE = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=32,
+    error_mensage='The partner guest phone region code is required.'
+)
+
+PARTNER_GUEST_NAME_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=26,
+    error_mensage='The partner guest name is invalid.'
+)
+PARtNER_GUEST_PHONE_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=26,
+    error_mensage='The partner guest phone is invalid.'
+)
+PARtNER_GUEST_PHONE_REGION_CODE_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=26,
+    error_mensage='The partner guest phone region code is invalid.'
+)
