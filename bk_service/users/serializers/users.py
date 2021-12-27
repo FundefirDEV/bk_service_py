@@ -110,6 +110,7 @@ class UserSignUpSerializer(serializers.ModelSerializer):
                 "error_messages": {
                     'required': build_error_message(GENDER_REQUIRED),
                     'invalid': build_error_message(GENDER_INVALID),
+                    'does_not_exist': build_error_message(GENDER_INVALID)
                 }
             },
         }
@@ -132,10 +133,6 @@ class UserSignUpSerializer(serializers.ModelSerializer):
         return user
 
     def validate(self, data):
-
-        # Validate city_id
-        # if not City.objects.filter(pk=data['city']).exists():
-        #     raise serializers.ValidationError("City_id no exists")
 
         # Validate Pass
         password = data['password']
@@ -170,16 +167,6 @@ class UserModelSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'email', 'username', 'gender', 'first_name',
                   'last_name', 'phone_number', 'city', 'is_verified')
-
-        # extra_kwargs = {'first_name': {'required': True, 'allow_blank': False}}
-        # extra_kwargs = {'last_name': {'required': True, 'allow_blank': False}}
-        # extra_kwargs = {'phone_number': {'required': True, 'allow_blank': False}}
-        # extra_kwargs = {'password': {'required': True, 'allow_blank': False}}
-
-    # def create(self, validated_data):
-    #     user = User.objects.create_user(**validated_data, is_verified=False)
-    #     profile = Profile.objects.create(user=user)
-    #     return user
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
