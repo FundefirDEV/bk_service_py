@@ -1,6 +1,8 @@
+PASSWORD_TEST = 'superSecurePassword2020'
+
 singup_data = {
-    "password": "superSecurePassword2020",
-    "password_confirmation": "superSecurePassword2020",
+    "password": PASSWORD_TEST,
+    "password_confirmation": PASSWORD_TEST,
     "first_name": "manaos",
     "last_name": "manaos",
     "gender": "M",
@@ -13,5 +15,5 @@ singup_data = {
 
 login_data = {
     "email": "manaos@mail.com",
-    "password": "superSecurePassword2020",
+    "password": PASSWORD_TEST,
 }

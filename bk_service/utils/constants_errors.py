@@ -178,3 +178,98 @@ PASSWORD_CONFIRMATION_INVALID = Errors(
     error_code=26,
     error_mensage='The password confirmation is invalid.'
 )
+
+BANK_NAME_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=27,
+    error_mensage='The bank name is required.'
+)
+
+BANK_NAME_EXIST = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=28,
+    error_mensage='This bank name already exists.'
+)
+
+PARTNER_GUEST_NAME_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=29,
+    error_mensage='The partner guest name is required.'
+)
+
+PARTNER_GUEST_PHONE_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=30,
+    error_mensage='The partner guest phone number is required.'
+)
+
+PARTNER_GUEST_PHONE_EXIST = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=31,
+    error_mensage='This partner guest phone already exists.'
+)
+
+PARTNER_GUEST_PHONE_REGION_CODE_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=32,
+    error_mensage='The partner guest phone region code is required.'
+)
+
+PARTNER_GUEST_NAME_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=33,
+    error_mensage='The partner guest name is invalid.'
+)
+
+PARTNER_GUEST_PHONE_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=34,
+    error_mensage='The partner guest phone is invalid.'
+)
+PARTNER_GUEST_PHONE_REGION_CODE_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=35,
+    error_mensage='The partner guest phone region code is invalid.'
+)
+
+BANK_NAME_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=36,
+    error_mensage='The bank name is invalid.'
+)
+
+BANK_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=37,
+    error_mensage='The bank is invalid.'
+)
+
+BANK_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=38,
+    error_mensage='The bank is required.'
+)
+
+USER_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=39,
+    error_mensage='The user is invalid.'
+)
+
+USER_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=40,
+    error_mensage='The user is required.'
+)
+
+PARTNER_ROLE_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=41,
+    error_mensage='The partner role is invalid.'
+)
+
+PARTNER_ROLE_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=42,
+    error_mensage='The partner role is required.'
+)

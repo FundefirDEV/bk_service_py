@@ -12,12 +12,12 @@ class UsersTestCase(TestCase):
     def setUp(self):
         city = create_locations()
         User.objects.create(username='user@mail.com', email='user@mail.com',
-                            first_name='Bre', phone_number='31300000000', city=city, last_name='Bre')
+                            first_name='Brea', phone_number='31300000000', city=city, last_name='Brea')
 
     def test_State_success(self):
         """ User success """
         user = User.objects.get(email='user@mail.com')
         self.assertEqual(user.username, 'user@mail.com')
         self.assertEqual(user.phone_number, '31300000000')
-        self.assertEqual(user.last_name, 'Bre')
-        self.assertEqual(user.first_name, 'Bre')
+        self.assertEqual(user.last_name, 'Brea')
+        self.assertEqual(user.first_name, 'Brea')

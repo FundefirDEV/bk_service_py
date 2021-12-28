@@ -14,7 +14,7 @@ class PartnerTestCase(TestCase):
         """ Partner success """
         partner_created = create_partner()
         partner = Partner.objects.get(id=partner_created.id)
-        self.assertEqual(partner.user.first_name, 'Bre')
+        self.assertEqual(partner.user.first_name, 'Brea')
         self.assertEqual(partner.bank.name, 'new_bank')
         self.assertEqual(partner.is_creator, False)
         self.assertEqual(partner.is_active, True)
