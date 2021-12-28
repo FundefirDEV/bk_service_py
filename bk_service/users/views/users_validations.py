@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
 # Serializers
-from bk_service.users.serializers import (EmailExistSerializer)
+from bk_service.users.serializers import EmailExistSerializer, PhoneExistSerializer
 
 
 class VerifyEmail(APIView):
@@ -18,3 +18,14 @@ class VerifyEmail(APIView):
         serializer.is_valid(raise_exception=True)
 
         return Response('email is valid')
+
+
+class VerifyPhoneNumber(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+
+        serializer = PhoneExistSerializer(data=kwargs)
+        serializer.is_valid(raise_exception=True)
+
+        return Response('phone is valid')
