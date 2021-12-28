@@ -26,6 +26,23 @@ class BankModelSerializer(serializers.ModelSerializer):
         fields = ('name', 'city', 'cash_balance', 'active_credits', 'shares',
                   'expense_fund', 'bad_debt_reserve', )
 
+        extra_kwargs = {
+            'name': {
+                "error_messages": {
+                    'required': build_error_message(BANK_NAME_REQUIRED),
+                    'invalid': build_error_message(BANK_NAME_INVALID),
+                    'unique': build_error_message(BANK_NAME_EXIST),
+                },
+            },
+            'city': {
+                "error_messages": {
+                    'required': build_error_message(CITY_REQUIRED),
+                    'invalid': build_error_message(CITY_INVALID),
+                    'does_not_exist': build_error_message(CITY_INVALID)
+                }
+            },
+        }
+
     def create(self, name, city, partners, user, ):
 
         bank = Bank.objects.create(name=name, city=city)
@@ -69,6 +86,28 @@ class CreateBankPartnersSerializer(serializers.ModelSerializer):
         model = PartnerGuest
         fields = ('name', 'phone_number', 'phone_region_code', )
 
+        extra_kwargs = {
+            'phone_number': {
+                "error_messages": {
+                    'required': build_error_message(PARTNER_GUEST_PHONE_REQUIRED),
+                    'unique': build_error_message(PARTNER_GUEST_PHONE_EXIST),
+                    'invalid': build_error_message(PARTNER_GUEST_PHONE_INVALID),
+                }
+            },
+            'name': {
+                "error_messages": {
+                    'required': build_error_message(USERNAME_REQUIRED),
+                    'invalid': build_error_message(USERNAME_INVALID),
+                },
+            },
+            'phone_region_code': {
+                "error_messages": {
+                    'required': build_error_message(PHONE_REGION_CODE_REQUIRED),
+                    'invalid': build_error_message(PHONE_REGION_CODE_INVALID),
+                }
+            },
+        }
+
 
 class CreateBankSerializer(serializers.Serializer):
     """ Create Bank serializers """
@@ -80,8 +119,9 @@ class CreateBankSerializer(serializers.Serializer):
         max_length=64,
         required=True,
         error_messages={
-            'required': build_error_message(PARTNER_GUEST_NAME_REQUIRE),
-            'invalid': build_error_message(PARTNER_GUEST_NAME_INVALID),
+            'required': build_error_message(BANK_NAME_REQUIRED),
+            'invalid': build_error_message(BANK_NAME_INVALID),
+            'unique': build_error_message(BANK_NAME_EXIST),
         },
     )
 
@@ -90,5 +130,6 @@ class CreateBankSerializer(serializers.Serializer):
         error_messages={
             'required': build_error_message(CITY_REQUIRED),
             'invalid': build_error_message(CITY_INVALID),
+            'does_not_exist': build_error_message(CITY_INVALID)
         },
     )

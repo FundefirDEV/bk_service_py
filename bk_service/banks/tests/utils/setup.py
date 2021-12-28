@@ -54,10 +54,15 @@ def create_partner():
     return partner
 
 
-def invite_partner(bank, phone_number, phone_region_code):
+def invite_partner(
+    bank,
+    name=PARTNER_GUEST_NAME_TEST,
+    phone_number=PARTNER_GUEST_PHONE_TEST,
+    phone_region_code=PHONE_REGION_CODE_TEST,
+):
     partner_guest = PartnerGuest.objects.create(
         bank=bank,
-        name=PARTNER_GUEST_NAME_TEST,
+        name=name,
         phone_number=phone_number,
         phone_region_code=phone_region_code,
         is_active=False

@@ -6,6 +6,7 @@ from django.contrib.auth import password_validation
 
 # Django REST Framework
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 # Models
 from bk_service.users.models import User
