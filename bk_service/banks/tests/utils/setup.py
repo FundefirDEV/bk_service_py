@@ -56,10 +56,10 @@ def create_user(
     return user
 
 
-def create_partner():
+def create_partner(phone_number=PHONE_TEST):
     bank = create_bank_rules()
-    user = create_user(bank.city)
-    partner = Partner.objects.create(bank=bank, user=user)
+    user = create_user(city=bank.city, phone_number=phone_number)
+    partner = Partner.objects.create(bank=bank, user=user, phone_number=user.phone_number)
     return partner
 
 
