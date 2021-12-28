@@ -6,6 +6,7 @@ from django.contrib.auth import password_validation
 
 # Django REST Framework
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 # Models
 from bk_service.users.models import User
@@ -22,6 +23,23 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from bk_service.utils.enums.banks import PartnerType
 from bk_service.utils.exceptions_errors import CustomValidation
 from bk_service.utils.constants_errors import *
+
+
+class EmailExistSerializer(serializers.Serializer):
+
+    email = serializers.EmailField(
+
+        required=True,
+
+        validators=[
+            UniqueValidator(queryset=User.objects.all())
+        ],
+        error_messages={
+            'required': build_error_message(EMAIL_REQUIRED),
+            'unique': build_error_message(EMAIL_EXIST),
+            'invalid': build_error_message(EMAIL_INVALID),
+        },
+    )
 
 
 class UserLoginSerializer(serializers.Serializer):
