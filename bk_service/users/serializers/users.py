@@ -32,11 +32,10 @@ class EmailExistSerializer(serializers.Serializer):
         required=True,
 
         validators=[
-            UniqueValidator(queryset=User.objects.all())
+            UniqueValidator(queryset=User.objects.all(), message=build_error_message(EMAIL_EXIST))
         ],
         error_messages={
             'required': build_error_message(EMAIL_REQUIRED),
-            'unique': build_error_message(EMAIL_EXIST),
             'invalid': build_error_message(EMAIL_INVALID),
         },
     )

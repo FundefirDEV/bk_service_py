@@ -13,6 +13,8 @@ class VerifyEmail(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, *args, **kwargs):
-        data = request.data
-        serializer = EmailExistSerializer(data=data)
-        return Response('ok')
+
+        serializer = EmailExistSerializer(data=kwargs)
+        serializer.is_valid(raise_exception=True)
+
+        return Response('email is valid')

@@ -34,15 +34,24 @@ def create_bank_rules():
     return bank
 
 
-def create_user(city):
+def create_user(
+    city,
+    username=USERNAME_TEST,
+    email=USERNAME_TEST,
+    password=PASSWORD_TEST,
+    first_name=FIRST_NAME_TEST,
+    phone_number=PHONE_TEST,
+    last_name=LAST_NAME_TEST
+):
+
     user = User.objects.create_user(
-        username=USERNAME_TEST,
-        email=USERNAME_TEST,
-        password=PASSWORD_TEST,
-        first_name=FIRST_NAME_TEST,
-        phone_number=PHONE_TEST,
+        username=username,
+        email=email,
+        password=password,
+        first_name=first_name,
+        phone_number=phone_number,
         city=city,
-        last_name=LAST_NAME_TEST
+        last_name=last_name
     )
     return user
 
