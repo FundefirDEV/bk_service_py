@@ -53,7 +53,7 @@ class BankModelSerializer(serializers.ModelSerializer):
         partner_creator = self.insert_partner_creator(bank=bank, user=user)
         partners_guests = self.insert_partners_guest(bank=bank, partners=partners)
 
-        bank_rules = BankRulesConstants(phone_region_code=user.phone_region_code)
+        bank_rules = BankRulesConstants(country_code=user.city.state.country.code)
 
         bank_rules = BankRules.objects.create(
             bank=bank,

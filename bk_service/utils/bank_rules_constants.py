@@ -1,6 +1,6 @@
 
 class BankRulesConstants():
-    def __init__(self, phone_region_code):
+    def __init__(self, country_code='CO'):
 
         ORDINARY_INTEREST = 3.0
         SHARE_VALUE = 10000
@@ -14,7 +14,7 @@ class BankRulesConstants():
         PAYMENT_PERIOD_OF_INSTALLMENT = 30
         MAXIMUN_CREDIT_VALUE = 1000000.0
 
-        if phone_region_code == '+57':
+        if country_code == 'CO':
 
             self.ORDINARY_INTEREST = 3.0
             self.SHARE_VALUE = 10000
@@ -28,7 +28,7 @@ class BankRulesConstants():
             self.PAYMENT_PERIOD_OF_INSTALLMENT = 30
             self.MAXIMUN_CREDIT_VALUE = 1000000.0
 
-        if phone_region_code == '+1':
+        if country_code == 'ARG':
 
             self.ORDINARY_INTEREST = 3.0
             self.SHARE_VALUE = 10000
@@ -42,7 +42,7 @@ class BankRulesConstants():
             self.PAYMENT_PERIOD_OF_INSTALLMENT = 30
             self.MAXIMUN_CREDIT_VALUE = 1000000.0
 
-        if phone_region_code == '+54':
+        if country_code == 'VE':
 
             self.ORDINARY_INTEREST = 3.0
             self.SHARE_VALUE = 10000
