@@ -3,7 +3,7 @@ class BankRulesConstants():
     def __init__(self, country_code='CO'):
 
         ORDINARY_INTEREST = 3.0
-        SHARE_VALUE = 10000
+        SHARE_VALUE = 10000.0
         DELAY_INTEREST = 5.0
         MAXIMUN_CREDIT_INSTALLMENTS = 3
         EXPENDITURE_FUND_PERCENTAGE = 5.0
