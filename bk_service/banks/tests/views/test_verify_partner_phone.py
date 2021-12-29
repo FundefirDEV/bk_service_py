@@ -1,4 +1,4 @@
-""" Verify user !"""
+""" Verify partner phone !"""
 
 #  Django REST Framework
 from rest_framework import status
