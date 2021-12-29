@@ -5,6 +5,7 @@ from django.db import models
 
 # Models
 from bk_service.locations.models.cities import City
+# from bk_service.banks.models.bank_rules import BankRules
 
 # Utils
 from bk_service.utils.models import BkServiceModel
@@ -43,5 +44,12 @@ class Bank(BkServiceModel, models.Model):
     def __str__(self):
         """ Return Bank """
         return str(self.name)
+
+    # def get_rules(self):
+    #     try:
+    #         bank_rules = BankRules.objects.get(bank_id=self.id)
+    #         return bank_rules
+    #     except:
+    #         return None
 
     REQUIRED_FIELDS = ['name', 'city', ]

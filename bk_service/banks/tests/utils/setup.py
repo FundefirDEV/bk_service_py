@@ -41,6 +41,7 @@ def create_user(
     password=PASSWORD_TEST,
     first_name=FIRST_NAME_TEST,
     phone_number=PHONE_TEST,
+    phone_region_code=PHONE_REGION_CODE_TEST,
     last_name=LAST_NAME_TEST
 ):
 
@@ -50,8 +51,9 @@ def create_user(
         password=password,
         first_name=first_name,
         phone_number=phone_number,
+        phone_region_code=phone_region_code,
         city=city,
-        last_name=last_name
+        last_name=last_name,
     )
     return user
 

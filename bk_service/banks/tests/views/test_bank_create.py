@@ -16,6 +16,7 @@ from bk_service.banks.tests.utils.setup import *
 
 # Models
 from bk_service.banks.models.banks import Bank
+from bk_service.banks.models.bank_rules import BankRules
 
 
 import pdb
@@ -46,6 +47,7 @@ class BankSuccessAPITestCase(APITestCase):
         self.assertEqual(body, {"message": "Bank created"})
 
         bank = Bank.objects.first()
+        bank_rules = BankRules.objects.get(bank=bank)
 
         partners_guest = PartnerGuest.objects.all()
         partner = Partner.objects.get(bank_id=bank.id)
@@ -53,6 +55,8 @@ class BankSuccessAPITestCase(APITestCase):
         self.assertEqual(bank.name, BANK_NAME_TEST)
         self.assertEqual(len(partners_guest), 1)
         self.assertEqual(partner.user, self.user)
+        # self.assertEqual(bank.get_rules(), bank_rules)
+        self.assertEqual(bank_rules.bank, bank)
 
 
 class BankFailAPITestCase(APITestCase):

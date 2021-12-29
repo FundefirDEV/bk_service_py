@@ -2,6 +2,18 @@
 class BankRulesConstants():
     def __init__(self, phone_region_code):
 
+        ORDINARY_INTEREST = 3.0
+        SHARE_VALUE = 10000
+        DELAY_INTEREST = 5.0
+        MAXIMUN_CREDIT_INSTALLMENTS = 3
+        EXPENDITURE_FUND_PERCENTAGE = 5.0
+        RESERVE_FUND_OF_BAD_DEBT = 5.0
+        MAXIMUM_SHARES_PERCENTAGE_PER_PARTNER = 25.0
+        MAXIMUM_ACTIVE_CREDITS_PER_PARTNER = 1
+        CREDIT_INVESTMENT_RELATIONCHIP = 5
+        PAYMENT_PERIOD_OF_INSTALLMENT = 30
+        MAXIMUN_CREDIT_VALUE = 1000000.0
+
         if phone_region_code == '+57':
 
             self.ORDINARY_INTEREST = 3.0
