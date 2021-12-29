@@ -25,6 +25,22 @@ from bk_service.utils.exceptions_errors import CustomValidation
 from bk_service.utils.constants_errors import *
 
 
+class PhoneExistSerializer(serializers.Serializer):
+
+    phone_number = serializers.CharField(
+
+        required=True,
+
+        validators=[
+            UniqueValidator(queryset=User.objects.all(), message=build_error_message(PHONE_EXIST))
+        ],
+        error_messages={
+            'required': build_error_message(PHONE_REQUIRED),
+            'invalid': build_error_message(PHONE_INVALID),
+        },
+    )
+
+
 class EmailExistSerializer(serializers.Serializer):
 
     email = serializers.EmailField(

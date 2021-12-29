@@ -1,4 +1,4 @@
-""" Login test !"""
+""" Verify user !"""
 
 #  Django REST Framework
 from rest_framework import status
@@ -51,4 +51,37 @@ class VerifyEmailTestCase(APITestCase):
         self.assertEqual(body, {
             'email':
             [ErrorDetail(string=build_error_message(EMAIL_EXIST), code='unique')]
+        })
+
+
+class VerifyPhoneTestCase(APITestCase):
+    """ Verify Phone success test class """
+
+    def setUp(self):
+        city = create_locations()
+        create_user(phone_number='3100000000', city=city)
+
+    def test_verify_phone_success(self):
+        """ Verify Phone success """
+
+        url = '/users/verify-phone/311111111/'
+
+        request = self.client.get(url, format='json')
+        body = request.data
+
+        self.assertEqual(request.status_code, status.HTTP_200_OK)
+        self.assertEqual(body, 'phone is valid')
+
+    def test_verify_phone_already_exist(self):
+        """ Verify Phone already exist """
+
+        url = '/users/verify-phone/3100000000/'
+
+        request = self.client.get(url, format='json')
+        body = request.data
+
+        self.assertEqual(request.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(body, {
+            'phone_number':
+            [ErrorDetail(string=build_error_message(PHONE_EXIST), code='unique')]
         })
