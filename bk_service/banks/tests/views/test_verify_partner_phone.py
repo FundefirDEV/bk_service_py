@@ -37,10 +37,23 @@ class VerifyPhonePartnerTestCase(APITestCase):
         self.assertEqual(request.status_code, status.HTTP_200_OK)
         self.assertEqual(body, 'phone is valid')
 
-    def test_verify__partner_phone_already_exist(self):
+    def test_verify_partner_phone_already_exist(self):
         """ Verify Partner Phone already exist """
 
         url = '/banks/verify_partner_phone/30000000/'
+
+        request = self.client.get(url, format='json')
+        body = request.data
+
+        self.assertEqual(request.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(body, {
+            'phone_number':
+            [ErrorDetail(string=build_error_message(PHONE_EXIST), code='unique')]
+        })
+
+    def test_verify_partner_no_invitation(self):
+        """Verify if partner with no invitation exist, response 400"""
+        url = '/banks/verify_partner_guest_phone/30000000/'
 
         request = self.client.get(url, format='json')
         body = request.data
@@ -70,7 +83,7 @@ class VerifyPhonePartnerGuestTestCase(APITestCase):
         self.assertEqual(request.status_code, status.HTTP_200_OK)
         self.assertEqual(body, 'phone is valid')
 
-    def test_verify__partner_phone_already_exist(self):
+    def test_verify_partner_phone_already_exist(self):
         """ Verify Partner Guest Phone already exist """
 
         url = '/banks/verify_partner_guest_phone/30000000/'
