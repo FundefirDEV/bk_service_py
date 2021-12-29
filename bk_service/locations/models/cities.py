@@ -10,7 +10,7 @@ from .states import State
 class City(models.Model):
     """ City model """
 
-    state = models.ForeignKey(State,  on_delete=models.PROTECT)
+    state = models.ForeignKey(State,  on_delete=models.PROTECT, related_name='cities')
     name = models.CharField(max_length=18, blank=False, unique=True)
     is_active = models.BooleanField(default=True)
 

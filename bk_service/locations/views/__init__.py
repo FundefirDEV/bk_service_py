@@ -1,1 +1,1 @@
-from .users import *
+from .locations import *
