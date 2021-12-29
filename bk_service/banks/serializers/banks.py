@@ -9,6 +9,7 @@ from rest_framework import serializers
 from bk_service.banks.models import Bank, Partner
 from bk_service.banks.models.partners_guest import PartnerGuest
 from bk_service.banks.models.partners import Partner
+from bk_service.banks.models.bank_rules import BankRules
 
 # Utils Errors
 from bk_service.utils.constants_errors import build_error_message
@@ -49,6 +50,10 @@ class BankModelSerializer(serializers.ModelSerializer):
 
         partner_creator = self.insert_partner_creator(bank=bank, user=user)
         partners_guests = self.insert_partners_guest(bank=bank, partners=partners)
+
+        bank_rules = BankRules.objects.create(
+            bank=bank
+        )
 
         return bank
 

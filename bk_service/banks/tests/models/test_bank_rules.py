@@ -25,3 +25,7 @@ class BankRulesTestCase(TestCase):
         self.assertEqual(bankRules.expenditure_fund_percentage, 0)
         self.assertEqual(bankRules.reserve_fund_of_bad_debt, 0)
         self.assertEqual(bankRules.is_active, True)
+        self.assertEqual(bankRules.maximum_shares_percentage_per_partner, 0)
+        self.assertEqual(bankRules.maximum_active_credits_per_partner, 0)
+        self.assertEqual(bankRules.payment_period_of_installment, 0)
+        self.assertEqual(bankRules.credit_investment_relationchip, 0)
