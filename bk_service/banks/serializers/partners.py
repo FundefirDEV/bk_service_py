@@ -22,9 +22,7 @@ class PartnerModelSerializer(serializers.ModelSerializer):
 
 
 class PartnerPhoneExistSerializer(serializers.Serializer):
-
     phone_number = serializers.CharField(
-
         required=True,
 
         validators=[
@@ -38,11 +36,8 @@ class PartnerPhoneExistSerializer(serializers.Serializer):
 
 
 class PartnerGuestPhoneExistSerializer(serializers.Serializer):
-
     phone_number = serializers.CharField(
-
         required=True,
-
         validators=[
             UniqueValidator(queryset=PartnerGuest.objects.all(), message=build_error_message(PHONE_EXIST)),
             UniqueValidator(queryset=Partner.objects.all(), message=build_error_message(PHONE_EXIST))
@@ -52,3 +47,17 @@ class PartnerGuestPhoneExistSerializer(serializers.Serializer):
             'invalid': build_error_message(PHONE_INVALID),
         },
     )
+
+
+# class MultiplePhoneExistSerializer(serializers.Serializer):
+#     phone_numbers = serializers.ListSerializer(child=serializers.CharField(
+#         required=True,
+#         validators=[
+#             UniqueValidator(queryset=PartnerGuest.objects.all(), message=build_error_message(PHONE_EXIST)),
+#             UniqueValidator(queryset=Partner.objects.all(), message=build_error_message(PHONE_EXIST))
+#         ],
+#         error_messages={
+#             'required': build_error_message(PHONE_REQUIRED),
+#             'invalid': build_error_message(PHONE_INVALID),
+#         },
+#     ))

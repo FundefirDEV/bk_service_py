@@ -16,4 +16,5 @@
     "pytest",
     "simplejwt"
   ],
+  "python.pythonPath": "newenv/bin/python3.6",
 }
