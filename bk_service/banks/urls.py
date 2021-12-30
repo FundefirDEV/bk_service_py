@@ -8,7 +8,8 @@ from bk_service.banks.views import (
     BankCreationAPIView,
     VerifyPartnerPhone,
     VerifyPartnerGuestPhone,
-    DeletePartnerGuestAPIView
+    DeletePartnerGuestAPIView,
+    InvitePartnerGuestAPIView
 )
 
 urlpatterns = [
@@ -20,5 +21,9 @@ urlpatterns = [
     path('banks/delete-partner-guest/',
          DeletePartnerGuestAPIView.as_view(),
          name='delete_partner_guest_view'),
+
+    path('banks/invite-partner-guest/',
+         InvitePartnerGuestAPIView.as_view(),
+         name='invite_partner_guest_view'),
 
 ]
