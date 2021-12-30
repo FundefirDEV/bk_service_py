@@ -273,3 +273,9 @@ PARTNER_ROLE_REQUIRED = Errors(
     error_code=42,
     error_mensage='The partner role is required.'
 )
+
+PARTNER_GUEST_NOT_EXIST = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=43,
+    error_mensage='This partner guest no exist.'
+)

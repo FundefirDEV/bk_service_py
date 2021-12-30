@@ -106,7 +106,8 @@ class SingUpFailAPITestCase(APITestCase):
         # pdb.set_trace()
 
         self.assertEqual(status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(body, {'error': "Password don't match.", 'error_code': 5})
+        # self.assertEqual(body, {'error': "Password don't match.", 'error_code': 5})
+        self.assertEqual(body, {'detail': build_error_message(error=PASSWORD_CONFIRMATION)})
 
     def test_singup_pass_too_commun(self):
         """ pass too commun test """
@@ -125,7 +126,8 @@ class SingUpFailAPITestCase(APITestCase):
         # pdb.set_trace()
 
         self.assertEqual(status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(body, {'error': 'This password is too common.', 'error_code': 4})
+        # self.assertEqual(body, {'error': 'This password is too common.', 'error_code': 4})
+        self.assertEqual(body, {'detail': build_error_message(error=PASSWORD_TOO_COMMON)})
 
 
 class SingUpInvalidRequestAPITestCase(APITestCase):
