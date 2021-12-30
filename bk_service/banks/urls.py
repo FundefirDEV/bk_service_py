@@ -9,7 +9,7 @@ from bk_service.banks.views import (
     VerifyPartnerPhone,
     VerifyPartnerGuestPhone,
     DeletePartnerGuestAPIView,
-    VerifyMultiplePhones
+    VerifyMultiplePhones,
     InvitePartnerGuestAPIView
 )
 
