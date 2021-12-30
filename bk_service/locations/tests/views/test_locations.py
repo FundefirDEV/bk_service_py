@@ -21,11 +21,10 @@ import pdb
 
 URL = '/locations/location/'
 
-country_body = [
-    {
-        "name": "Colombia",
-        "code": "CO",
-        "states": [
+country_body = {
+    "name": "Colombia",
+    "code": "CO",
+    "states": [
             {
                 "name": "Bogota",
                 "cities": [
@@ -34,9 +33,8 @@ country_body = [
                     },
                 ]
             },
-        ],
-    },
-]
+    ],
+},
 
 
 class BankSuccessAPITestCase(APITestCase):
@@ -63,4 +61,4 @@ class BankSuccessAPITestCase(APITestCase):
         status_code = request.status_code
 
         self.assertEqual(request.status_code, status.HTTP_200_OK)
-        self.assertEqual(body, json.dumps(country_body))
+        self.assertEqual(body, json.dumps(country_body[0]))
