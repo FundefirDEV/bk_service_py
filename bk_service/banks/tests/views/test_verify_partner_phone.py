@@ -14,13 +14,10 @@ from bk_service.banks.tests.utils.setup import create_partner, create_bank, invi
 # Utils commons
 from bk_service.users.tests.utils.commons import *
 from bk_service.utils.tests.requests import post_with_token
+from bk_service.utils.tests.test_security import security_test_post
 
 # error
 from bk_service.utils.constants_errors import *
-
-
-# import pdb
-# pdb.set_trace()
 
 
 class VerifyPhonePartnerTestCase(APITestCase):
@@ -105,6 +102,7 @@ class VerifyMultiplePhonesTestCase(APITestCase):
     """ Verify Multiple Phones success test class """
 
     def setUp(self):
+        security_test_post(self=self, URL='/banks/verify-multiple-phones/')
         self.partner = create_partner(phone_number='30000000')
         self.invite = invite_partner(bank=self.partner.bank, phone_number='40000000')
 
