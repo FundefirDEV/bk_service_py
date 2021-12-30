@@ -16,4 +16,5 @@
     "pytest",
     "simplejwt"
   ],
+  "python.pythonPath": "/usr/bin/python3",
 }
