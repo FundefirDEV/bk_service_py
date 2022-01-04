@@ -16,9 +16,6 @@ from bk_service.utils.constants_errors import *
 from bk_service.utils.exceptions_errors import CustomValidation
 
 
-import pdb
-
-
 class PartnersGuestSerializer(serializers.ModelSerializer):
     """ Partner Guest serializers """
 
