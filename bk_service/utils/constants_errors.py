@@ -279,3 +279,112 @@ PARTNER_GUEST_NOT_EXIST = Errors(
     error_code=43,
     error_mensage='This partner guest no exist.'
 )
+
+
+TYPE_REQUEST_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=44,
+    error_mensage='The type request is required.'
+)
+
+TYPE_REQUEST_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=45,
+    error_mensage='The type request is invalid.'
+)
+
+AMOUNT_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=46,
+    error_mensage='The amount is required.'
+)
+
+AMOUNT_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=47,
+    error_mensage='The amount is invalid.'
+)
+
+QUANTITY_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=48,
+    error_mensage='The quantity is required.'
+)
+
+QUANTITY_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=49,
+    error_mensage='The quantity is invalid.'
+)
+
+ID_CREDIT_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=50,
+    error_mensage='The id credit is required.'
+)
+
+ID_CREDIT_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=51,
+    error_mensage='The id credit is invalid.'
+)
+
+ID_CREDIT_NOT_EXIST = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=52,
+    error_mensage='This id credit no exist.'
+)
+
+CREDIT_USE_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=53,
+    error_mensage='The credit use is required.'
+)
+
+CREDIT_USE_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=54,
+    error_mensage='The credit use is invalid.'
+)
+
+DETAIL_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=55,
+    error_mensage='The detail is required.'
+)
+
+DETAIL_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=56,
+    error_mensage='The detail is invalid.'
+)
+
+PAYMENT_TYPE_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=57,
+    error_mensage='The payment type is required.'
+)
+
+PAYMENT_TYPE_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=58,
+    error_mensage='The payment type is invalid.'
+)
+
+ID_SCHEDULE_INSTALMENT_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=59,
+    error_mensage='The id schedule instalment is required.'
+)
+
+ID_SCHEDULE_INSTALMENT_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=60,
+    error_mensage='The id schedule instalmen is invalid.'
+)
+
+ID_SCHEDULE_INSTALMENT_NOT_EXIST = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=61,
+    error_mensage='This id schedule instalmen no exist.'
+)
