@@ -27,4 +27,4 @@ class BankRule(APIView):
                          "expenditure_fund_percentage": rules.expenditure_fund_percentage,
                          "reserve_fund_of_bad_debt": rules.reserve_fund_of_bad_debt,
                          "payment_period_of_installment": rules.payment_period_of_installment,
-                         "credit_investment_relationship": rules.credit_investment_relationchip})
+                         "credit_investment_relationship": rules.credit_investment_relationship})

@@ -39,7 +39,7 @@ class BankRulesSerializer(serializers.ModelSerializer):
         fields = ('ordinary_interest', 'maximun_credit_installments',
                   'maximun_credit_value', 'share_value', 'maximum_shares_percentage_per_partner',
                   'maximum_active_credits_per_partner', 'expenditure_fund_percentage', 'reserve_fund_of_bad_debt',
-                  'payment_period_of_installment', 'credit_investment_relationchip', 'bank')
+                  'payment_period_of_installment', 'credit_investment_relationship', 'bank')
 
         extra_kwargs = {
             'bank': {

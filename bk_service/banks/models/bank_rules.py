@@ -37,8 +37,8 @@ class BankRules(BkServiceModel, models.Model):
         max_digits=10, decimal_places=4, blank=False, default=bank_rules.RESERVE_FUND_OF_BAD_DEBT)
     payment_period_of_installment = models.PositiveIntegerField(
         blank=False, default=bank_rules.PAYMENT_PERIOD_OF_INSTALLMENT)
-    credit_investment_relationchip = models.DecimalField(
-        max_digits=10, decimal_places=4, blank=False, default=bank_rules.CREDIT_INVESTMENT_RELATIONCHIP)
+    credit_investment_relationship = models.DecimalField(
+        max_digits=10, decimal_places=4, blank=False, default=bank_rules.CREDIT_INVESTMENT_RELATIONSHIP)
 
     is_active = models.BooleanField(default=True)
 
@@ -59,5 +59,5 @@ class BankRules(BkServiceModel, models.Model):
         'expenditure_fund_percentage',
         'reserve_fund_of_bad_debt',
         'payment_period_of_installment',
-        'credit_investment_relationchip',
+        'credit_investment_relationship',
     ]
