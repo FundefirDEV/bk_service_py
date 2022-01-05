@@ -28,4 +28,4 @@ class BankRulesTestCase(TestCase):
         self.assertEqual(bankRules.maximum_shares_percentage_per_partner, 25.0)
         self.assertEqual(bankRules.maximum_active_credits_per_partner, 1)
         self.assertEqual(bankRules.payment_period_of_installment, 30)
-        self.assertEqual(bankRules.credit_investment_relationchip, 5.0)
+        self.assertEqual(bankRules.credit_investment_relationship, 5.0)

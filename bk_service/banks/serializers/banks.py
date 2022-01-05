@@ -67,7 +67,7 @@ class BankModelSerializer(serializers.ModelSerializer):
             expenditure_fund_percentage=bank_rules.EXPENDITURE_FUND_PERCENTAGE,
             reserve_fund_of_bad_debt=bank_rules.RESERVE_FUND_OF_BAD_DEBT,
             payment_period_of_installment=bank_rules.PAYMENT_PERIOD_OF_INSTALLMENT,
-            credit_investment_relationchip=bank_rules.CREDIT_INVESTMENT_RELATIONCHIP,
+            credit_investment_relationship=bank_rules.CREDIT_INVESTMENT_RELATIONSHIP,
             is_active=True,
         )
 
