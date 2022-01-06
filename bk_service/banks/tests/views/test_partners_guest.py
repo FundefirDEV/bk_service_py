@@ -25,7 +25,7 @@ from bk_service.utils.constants_errors import *
 from bk_service.utils.constants_errors import build_error_message, PARTNER_GUEST_NOT_EXIST
 
 
-import pdb
+# import pdb
 # pdb.set_trace()
 
 INVITE_PARTNER_GUEST_URL = '/banks/invite-partner-guest/'

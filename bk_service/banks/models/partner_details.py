@@ -17,9 +17,11 @@ class PartnerDetail(BkServiceModel, models.Model):
     active_credit = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
     shares = models.PositiveIntegerField(blank=False, default=0,)
 
-    document_number = models.CharField(max_length=30, blank=True, unique=True)
+    document_number = models.CharField(max_length=30, blank=True,)
     profession = models.CharField(max_length=150, blank=True)
     scholarship = models.CharField(max_length=30, blank=False, choices=Scholarship.choices, default=Scholarship.noData)
-    birth_date = models.DateTimeField()
+    birth_date = models.DateTimeField(
+        null=True,
+    )
 
     REQUIRED_FIELDS = ['earnings', 'active_credit', 'shares', 'partner']

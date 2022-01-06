@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 # Serializers
 from bk_service.banks.serializers import BankModelSerializer, CreateBankSerializer
-import pdb
+# import pdb
 
 
 class BankCreationAPIView(APIView):

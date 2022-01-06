@@ -380,11 +380,17 @@ ID_SCHEDULE_INSTALMENT_REQUIRED = Errors(
 ID_SCHEDULE_INSTALMENT_INVALID = Errors(
     status_code=status.HTTP_400_BAD_REQUEST,
     error_code=60,
-    error_mensage='The id schedule instalmen is invalid.'
+    error_mensage='The id schedule instalment is invalid.'
 )
 
 ID_SCHEDULE_INSTALMENT_NOT_EXIST = Errors(
     status_code=status.HTTP_400_BAD_REQUEST,
     error_code=61,
-    error_mensage='This id schedule instalmen no exist.'
+    error_mensage='This id schedule instalment no exist.'
+)
+
+MAXIMUN_NUMBER_OF_SHARES = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=62,
+    error_mensage='Maximun number of shares exceeded'
 )

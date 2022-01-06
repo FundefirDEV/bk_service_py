@@ -15,12 +15,11 @@ class BkCoreSDKValidations():
         self.partner = partner
         self.bank = partner.bank
 
-    # quantity = partners shares + requested shares
-    def maximun_number_of_shares(self, quantity):
+    # quantity = requested shares
+    def maximun_number_of_shares(self, requested_shares_quantity):
 
-        if quantity <= 0:
-            raise Exception('error')
-        # CustomValidation(error=QUANTITY_INVALID)
+        if requested_shares_quantity <= 0:
+            raise CustomValidation(error=QUANTITY_INVALID)
 
         count_metting = len(Meeting.objects.filter(bank=self.bank))
 
@@ -29,6 +28,9 @@ class BkCoreSDKValidations():
             bank_rules = BankRules.objects.get(bank=self.bank, is_active=True)
             maximum_shares_percentage = bank_rules.maximum_shares_percentage_per_partner
             total_shares = self.bank.shares
+            partner_share_quantity = self.partner.partner_detail().shares
+
+            total_shares_quantity = partner_share_quantity + requested_shares_quantity
 
             bk_core = BkCore()
 
@@ -37,5 +39,5 @@ class BkCoreSDKValidations():
                 maximum_shares_percentage,
             )
 
-            if quantity > maximun_number_of_shares:
+            if total_shares_quantity > maximun_number_of_shares:
                 raise CustomValidation(error=MAXIMUN_NUMBER_OF_SHARES)

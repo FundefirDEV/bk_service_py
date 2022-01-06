@@ -58,7 +58,7 @@ class UserSingUpAPIView(APIView):
         if partner is not None:
             res['partner_id'] = partner.id
 
-        # import pdb
+        # # import pdb
         # pdb.set_trace()
 
         return Response(res)

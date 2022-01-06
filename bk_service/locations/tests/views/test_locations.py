@@ -17,7 +17,7 @@ from bk_service.locations.models import *
 
 import json
 
-import pdb
+# import pdb
 
 URL = '/locations/location/'
 

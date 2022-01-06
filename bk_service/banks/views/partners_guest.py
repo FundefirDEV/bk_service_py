@@ -14,7 +14,7 @@ from bk_service.banks.serializers.partners_guest import PartnersGuestSerializer
 from bk_service.utils.exceptions_errors import CustomValidation
 from bk_service.utils.constants_errors import PARTNER_GUEST_NOT_EXIST
 
-import pdb
+# import pdb
 
 
 class DeletePartnerGuestAPIView(APIView):

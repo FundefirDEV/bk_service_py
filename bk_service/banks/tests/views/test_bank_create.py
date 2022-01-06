@@ -19,7 +19,7 @@ from bk_service.banks.models.banks import Bank
 from bk_service.banks.models.bank_rules import BankRules
 
 
-import pdb
+# import pdb
 
 URL = '/banks/bank/'
 

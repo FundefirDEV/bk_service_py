@@ -4,14 +4,15 @@
 from django.test import TestCase
 from bk_service.banks.models.meetings import Meeting
 # Utils
-from bk_service.banks.tests.utils.setup import create_meeting
+from bk_service.banks.tests.utils.setup import create_meeting, create_bank_rules
 
 
 class MeetingTestCase(TestCase):
     """ Meeting test class """
 
     def test_meeting_success(self):
-        meeting_created = create_meeting()
+        bank = create_bank_rules()
+        meeting_created = create_meeting(bank=bank)
         meeting = Meeting.objects.get(id=meeting_created.id)
 
         self.assertEqual(meeting.bank, meeting_created.bank)

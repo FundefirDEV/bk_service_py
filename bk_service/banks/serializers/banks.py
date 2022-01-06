@@ -19,7 +19,7 @@ from bk_service.utils.constants_errors import *
 from bk_service.utils.enums.banks import PartnerType
 from bk_service.utils.bank_rules_constants import BankRulesConstants
 
-import pdb
+# import pdb
 
 
 class BankModelSerializer(serializers.ModelSerializer):

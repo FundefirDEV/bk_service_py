@@ -6,7 +6,7 @@ from bk_service.banks.models import *
 from bk_service.requests.tests.utils.setup import *
 from bk_service.locations.tests.utils.setup import create_locations
 
-# import pdb
+# # import pdb
 # pdb.set_trace()
 
 
@@ -62,6 +62,7 @@ def create_partner(phone_number=PHONE_TEST):
     bank = create_bank_rules()
     user = create_user(city=bank.city, phone_number=phone_number)
     partner = Partner.objects.create(bank=bank, user=user, phone_number=user.phone_number)
+    partner_detail = PartnerDetail.objects.create(partner=partner)
     return partner
 
 
@@ -80,12 +81,6 @@ def invite_partner(
     )
 
     return partner_guest
-
-
-def create_partner_detail():
-    partner = create_partner()
-    partner_detail = PartnerDetail.objects.create(partner=partner, birth_date=date.today())
-    return partner_detail
 
 
 def create_share():
@@ -119,8 +114,8 @@ def create_payment_schedules():
     return payment_schedule
 
 
-def create_meeting():
-    bank = create_bank()
+def create_meeting(bank):
+    # bank = create_bank()
     meeting = Meeting.objects.create(bank=bank, date_meeting=date.today())
     return meeting
 

@@ -102,7 +102,7 @@ class SingUpFailAPITestCase(APITestCase):
         body = request.data
         status_code = request.status_code
 
-        # import pdb
+        # # import pdb
         # pdb.set_trace()
 
         self.assertEqual(status_code, status.HTTP_400_BAD_REQUEST)
@@ -122,7 +122,7 @@ class SingUpFailAPITestCase(APITestCase):
         body = request.data
         status_code = request.status_code
 
-        # import pdb
+        # # import pdb
         # pdb.set_trace()
 
         self.assertEqual(status_code, status.HTTP_400_BAD_REQUEST)
@@ -152,7 +152,7 @@ class SingUpInvalidRequestAPITestCase(APITestCase):
         body = request.data
         status_code = request.status_code
 
-        # import pdb
+        # # import pdb
         # pdb.set_trace()
 
         self.assertEqual(status_code, status.HTTP_400_BAD_REQUEST)
@@ -193,7 +193,7 @@ class SingUpInvalidRequestAPITestCase(APITestCase):
         body = request.data
         status_code = request.status_code
 
-        # import pdb
+        # # import pdb
         # pdb.set_trace()
 
         self.assertEqual(status_code, status.HTTP_400_BAD_REQUEST)
