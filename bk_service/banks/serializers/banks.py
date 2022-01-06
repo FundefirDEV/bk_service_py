@@ -8,7 +8,7 @@ from rest_framework import serializers
 # Models
 from bk_service.banks.models import Bank, Partner
 from bk_service.banks.models.partners_guest import PartnerGuest
-from bk_service.banks.models.partners import Partner
+from bk_service.banks.models.partners import Partner, PartnerDetail
 from bk_service.banks.models.bank_rules import BankRules
 
 # Utils Errors
@@ -83,6 +83,9 @@ class BankModelSerializer(serializers.ModelSerializer):
             phone_region_code=user.phone_region_code,
             role=PartnerType.admin,
         )
+
+        partner_detail = PartnerDetail.objects.create(partner=partner_creator,)
+
         return partner_creator
 
     def insert_partners_guest(self, bank, partners):

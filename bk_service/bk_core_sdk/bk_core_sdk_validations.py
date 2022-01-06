@@ -16,7 +16,7 @@ class BkCoreSDKValidations():
         self.bank = partner.bank
 
     # quantity = requested shares
-    def maximun_number_of_shares(self, requested_shares_quantity):
+    def maximun_number_of_shares(self, requested_shares_quantity, bank_rules):
 
         if requested_shares_quantity <= 0:
             raise CustomValidation(error=QUANTITY_INVALID)
@@ -25,7 +25,6 @@ class BkCoreSDKValidations():
 
         if count_metting > 0:
 
-            bank_rules = BankRules.objects.get(bank=self.bank, is_active=True)
             maximum_shares_percentage = bank_rules.maximum_shares_percentage_per_partner
             total_shares = self.bank.shares
             partner_share_quantity = self.partner.partner_detail().shares
