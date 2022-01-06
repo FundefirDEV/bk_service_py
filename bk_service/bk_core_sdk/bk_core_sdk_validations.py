@@ -2,7 +2,7 @@ from bk_service.utils.exceptions_errors import CustomValidation
 from bk_service.utils.constants_errors import *
 
 # Models
-from bk_service.banks.models.meetings import Meetings
+from bk_service.banks.models.meetings import Meeting
 from bk_service.banks.models.bank_rules import BankRules
 
 # BkCore
@@ -19,9 +19,10 @@ class BkCoreSDKValidations():
     def maximun_number_of_shares(self, quantity):
 
         if quantity <= 0:
-            CustomValidation(error=QUANTITY_INVALID)
+            raise Exception('error')
+        # CustomValidation(error=QUANTITY_INVALID)
 
-        count_metting = len(Meetings.objects.filter(bank=self.bank))
+        count_metting = len(Meeting.objects.filter(bank=self.bank))
 
         if count_metting > 0:
 
@@ -37,4 +38,4 @@ class BkCoreSDKValidations():
             )
 
             if quantity > maximun_number_of_shares:
-                CustomValidation(error=MAXIMUN_NUMBER_OF_SHARES)
+                raise CustomValidation(error=MAXIMUN_NUMBER_OF_SHARES)
