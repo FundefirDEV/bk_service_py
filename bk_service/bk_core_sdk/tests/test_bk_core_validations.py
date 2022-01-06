@@ -7,7 +7,7 @@ from rest_framework.exceptions import APIException
 from django.test import TestCase
 
 # Models
-from bk_service.banks.models import Bank
+from bk_service.banks.models import Bank, BankRules
 
 # Bk core
 from bk_service.bk_core_sdk.bk_core_sdk_validations import BkCoreSDKValidations
@@ -28,20 +28,23 @@ class MaximunNumberOfSharesTest(TestCase):
 
     def setUp(self):
         self.partner = create_partner()
+        self.bank_rules = BankRules.objects.get(bank=self.partner.bank, is_active=True)
 
     def test_maximun_number_of_shares_cero_quantity(self):
         bk_validation = BkCoreSDKValidations(partner=self.partner)
 
         with pytest.raises(CustomValidation) as e_info:
 
-            bk_validation.maximun_number_of_shares(requested_shares_quantity=0)
+            bk_validation.maximun_number_of_shares(
+                requested_shares_quantity=0, bank_rules=self.bank_rules
+            )
 
         assert str(e_info.value.detail) == build_error_message(error=QUANTITY_INVALID)
 
     def test_maximun_number_of_shares_success(self):
         bk_validation = BkCoreSDKValidations(partner=self.partner)
 
-        bk_validation.maximun_number_of_shares(requested_shares_quantity=10)
+        bk_validation.maximun_number_of_shares(requested_shares_quantity=10, bank_rules=self.bank_rules)
 
     def test_maximun_number_of_shares_fail_with_meeting(self):
 
@@ -49,7 +52,7 @@ class MaximunNumberOfSharesTest(TestCase):
         bk_validation = BkCoreSDKValidations(partner=self.partner)
 
         with pytest.raises(CustomValidation) as e_info:
-            bk_validation.maximun_number_of_shares(requested_shares_quantity=1000)
+            bk_validation.maximun_number_of_shares(requested_shares_quantity=1000, bank_rules=self.bank_rules)
 
         assert str(e_info.value.detail) == build_error_message(error=MAXIMUN_NUMBER_OF_SHARES)
 
@@ -60,4 +63,4 @@ class MaximunNumberOfSharesTest(TestCase):
         self.partner.bank.shares = 200
         self.partner.bank.save()
 
-        bk_validation.maximun_number_of_shares(requested_shares_quantity=10)
+        bk_validation.maximun_number_of_shares(requested_shares_quantity=10, bank_rules=self.bank_rules)

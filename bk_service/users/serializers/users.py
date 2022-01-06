@@ -11,7 +11,7 @@ from rest_framework.validators import UniqueValidator
 # Models
 from bk_service.users.models import User
 from bk_service.locations.models import City
-from bk_service.banks.models import PartnerGuest, Partner
+from bk_service.banks.models import PartnerGuest, Partner, PartnerDetail
 
 # Serializers
 from bk_service.banks.serializers.partners import PartnerModelSerializer
@@ -162,6 +162,7 @@ class UserSignUpSerializer(serializers.ModelSerializer):
                 user=user,
                 role=PartnerType.partner
             )
+            PartnerDetail.objects.create(partner=partner,)
 
         return user
 

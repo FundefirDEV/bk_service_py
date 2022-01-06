@@ -17,4 +17,8 @@ class RequestsAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         validated_data = dict(serializer.validated_data)
 
-        return Response('manaos')
+        partner = request.user.get_partner()
+
+        serializer.create(partner=partner, quantity=int(validated_data['quantity']))
+
+        return Response('share request success !')
