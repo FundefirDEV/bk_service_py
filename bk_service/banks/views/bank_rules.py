@@ -4,9 +4,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from bk_service.banks.models.bank_rules import BankRules
 # Serializers
-# from bk_service.banks.serializers import BankModelSerializer,
+from bk_service.banks.models.bank_rules import BankRules
 
 
 class BankRule(APIView):
