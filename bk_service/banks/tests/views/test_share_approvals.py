@@ -16,6 +16,9 @@ from bk_service.banks.models import Bank, PartnerDetail, Share
 # Utils
 from bk_service.utils.enums.requests import ApprovalStatus
 
+# Utils Enums
+from bk_service.utils.enums.banks import PartnerType
+
 URL = '/banks/approvals/'
 
 
@@ -23,7 +26,7 @@ class ShareApprovalsAPITestCase(APITestCase):
     """ Share approvals test class """
 
     def setUp(self):
-        self.partner = create_partner()
+        self.partner = create_partner(role=PartnerType.admin)
         self.share_request = create_share_request(
             partner=self.partner, quantity=20, amount=200000
         )
@@ -101,6 +104,31 @@ class ShareApprovalsAPITestCase(APITestCase):
 
         self.assertEqual(request.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(body, {'detail': build_error_message(error=ID_REQUESTS_INVALID)})
+
+        partner_detail = PartnerDetail.objects.get(partner=self.partner)
+        share_request = ShareRequest.objects.get(partner=self.partner, bank=self.partner.bank)
+
+        self.assertEqual(partner_detail.shares, 0)
+        self.assertEqual(partner_detail.partner.bank.shares, 0)
+        self.assertEqual(partner_detail.partner.bank.cash_balance, 0.0)
+
+    def test_share_approvals_fail_partner_not_admin(self):
+        """ Share approvals approve fail without share request """
+
+        self.partner.role = PartnerType.partner
+        self.partner.save()
+
+        request_body = {
+            'type_request': 'share',
+            'request_id': 1,
+            'approval_status': 'approved'
+        }
+
+        request = post_with_token(URL=URL, user=self.partner.user, body=request_body)
+        body = request.data
+
+        self.assertEqual(request.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(body, {'detail': build_error_message(error=PARTNER_IS_NOT_ADMIN)})
 
         partner_detail = PartnerDetail.objects.get(partner=self.partner)
         share_request = ShareRequest.objects.get(partner=self.partner, bank=self.partner.bank)

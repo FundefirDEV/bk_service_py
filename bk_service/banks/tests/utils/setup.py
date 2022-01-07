@@ -1,10 +1,17 @@
-#  Django
 
+# Datetime
 from datetime import date
+
+# Models
 from bk_service.users.models.users import *
 from bk_service.banks.models import *
+
+# Utils SetUp
 from bk_service.requests.tests.utils.setup import *
 from bk_service.locations.tests.utils.setup import create_locations
+
+# Utils Enums
+from bk_service.utils.enums.banks import PartnerType
 
 # # import pdb
 # pdb.set_trace()
@@ -58,10 +65,15 @@ def create_user(
     return user
 
 
-def create_partner(phone_number=PHONE_TEST):
+def create_partner(phone_number=PHONE_TEST, role=PartnerType.partner):
     bank = create_bank_rules()
     user = create_user(city=bank.city, phone_number=phone_number)
-    partner = Partner.objects.create(bank=bank, user=user, phone_number=user.phone_number)
+    partner = Partner.objects.create(
+        bank=bank,
+        user=user,
+        phone_number=user.phone_number,
+        role=role
+    )
     partner_detail = PartnerDetail.objects.create(partner=partner)
     return partner
 

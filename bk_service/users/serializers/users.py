@@ -21,7 +21,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 # Utils
 from bk_service.utils.enums.banks import PartnerType
-from bk_service.utils.exceptions_errors import CustomValidation
+from bk_service.utils.exceptions_errors import CustomException
 from bk_service.utils.constants_errors import *
 
 
@@ -173,11 +173,11 @@ class UserSignUpSerializer(serializers.ModelSerializer):
         password_confirmation = data['password_confirmation']
 
         if password != password_confirmation:
-            raise CustomValidation(error=PASSWORD_CONFIRMATION)
+            raise CustomException(error=PASSWORD_CONFIRMATION)
         try:
             password_validation.validate_password(password)
         except:
-            raise CustomValidation(error=PASSWORD_TOO_COMMON)
+            raise CustomException(error=PASSWORD_TOO_COMMON)
 
         return data
 

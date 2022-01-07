@@ -11,7 +11,7 @@ from bk_service.banks.models.partners_guest import PartnerGuest
 from bk_service.banks.serializers.partners_guest import PartnersGuestSerializer
 
 # Utils
-from bk_service.utils.exceptions_errors import CustomValidation
+from bk_service.utils.exceptions_errors import CustomException
 from bk_service.utils.constants_errors import PARTNER_GUEST_NOT_EXIST
 
 # import pdb
@@ -27,7 +27,7 @@ class DeletePartnerGuestAPIView(APIView):
             partner_guest.delete()
             return Response('partner guest was deleted')
         except:
-            raise CustomValidation(error=PARTNER_GUEST_NOT_EXIST)
+            raise CustomException(error=PARTNER_GUEST_NOT_EXIST)
 
 
 class InvitePartnerGuestAPIView(APIView):

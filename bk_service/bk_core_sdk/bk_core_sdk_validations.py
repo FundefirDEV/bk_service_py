@@ -1,4 +1,6 @@
-from bk_service.utils.exceptions_errors import CustomValidation
+
+# Errors
+from bk_service.utils.exceptions_errors import CustomException
 from bk_service.utils.constants_errors import *
 
 # Models
@@ -22,7 +24,7 @@ class BkCoreSDKValidations():
     def maximun_number_of_shares(self, requested_shares_quantity, bank_rules):
 
         if requested_shares_quantity <= 0:
-            raise CustomValidation(error=QUANTITY_INVALID)
+            raise CustomException(error=QUANTITY_INVALID)
 
         count_metting = len(Meeting.objects.filter(bank=self.bank))
 
@@ -42,7 +44,7 @@ class BkCoreSDKValidations():
             )
 
             if total_shares_quantity > maximun_number_of_shares:
-                raise CustomValidation(error=MAXIMUN_NUMBER_OF_SHARES)
+                raise CustomException(error=MAXIMUN_NUMBER_OF_SHARES)
 
     def validate_share_requests(self, share_requests_id):
 
@@ -53,4 +55,4 @@ class BkCoreSDKValidations():
             )
             return share_request
         except:
-            raise CustomValidation(error=ID_REQUESTS_INVALID)
+            raise CustomException(error=ID_REQUESTS_INVALID)

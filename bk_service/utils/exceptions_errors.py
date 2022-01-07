@@ -6,7 +6,7 @@ from rest_framework import status
 from bk_service.utils.constants_errors import Errors, DEFAULD, build_error_message
 
 
-class CustomValidation(APIException):
+class CustomException(APIException):
     def __init__(self, error=DEFAULD):
         self.status_code = error.status_code
         self.error_code = error.error_code

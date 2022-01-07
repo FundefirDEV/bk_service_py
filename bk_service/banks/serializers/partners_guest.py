@@ -13,7 +13,7 @@ from bk_service.banks.models.partners import Partner
 # Utils Errors
 from bk_service.utils.constants_errors import build_error_message
 from bk_service.utils.constants_errors import *
-from bk_service.utils.exceptions_errors import CustomValidation
+from bk_service.utils.exceptions_errors import CustomException
 
 
 class PartnersGuestSerializer(serializers.ModelSerializer):

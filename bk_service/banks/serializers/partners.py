@@ -9,7 +9,7 @@ from rest_framework.validators import UniqueValidator
 # Models
 from bk_service.banks.models import Partner, PartnerGuest
 
-from bk_service.utils.exceptions_errors import CustomValidation
+from bk_service.utils.exceptions_errors import CustomException
 from bk_service.utils.constants_errors import *
 
 

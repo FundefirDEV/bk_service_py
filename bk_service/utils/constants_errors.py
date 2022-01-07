@@ -424,3 +424,9 @@ APPROVALS_STATUS_INVALID = Errors(
     error_code=67,
     error_mensage='The approvals status is invalid.'
 )
+
+PARTNER_IS_NOT_ADMIN = Errors(
+    status_code=status.HTTP_401_UNAUTHORIZED,
+    error_code=68,
+    error_mensage='This partner is not admin.'
+)

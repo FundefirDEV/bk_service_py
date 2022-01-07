@@ -6,6 +6,9 @@ from bk_service.banks.models.partners import Partner
 # Utils
 from bk_service.banks.tests.utils.setup import create_partner
 
+# Utils Enums
+from bk_service.utils.enums.banks import PartnerType
+
 
 class PartnerTestCase(TestCase):
     """ Partner test class """
@@ -18,4 +21,4 @@ class PartnerTestCase(TestCase):
         self.assertEqual(partner.bank.name, 'new_bank')
         self.assertEqual(partner.is_creator, False)
         self.assertEqual(partner.is_active, True)
-        self.assertEqual(partner.role, '')
+        self.assertEqual(partner.role, PartnerType.partner)
