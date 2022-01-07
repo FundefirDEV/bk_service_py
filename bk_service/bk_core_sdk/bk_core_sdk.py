@@ -39,13 +39,13 @@ class BkCoreSDK():
         )
 
         # Update partner detail
-        partner_detail = self.partner.partner_detail()
-        partner_detail.shares += share_request.quantity
-        partner_detail.save()
+        # partner_detail = self.partner.partner_detail()
+        # partner_detail.shares += share_request.quantity
+        # partner_detail.save()
 
-        # Update bank
-        self.partner.bank.shares += share_request.quantity
-        self.partner.bank.cash_balance += share_request.amount
+        # # Update bank
+        # self.partner.bank.shares += share_request.quantity
+        # self.partner.bank.cash_balance += share_request.amount
 
         self.partner.bank.save()
 

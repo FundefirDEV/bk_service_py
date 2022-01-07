@@ -37,12 +37,7 @@ class ShareRequestsAPITestCase(APITestCase):
         self.assertEqual(request.status_code, status.HTTP_200_OK)
         self.assertEqual(body, 'share request success !')
 
-        partner_detail = PartnerDetail.objects.get(partner=self.partner)
         share_request = ShareRequest.objects.get(partner=self.partner, bank=self.partner.bank)
-
-        self.assertEqual(partner_detail.shares, 20)
-        self.assertEqual(partner_detail.partner.bank.shares, 20)
-        self.assertEqual(partner_detail.partner.bank.cash_balance, 200000.0)
         self.assertEqual(share_request.quantity, 20)
 
     def test_share_request_success_with_meeting(self):
@@ -63,13 +58,8 @@ class ShareRequestsAPITestCase(APITestCase):
 
         self.assertEqual(request.status_code, status.HTTP_200_OK)
         self.assertEqual(body, 'share request success !')
-
-        partner_detail = PartnerDetail.objects.get(partner=self.partner)
         share_request = ShareRequest.objects.get(partner=self.partner, bank=self.partner.bank)
 
-        self.assertEqual(partner_detail.shares, 20)
-        self.assertEqual(partner_detail.partner.bank.shares, 220)
-        self.assertEqual(partner_detail.partner.bank.cash_balance, 2200000.0)
         self.assertEqual(share_request.quantity, 20)
 
     def test_share_request_fail_exceed_maximun_quantity(self):
