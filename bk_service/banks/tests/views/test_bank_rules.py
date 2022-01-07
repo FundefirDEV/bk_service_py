@@ -3,7 +3,6 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework.exceptions import ErrorDetail
 
-
 # Utils commons
 from bk_service.users.tests.utils.commons import *
 from bk_service.locations.tests.utils.setup import create_locations
@@ -18,8 +17,8 @@ from bk_service.utils.tests.test_security import security_test_get
 URL = '/banks/bank-rules/'
 
 
-class BankSuccessAPITestCase(APITestCase):
-    """ Bank success test class """
+class BankRulesAPITestCase(APITestCase):
+    """ GET BankRules test class """
 
     def setUp(self):
         security_test_get(self=self, URL=URL)

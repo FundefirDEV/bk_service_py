@@ -11,9 +11,10 @@ from bk_service.banks.views import (
     DeletePartnerGuestAPIView,
     VerifyMultiplePhones,
     InvitePartnerGuestAPIView,
-    BankRule,
-    BankDetail,
-    ApprovalsAPIView
+    BankRuleApiView,
+    BankDetailAPIView,
+    ApprovalsAPIView,
+    PartnerAPIView
 )
 
 urlpatterns = [
@@ -32,8 +33,10 @@ urlpatterns = [
          InvitePartnerGuestAPIView.as_view(),
          name='invite_partner_guest_view'),
 
-    path('banks/bank-rules/', BankRule.as_view(), name="bank-rules"),
-    path('banks/bank-detail/', BankDetail.as_view(), name="bank-details"),
+    path('banks/bank-rules/', BankRuleApiView.as_view(), name="bank-rules"),
+    path('banks/bank-detail/', BankDetailAPIView.as_view(), name="bank-details"),
+    path('banks/partners/', PartnerAPIView.as_view(), name="bank-partners"),
+
 
     path('banks/approvals/', ApprovalsAPIView.as_view(), name="approvals")
 

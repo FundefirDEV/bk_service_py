@@ -14,28 +14,20 @@ from bk_service.banks.tests.utils.setup import *
 # test-utils
 from bk_service.utils.tests.test_security import security_test_get
 
-URL = '/banks/bank-detail/'
+URL = '/banks/partners/'
 
 
-class BankDetailAPITestCase(APITestCase):
-    """ GET BankDetail test class """
+class PartnersAPITestCase(APITestCase):
+    """ GET Partners test class """
 
     def setUp(self):
         security_test_get(self=self, URL=URL)
         self.partner = create_partner()
 
-    def test_bank_rules_success(self):
-        """ BankDetail success """
+    def test_partners_success(self):
+        """ Partners success """
 
-        response = {"rules": {"share_value": 10000,
-                              "maximum_shares_percentage_per_partner": 0},
-                    "group": {"cash_balance": 0,
-                              "active_credits": 0,
-                              "shares": 0},
-                    "partner": {"earnings": 0,
-                                "active_credits": 0,
-                                "shares": 0},
-                    }
+        response = [{'id': self.partner.id, 'phone': self.partner.phone_number, 'is_active': True, 'role': 'partner'}]
 
         request = get_with_token(URL=URL, user=self.partner.user)
         body = request.data

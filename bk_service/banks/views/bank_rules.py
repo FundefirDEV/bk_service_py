@@ -3,12 +3,11 @@
 # Django REST Framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
-# Serializers
+# Models
 from bk_service.banks.models.bank_rules import BankRules
 
 
-class BankRule(APIView):
+class BankRuleApiView(APIView):
     def get(self, request, *args, **kwargs):
 
         bank = request.user.get_partner().bank

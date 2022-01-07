@@ -17,7 +17,7 @@ from bk_service.banks.models.partner_details import PartnerDetail
 from bk_service.bk_core_sdk.bk_core import BkCore
 
 
-class BankDetail(APIView):
+class BankDetailAPIView(APIView):
     def get(self, request, *args, **kwargs):
 
         partner = request.user.get_partner()
