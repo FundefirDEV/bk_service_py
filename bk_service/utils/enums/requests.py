@@ -5,7 +5,7 @@ from django.db import models
 class TypeRequest(models.TextChoices):
     share = "share"
     credit = "credit"
-    installmentPayment = "installmentPayment"
+    installment_payment = "installment_payment"
 
 
 class ApprovalStatus(models.TextChoices):
@@ -15,7 +15,7 @@ class ApprovalStatus(models.TextChoices):
 
 
 class CreditPayType(models.TextChoices):
-    advanceInstallments = "advanceInstallments"
+    advance = "advance"
     installments = "installments"
 
 

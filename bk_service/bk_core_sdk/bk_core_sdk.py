@@ -2,7 +2,7 @@
 from .bk_core_sdk_validations import BkCoreSDKValidations
 
 # Models
-from bk_service.banks.models import BankRules
+from bk_service.banks.models import BankRules, Share
 from bk_service.requests.models import *
 
 # Utils
@@ -38,15 +38,46 @@ class BkCoreSDK():
             approval_status=ApprovalStatus.pending
         )
 
+        return share_request
+
+    def approve_shares_request(self, share_requests_id,):
+
+        # Validate share requests
+        share_request = self.bk_core_validation.validate_share_requests(
+            share_requests_id=share_requests_id
+        )
+
+        share_request.approval_status = ApprovalStatus.approved
+        share_request.save()
+
+        share = Share.objects.create(
+            bank=self.bank,
+            partner=self.partner,
+            share_request=share_request,
+            quantity=share_request.quantity,
+            amount=share_request.amount,
+        )
+
         # Update partner detail
-        # partner_detail = self.partner.partner_detail()
-        # partner_detail.shares += share_request.quantity
-        # partner_detail.save()
+        partner_detail = self.partner.partner_detail()
+        partner_detail.shares += share.quantity
+        partner_detail.save()
 
-        # # Update bank
-        # self.partner.bank.shares += share_request.quantity
-        # self.partner.bank.cash_balance += share_request.amount
-
+        # Update bank
+        self.partner.bank.shares += share.quantity
+        self.partner.bank.cash_balance += share.amount
         self.partner.bank.save()
+
+        return share
+
+    def reject_shares_request(self, share_requests_id,):
+
+        # Validate share requests
+        share_request = self.bk_core_validation.validate_share_requests(
+            share_requests_id=share_requests_id
+        )
+
+        share_request.approval_status = ApprovalStatus.rejected
+        share_request.save()
 
         return share_request

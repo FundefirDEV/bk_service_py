@@ -2,11 +2,14 @@ from bk_service.utils.exceptions_errors import CustomValidation
 from bk_service.utils.constants_errors import *
 
 # Models
-from bk_service.banks.models.meetings import Meeting
-from bk_service.banks.models.bank_rules import BankRules
+from bk_service.banks.models import Meeting, BankRules
+from bk_service.requests.models import ShareRequest
 
 # BkCore
 from .bk_core import BkCore
+
+# Utils
+from bk_service.utils.enums.requests import ApprovalStatus
 
 
 class BkCoreSDKValidations():
@@ -40,3 +43,14 @@ class BkCoreSDKValidations():
 
             if total_shares_quantity > maximun_number_of_shares:
                 raise CustomValidation(error=MAXIMUN_NUMBER_OF_SHARES)
+
+    def validate_share_requests(self, share_requests_id):
+
+        try:
+            share_request = ShareRequest.objects.get(
+                pk=share_requests_id,
+                approval_status=ApprovalStatus.pending
+            )
+            return share_request
+        except:
+            raise CustomValidation(error=ID_REQUESTS_INVALID)

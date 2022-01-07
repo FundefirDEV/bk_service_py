@@ -1,11 +1,21 @@
+
+# Models
 from bk_service.requests.models import *
 
+# Utils
+from bk_service.utils.enums.requests import ApprovalStatus
 # # import pdb
 # pdb.set_trace()
 
 
-def create_share_request(partner, quantity=1, amount=10000):
-    shareRequest = ShareRequest.objects.create(partner=partner, bank=partner.bank, quantity=1, amount=10000)
+def create_share_request(partner, quantity=1, amount=10000, approval_status=ApprovalStatus.pending):
+    shareRequest = ShareRequest.objects.create(
+        partner=partner,
+        bank=partner.bank,
+        quantity=quantity,
+        amount=amount,
+        approval_status=approval_status,
+    )
     return shareRequest
 
 

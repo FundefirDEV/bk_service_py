@@ -7,7 +7,13 @@ from rest_framework import serializers
 from bk_service.utils.constants_errors import *
 
 # Utils
-from bk_service.utils.enums.requests import TypeRequest
+from bk_service.utils.enums.requests import (
+    TypeRequest,
+    CreditPayType,
+    CreditUse,
+    CreditUseDetail,
+)
+
 
 # Bk core
 from bk_service.bk_core_sdk import BkCoreSDK
@@ -42,23 +48,29 @@ class RequestsSerializer(serializers.Serializer):
             'does_not_exist': build_error_message(ID_CREDIT_NOT_EXIST),
         },
     )
-    credit_use = serializers.CharField(
+    credit_use = serializers.ChoiceField(
         required=False,
         error_messages={
             'invalid': build_error_message(CREDIT_USE_INVALID),
         },
+        choices=CreditUse.choices
+
     )
-    detail = serializers.CharField(
+    detail = serializers.ChoiceField(
         required=False,
         error_messages={
             'invalid': build_error_message(CREDIT_USE_INVALID),
         },
+        choices=CreditUseDetail.choices
+
     )
-    payment_type = serializers.CharField(
+    payment_type = serializers.ChoiceField(
         required=False,
         error_messages={
             'invalid': build_error_message(PAYMENT_TYPE_INVALID),
         },
+        choices=CreditPayType.choices
+
     )
     id_schedule_installment = serializers.CharField(
         required=False,

@@ -394,3 +394,33 @@ MAXIMUN_NUMBER_OF_SHARES = Errors(
     error_code=62,
     error_mensage='Maximun number of shares exceeded'
 )
+
+ID_REQUESTS_NOT_EXIST = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=63,
+    error_mensage='This id requests no exist.'
+)
+
+ID_REQUESTS_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=64,
+    error_mensage='The id requests is required.'
+)
+
+ID_REQUESTS_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=65,
+    error_mensage='The id requests is invalid.'
+)
+
+APPROVALS_STATUS_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=66,
+    error_mensage='The approvals status is required.'
+)
+
+APPROVALS_STATUS_INVALID = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=67,
+    error_mensage='The approvals status is invalid.'
+)

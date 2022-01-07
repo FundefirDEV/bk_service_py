@@ -7,6 +7,7 @@ from bk_service.requests.models.share_requests import ShareRequest
 # Utils
 from bk_service.banks.tests.utils.setup import create_partner
 from bk_service.requests.tests.utils.setup import create_share_request
+from bk_service.utils.enums.requests import ApprovalStatus
 
 
 class SharesRequestTestCase(TestCase):
@@ -19,3 +20,4 @@ class SharesRequestTestCase(TestCase):
         shareRequest = ShareRequest.objects.get(partner=partner)
         self.assertEqual(shareRequest.amount, 10000)
         self.assertEqual(shareRequest.quantity, 1)
+        self.assertEqual(shareRequest.approval_status, ApprovalStatus.pending)
