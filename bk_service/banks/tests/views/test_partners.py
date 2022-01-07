@@ -11,8 +11,10 @@ from bk_service.utils.tests.requests import get_with_token, post_with_token
 # Banks test Utils
 from bk_service.banks.tests.utils.setup import *
 
-# test-utils
+# Utils
+from bk_service.utils.enums.banks import PartnerType
 from bk_service.utils.tests.test_security import security_test_get
+
 
 URL = '/banks/partners/'
 
@@ -23,11 +25,13 @@ class PartnersAPITestCase(APITestCase):
     def setUp(self):
         security_test_get(self=self, URL=URL)
         self.partner = create_partner()
+        self.guest = invite_partner(bank=self.partner.bank)
 
     def test_partners_success(self):
         """ Partners success """
 
-        response = [{'id': self.partner.id, 'phone': self.partner.phone_number, 'is_active': True, 'role': 'partner'}]
+        response = [{'id': self.partner.id, 'phone': self.partner.phone_number, 'is_active': True, 'role': PartnerType.partner},
+                    {'id': self.guest.id, 'phone': self.guest.phone_number, 'is_active': False, 'role': PartnerType.guest}]
 
         request = get_with_token(URL=URL, user=self.partner.user)
         body = request.data

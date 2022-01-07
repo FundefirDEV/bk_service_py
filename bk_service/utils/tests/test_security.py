@@ -6,7 +6,7 @@ from rest_framework.test import APIClient
 
 
 def security_test_get(self, URL):
-    """ Verify 401 return of GET request"""
+    """ Verify GET Request response 401"""
     client = APIClient()
     request = client.get(URL, format='json')
     body = request.data
@@ -18,7 +18,7 @@ def security_test_get(self, URL):
 
 
 def security_test_post(self, URL):
-    """ Verify 401 return of POST request"""
+    """ Verify POST Request response 401"""
     client = APIClient()
     request = client.post(URL, format='json')
     body = request.data
