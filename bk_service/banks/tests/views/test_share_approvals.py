@@ -54,7 +54,6 @@ class ShareApprovalsAPITestCase(APITestCase):
         self.assertEqual(share.bank, self.partner.bank)
 
         partner_detail = PartnerDetail.objects.get(partner=self.partner)
-        share_request = ShareRequest.objects.get(partner=self.partner, bank=self.partner.bank)
 
         self.assertEqual(partner_detail.shares, 20)
         self.assertEqual(partner_detail.partner.bank.shares, 20)
