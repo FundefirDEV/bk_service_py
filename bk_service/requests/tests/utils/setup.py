@@ -3,7 +3,13 @@
 from bk_service.requests.models import *
 
 # Utils
-from bk_service.utils.enums.requests import ApprovalStatus
+from bk_service.utils.enums.requests import (
+    ApprovalStatus,
+    CreditPayType,
+    CreditUse,
+    CreditUseDetail
+)
+
 # # import pdb
 # pdb.set_trace()
 
@@ -19,9 +25,25 @@ def create_share_request(partner, quantity=1, amount=10000, approval_status=Appr
     return shareRequest
 
 
-def create_credit_request(partner, amount=100000, installments=1):
+def create_credit_request(
+        partner,
+        amount=100000,
+        installments=1,
+        payment_type=CreditPayType.installments,
+        approval_status=ApprovalStatus.pending,
+        credit_use=CreditUse.Consumption,
+        credit_use_detail=CreditUseDetail.Education,
+):
     credit_request = CreditRequest.objects.create(
-        partner=partner, bank=partner.bank, amount=amount, installments=installments)
+        partner=partner,
+        bank=partner.bank,
+        amount=amount,
+        installments=installments,
+        approval_status=approval_status,
+        credit_use=credit_use,
+        credit_use_detail=credit_use_detail,
+        payment_type=payment_type
+    )
     return credit_request
 
 

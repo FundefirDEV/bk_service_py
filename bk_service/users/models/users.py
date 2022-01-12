@@ -82,9 +82,9 @@ class User(BkServiceModel, AbstractUser):
     city = models.ForeignKey(
         City,
         on_delete=models.PROTECT,
-        blank=False,
+        null=True,
         error_messages={
-            'required': build_error_message(CITY_INVALID),
+            # 'required': build_error_message(CITY_INVALID),
             'invalid': build_error_message(CITY_REQUIRED),
             'does_not_exist': build_error_message(CITY_INVALID)
         })
@@ -112,4 +112,4 @@ class User(BkServiceModel, AbstractUser):
             return None
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone_number', 'phone_region_code', 'gender', 'city']
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone_number', 'phone_region_code', 'gender', ]

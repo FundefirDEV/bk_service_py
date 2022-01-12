@@ -35,12 +35,6 @@ def create_bank():
     return bank
 
 
-def create_bank_rules():
-    bank = create_bank()
-    bank_rules = BankRules.objects.create(bank=bank)
-    return bank
-
-
 def create_user(
     city,
     username=USERNAME_TEST,
@@ -66,7 +60,7 @@ def create_user(
 
 
 def create_partner(phone_number=PHONE_TEST, role=PartnerType.partner):
-    bank = create_bank_rules()
+    bank = create_bank()
     user = create_user(city=bank.city, phone_number=phone_number)
     partner = Partner.objects.create(
         bank=bank,
@@ -74,7 +68,6 @@ def create_partner(phone_number=PHONE_TEST, role=PartnerType.partner):
         phone_number=user.phone_number,
         role=role
     )
-    partner_detail = PartnerDetail.objects.create(partner=partner)
     return partner
 
 
@@ -127,7 +120,6 @@ def create_payment_schedules():
 
 
 def create_meeting(bank):
-    # bank = create_bank()
     meeting = Meeting.objects.create(bank=bank, date_meeting=date.today())
     return meeting
 

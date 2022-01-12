@@ -169,8 +169,6 @@ class SingUpInvalidRequestAPITestCase(APITestCase):
                     [ErrorDetail(string=build_error_message(PHONE_REQUIRED), code='required')],
                 'phone_region_code':
                     [ErrorDetail(string=build_error_message(PHONE_REGION_CODE_REQUIRED), code='required')],
-                'city':
-                    [ErrorDetail(string=build_error_message(CITY_REQUIRED), code='required')],
                 'password':
                     [ErrorDetail(string=build_error_message(PASSWORD_REQUIRED), code='required')],
                 'password_confirmation':

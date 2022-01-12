@@ -9,3 +9,6 @@ class BanksAppConfig(AppConfig):
     name = 'bk_service.banks'
     default_auto_field = 'django.db.models.AutoField'
     verbose_name = 'Banks'
+
+    def ready(self):
+        import bk_service.banks.signals
