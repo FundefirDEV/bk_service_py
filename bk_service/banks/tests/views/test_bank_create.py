@@ -13,6 +13,7 @@ from bk_service.utils.tests.requests import get_with_token, post_with_token
 
 # Banks test Utils
 from bk_service.banks.tests.utils.setup import *
+from bk_service.utils.tests.test_security import security_test_post
 
 # Models
 from bk_service.banks.models.banks import Bank
@@ -28,7 +29,7 @@ class BankSuccessAPITestCase(APITestCase):
     """ Bank success test class """
 
     def setUp(self):
-
+        security_test_post(self=self, URL=URL)
         city = create_locations()
         self.user = create_user(city)
         self.city_id = city.id

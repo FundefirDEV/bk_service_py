@@ -15,6 +15,9 @@ from bk_service.banks.tests.utils.setup import *
 # Models
 from bk_service.locations.models import *
 
+# test-utils
+from bk_service.utils.tests.test_security import security_test_get
+
 import json
 
 # import pdb
@@ -26,13 +29,8 @@ class BankSuccessAPITestCase(APITestCase):
     """ Locations success test class """
 
     def setUp(self):
+        security_test_get(self=self, URL=f'{URL}CO')
 
-        create_locations(
-            country_code='ARG',
-            city_name='CABA',
-            country_name='Argentina',
-            state_name='Buenos Aires'
-        )
         city = create_locations(city_name='Distrito Capital')
         self.user = create_user(city)
         self.city_id = city.id

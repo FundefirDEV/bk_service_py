@@ -14,6 +14,8 @@ from bk_service.requests.tests.utils.setup import *
 # Utils
 from bk_service.utils.enums.requests import ApprovalStatus, CreditPayType
 
+# test-utils
+from bk_service.utils.tests.test_security import security_test_get
 
 URL = '/banks/approvals/'
 
@@ -22,6 +24,8 @@ class GetApprovalsAPITestCase(APITestCase):
     """ GET approvals test class """
 
     def setUp(self):
+        security_test_get(self=self, URL=URL)
+
         self.partner = create_partner(role=PartnerType.admin)
         self.share_request = create_share_request(
             partner=self.partner, quantity=20, amount=200000
@@ -33,8 +37,13 @@ class GetApprovalsAPITestCase(APITestCase):
         )
 
         self.credit = create_credit(partner=self.partner, credit_request=self.credit_request)
+        self.schedule_installment = create_schedule_installment(self.credit)
+        self.payment_schedule_request = create_payment_schedule_request(
+            credit=self.credit,
+            schedule_installment=self.schedule_installment
+        )
 
-    def test_get_approvals_shares_credits_success(self):
+    def test_get_approvals_success(self):
         """ GET approvals approve requests success """
 
         request = get_with_token(URL=URL, user=self.partner.user,)
@@ -50,7 +59,7 @@ class GetApprovalsAPITestCase(APITestCase):
         self.assertEqual(cash_balance, 0.0)
         self.assertEqual(total_shares_quantity, 0)
         self.assertEqual(total_credit_amount, 0.0)
-        self.assertEqual(total_payment_request, 0.0)
+        self.assertEqual(total_payment_request, 10000.0)
 
         # Shares
         shares_request = body['shares_request'][0]
@@ -62,8 +71,16 @@ class GetApprovalsAPITestCase(APITestCase):
         self.assertEqual(shares_request_quantity, 20)
         self.assertEqual(share_partner_id, self.partner.id)
 
-        # import pdb
-        # pdb.set_trace()
+        # Payment
+        payment_schedule_request = body['payment_schedule_request'][0]
+        payment_schedule_request_amount = payment_schedule_request['amount']
+        payment_schedule_request_installment = payment_schedule_request['schedule_installment']
+
+        payment_schedule_request_partner_id = payment_schedule_request['partner']['id']
+
+        self.assertEqual(payment_schedule_request_amount, 10000.0)
+        self.assertEqual(payment_schedule_request_partner_id, self.partner.id)
+        self.assertEqual(payment_schedule_request_installment, self.schedule_installment.id)
 
         # Credit
         credit_request = body['credit_request'][0]
@@ -106,3 +123,14 @@ class GetApprovalsAPITestCase(APITestCase):
         self.assertEqual(partner_credit_request_credit_use_detail, CreditUseDetail.Education)
         self.assertEqual(partner_credit_request_payment_type, CreditPayType.installments)
         self.assertEqual(partner_credit_partner_id, self.partner.id)
+
+        # Partner Payment
+        partner_payment_schedule_request = body['partner_requests']['payment_schedule_request'][0]
+        partner_payment_schedule_request_amount = payment_schedule_request['amount']
+        partner_payment_schedule_request_installment = payment_schedule_request['schedule_installment']
+
+        partner_payment_schedule_request_partner_id = payment_schedule_request['partner']['id']
+
+        self.assertEqual(partner_payment_schedule_request_amount, 10000.0)
+        self.assertEqual(partner_payment_schedule_request_partner_id, self.partner.id)
+        self.assertEqual(partner_payment_schedule_request_installment, self.schedule_installment.id)
