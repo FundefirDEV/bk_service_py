@@ -29,7 +29,7 @@ class PartnerGuest(BkServiceModel, models.Model):
 
     phone_number = models.CharField(
         max_length=18,
-        blank=False,
+        null=False,
         unique=True,
         validators=[MinLengthValidator(4)],
         error_messages={
@@ -40,7 +40,7 @@ class PartnerGuest(BkServiceModel, models.Model):
     )
     name = models.CharField(
         max_length=150,
-        blank=False,
+        null=False,
         validators=[MinLengthValidator(2)],
         error_messages={
             'required': build_error_message(PARTNER_GUEST_NAME_REQUIRED),
@@ -53,7 +53,7 @@ class PartnerGuest(BkServiceModel, models.Model):
     )
     phone_region_code = models.CharField(
         max_length=4,
-        blank=False,
+        null=False,
         validators=[region_code_regex, MinLengthValidator(1)],
         unique=False,
         error_messages={
@@ -61,7 +61,7 @@ class PartnerGuest(BkServiceModel, models.Model):
         }
     )
 
-    is_active = models.BooleanField(default=False, blank=False)
+    is_active = models.BooleanField(default=False, null=False)
 
     def __str__(self):
         """ Return Partner guest name """

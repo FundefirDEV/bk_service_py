@@ -23,6 +23,10 @@ class CreditRequestTestCase(TestCase):
         partner = create_partner()
         create_credit_request(partner)
         creditRequest = CreditRequest.objects.get(partner=partner)
+
+        self.assertEqual(creditRequest.partner, partner)
+        self.assertEqual(creditRequest.bank, partner.bank)
+
         self.assertEqual(creditRequest.amount, 100000)
         self.assertEqual(creditRequest.installments, 1)
         self.assertEqual(creditRequest.credit_use_detail, CreditUseDetail.Education)

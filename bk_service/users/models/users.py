@@ -24,7 +24,7 @@ class User(BkServiceModel, AbstractUser):
     email = models.EmailField(
         'email address',
         unique=True,
-        blank=False,
+        null=False,
         error_messages={
             'required': build_error_message(EMAIL_REQUIRED),
             'unique': build_error_message(EMAIL_EXIST),
@@ -35,7 +35,7 @@ class User(BkServiceModel, AbstractUser):
     username = models.CharField(
         max_length=150,
         unique=True,
-        blank=False,
+        null=False,
         error_messages={
             'required': build_error_message(USERNAME_REQUIRED),
             'unique': build_error_message(USERNAME_EXIST),
@@ -47,7 +47,7 @@ class User(BkServiceModel, AbstractUser):
         max_length=18,
         validators=[
             MinLengthValidator(4)],
-        blank=False,
+        null=False,
         unique=True,
         error_messages={
             'required': build_error_message(PHONE_REQUIRED),
@@ -62,7 +62,7 @@ class User(BkServiceModel, AbstractUser):
     )
     phone_region_code = models.CharField(
         max_length=4,
-        blank=False,
+        null=False,
         validators=[region_code_regex, MinLengthValidator(1)],
         error_messages={
             'required': build_error_message(PHONE_REGION_CODE_REQUIRED),
@@ -71,7 +71,7 @@ class User(BkServiceModel, AbstractUser):
 
     gender = models.CharField(
         max_length=1,
-        blank=False,
+        null=False,
         choices=Gender.choices,
         error_messages={
             'required': build_error_message(GENDER_INVALID),

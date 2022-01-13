@@ -16,7 +16,7 @@ class Bank(BkServiceModel, models.Model):
     """ Bank model """
     name = models.CharField(
         max_length=30,
-        blank=False,
+        null=False,
         unique=True,
         error_messages={
             'required': build_error_message(BANK_NAME_REQUIRED),
@@ -33,11 +33,11 @@ class Bank(BkServiceModel, models.Model):
             'does_not_exist': build_error_message(CITY_INVALID)
         }
     )
-    cash_balance = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
-    active_credits = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
-    shares = models.PositiveIntegerField(blank=False, default=0)
-    expense_fund = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
-    bad_debt_reserve = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
+    cash_balance = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    active_credits = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    shares = models.PositiveIntegerField(null=False, default=0)
+    expense_fund = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    bad_debt_reserve = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
     # Need one to one relation with bank
 

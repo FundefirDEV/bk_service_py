@@ -7,8 +7,8 @@ from django.db import models
 class Country(models.Model):
     """ Country model """
 
-    name = models.CharField(max_length=18, blank=False, unique=True)
-    code = models.CharField(max_length=3, blank=False, unique=True)
+    name = models.CharField(max_length=18, null=False, unique=True)
+    code = models.CharField(max_length=3, null=False, unique=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

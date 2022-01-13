@@ -20,5 +20,5 @@ class Share(BkServiceModel, models.Model):
     partner = models.ForeignKey(Partner, on_delete=models.PROTECT)
     share_request = models.ForeignKey(ShareRequest, on_delete=models.PROTECT)
 
-    quantity = models.PositiveIntegerField(blank=False, default=0)
-    amount = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
+    quantity = models.PositiveIntegerField(null=False, default=0)
+    amount = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)

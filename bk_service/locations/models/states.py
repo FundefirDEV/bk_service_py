@@ -11,7 +11,7 @@ class State(models.Model):
     """ State model """
 
     country = models.ForeignKey(Country, on_delete=models.PROTECT, related_name='states')
-    name = models.CharField(max_length=18, blank=False, unique=True)
+    name = models.CharField(max_length=18, null=False,)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

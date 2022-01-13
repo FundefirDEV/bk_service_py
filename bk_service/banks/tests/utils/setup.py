@@ -29,9 +29,13 @@ PARTNER_GUEST_NAME_TEST = 'new_partner_guest'
 PARTNER_GUEST_PHONE_TEST = '31300000001'
 
 
-def create_bank():
-    city = create_locations()
+def create_bank(city=None):
+
+    if city == None:
+        city = create_locations()
+
     bank = Bank.objects.create(name=BANK_NAME_TEST, city=city)
+
     return bank
 
 
@@ -59,14 +63,23 @@ def create_user(
     return user
 
 
-def create_partner(phone_number=PHONE_TEST, role=PartnerType.partner):
+def create_partner(
+        phone_number=PHONE_TEST,
+        phone_region_code=PHONE_REGION_CODE_TEST,
+        role=PartnerType.partner):
+
     bank = create_bank()
-    user = create_user(city=bank.city, phone_number=phone_number)
+    user = create_user(
+        city=bank.city,
+        phone_number=phone_number,
+        phone_region_code=phone_region_code
+    )
     partner = Partner.objects.create(
         bank=bank,
         user=user,
         phone_number=user.phone_number,
-        role=role
+        role=role,
+        phone_region_code=user.phone_region_code
     )
     return partner
 
@@ -96,39 +109,68 @@ def create_share():
     return share
 
 
-def create_credit():
-    partner = create_partner()
-    credit_request = create_credit_request(partner)
-    credit = Credit.objects.create(bank=partner.bank, partner=partner,
-                                   credit_request=credit_request, installments=credit_request.installments, amount=credit_request.amount)
+def create_credit(partner=None, credit_request=None):
+
+    if partner == None:
+        partner = create_partner()
+
+    if credit_request == None:
+        credit_request = create_credit_request(partner)
+
+    credit = Credit.objects.create(
+        bank=partner.bank,
+        partner=partner,
+        credit_request=credit_request,
+        installments=credit_request.installments,
+        amount=credit_request.amount,
+        payment_type=CreditPayType.installments
+    )
+
     return credit
 
 
-def create_schedule_installment():
-    credit = create_credit()
+def create_schedule_installment(credit=None):
+
+    if credit == None:
+        credit = create_credit()
+
     schedule_installment = ScheduleInstallment.objects.create(
-        credit=credit, capital_installment=90000, ordinary_interest_percentage=1, interest_calculated=1000, total_pay_installment=0, payment_status='', payment_date=date.today())
+        credit=credit,
+        capital_installment=90000,
+        ordinary_interest_percentage=1,
+        interest_calculated=1000,
+        total_pay_installment=0,
+        payment_status=PaymentStatus.pending,
+    )
     return schedule_installment
 
 
-def create_payment_schedules():
-    schedule_installment = create_schedule_installment()
+def create_payment_schedules(credit=None):
+    schedule_installment = create_schedule_installment(credit)
     payment_schedule_request = create_payment_schedule_request(schedule_installment.credit, schedule_installment)
-    payment_schedule = PaymentSchedule.objects.create(payment_schedule_request=payment_schedule_request, amount=payment_schedule_request.amount,
-                                                      partner=payment_schedule_request.partner, bank=payment_schedule_request.bank, date=date.today())
+    payment_schedule = PaymentSchedule.objects.create(
+        payment_schedule_request=payment_schedule_request,
+        amount=payment_schedule_request.amount,
+        partner=payment_schedule_request.partner,
+        bank=payment_schedule_request.bank,
+    )
     return payment_schedule
 
 
 def create_meeting(bank):
-    meeting = Meeting.objects.create(bank=bank, date_meeting=date.today())
+    meeting = Meeting.objects.create(bank=bank,)
     return meeting
 
 
 def create_earning_share():
     share = create_share()
-    meeting = Meeting.objects.create(bank=share.bank, date_meeting=date.today())
+    meeting = Meeting.objects.create(bank=share.bank,)
     earning_share = EarningShare.objects.create(
-        meeting=meeting, share=share, earning_by_share=10, total_earning_by_share=100, date_calculated=date.today())
+        meeting=meeting,
+        share=share,
+        earning_by_share=10,
+        total_earning_by_share=100,
+    )
     return earning_share
 
 

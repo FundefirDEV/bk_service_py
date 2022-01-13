@@ -18,6 +18,9 @@ class SharesRequestTestCase(TestCase):
         partner = create_partner()
         create_share_request(partner)
         shareRequest = ShareRequest.objects.get(partner=partner)
+        self.assertEqual(shareRequest.partner, partner)
+        self.assertEqual(shareRequest.bank, partner.bank)
+
         self.assertEqual(shareRequest.amount, 10000)
         self.assertEqual(shareRequest.quantity, 1)
         self.assertEqual(shareRequest.approval_status, ApprovalStatus.pending)

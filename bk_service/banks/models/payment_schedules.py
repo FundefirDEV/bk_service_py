@@ -17,7 +17,17 @@ class PaymentSchedule(BkServiceModel, models.Model):
     partner = models.ForeignKey(Partner, on_delete=models.PROTECT)
     payment_schedule_request = models.ForeignKey(PaymentScheduleRequest, on_delete=models.PROTECT)
 
-    amount = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
-    date = models.DateTimeField()
-    interest_paid = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
-    capital_paid = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
+    amount = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    # (Use create at)
+    # date = models.DateTimeField(null=False)
+    interest_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    capital_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+
+    REQUIRED_FIELDS = [
+        'bank',
+        'partner',
+        'payment_schedule_request',
+        'amount',
+        'interest_paid'
+        'capital_paid'
+    ]

@@ -32,6 +32,8 @@ class GetApprovalsAPITestCase(APITestCase):
             installments=3
         )
 
+        self.credit = create_credit(partner=self.partner, credit_request=self.credit_request)
+
     def test_get_approvals_shares_credits_success(self):
         """ GET approvals approve requests success """
 
