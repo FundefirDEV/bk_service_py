@@ -17,3 +17,4 @@ class SharesTestCase(TestCase):
         self.assertEqual(share.amount, 10000)
         self.assertEqual(share.quantity, 1)
         self.assertEqual(share.share_request.partner, share_created.partner)
+        self.assertEqual(share.share_request.bank, share_created.bank)

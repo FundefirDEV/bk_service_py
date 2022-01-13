@@ -14,7 +14,7 @@ from bk_service.locations.models import City
 from bk_service.banks.models import PartnerGuest, Partner, PartnerDetail
 
 # Serializers
-from bk_service.banks.serializers.partners import PartnerModelSerializer
+# from bk_service.banks.serializers.partners import PartnerModelSerializer
 
 # Simple JWT
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -91,7 +91,7 @@ class UserSignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'username', 'gender', 'first_name',
-                  'last_name', 'phone_number', 'phone_region_code', 'city', 'password', 'password_confirmation']
+                  'last_name', 'phone_number', 'phone_region_code', 'password', 'password_confirmation']
         extra_kwargs = {
             'email': {
                 "error_messages": {
@@ -132,13 +132,13 @@ class UserSignUpSerializer(serializers.ModelSerializer):
                     'invalid': build_error_message(PHONE_REGION_CODE_INVALID),
                 }
             },
-            'city': {
-                "error_messages": {
-                    'required': build_error_message(CITY_REQUIRED),
-                    'invalid': build_error_message(CITY_INVALID),
-                    'does_not_exist': build_error_message(CITY_INVALID)
-                }
-            },
+            # 'city': {
+            #     "error_messages": {
+            #         # 'required': build_error_message(CITY_REQUIRED),
+            #         'invalid': build_error_message(CITY_INVALID),
+            #         'does_not_exist': build_error_message(CITY_INVALID)
+            #     }
+            # },
             'gender': {
                 "error_messages": {
                     'required': build_error_message(GENDER_REQUIRED),
@@ -162,7 +162,6 @@ class UserSignUpSerializer(serializers.ModelSerializer):
                 user=user,
                 role=PartnerType.partner
             )
-            PartnerDetail.objects.create(partner=partner,)
 
         return user
 
@@ -200,7 +199,7 @@ class UserModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'email', 'username', 'gender', 'first_name',
-                  'last_name', 'phone_number', 'city', 'is_verified')
+                  'last_name', 'phone_number', 'city', 'is_verified', 'is_staff')
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -214,7 +213,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token_data['access_token'] = token_data.pop('access')
         token_data['refresh_token'] = token_data.pop('refresh')
 
-        data = {**token_data, **user_serializer.data}
+        partner = self.user.get_partner()
+        partner_data = {}
+
+        if partner is not None:
+            partner_data['partner_id'] = partner.id
+
+        data = {**token_data, **user_serializer.data, **partner_data}
 
         # # import pdb
         # pdb.set_trace()

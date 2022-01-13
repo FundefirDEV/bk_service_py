@@ -50,26 +50,12 @@ class BankModelSerializer(serializers.ModelSerializer):
 
         bank = Bank.objects.create(name=name, city=city)
 
+        # Set User City
+        user.city = city
+        user.save()
+
         partner_creator = self.insert_partner_creator(bank=bank, user=user)
         partners_guests = self.insert_partners_guest(bank=bank, partners=partners)
-
-        bank_rules = BankRulesConstants(country_code=user.city.state.country.code)
-
-        bank_rules = BankRules.objects.create(
-            bank=bank,
-            ordinary_interest=bank_rules.ORDINARY_INTEREST,
-            delay_interest=bank_rules.DELAY_INTEREST,
-            maximun_credit_installments=bank_rules.MAXIMUN_CREDIT_INSTALLMENTS,
-            maximun_credit_value=bank_rules.MAXIMUN_CREDIT_VALUE,
-            share_value=bank_rules.SHARE_VALUE,
-            maximum_shares_percentage_per_partner=bank_rules.MAXIMUM_SHARES_PERCENTAGE_PER_PARTNER,
-            maximum_active_credits_per_partner=bank_rules.MAXIMUM_ACTIVE_CREDITS_PER_PARTNER,
-            expenditure_fund_percentage=bank_rules.EXPENDITURE_FUND_PERCENTAGE,
-            reserve_fund_of_bad_debt=bank_rules.RESERVE_FUND_OF_BAD_DEBT,
-            payment_period_of_installment=bank_rules.PAYMENT_PERIOD_OF_INSTALLMENT,
-            credit_investment_relationship=bank_rules.CREDIT_INVESTMENT_RELATIONSHIP,
-            is_active=True,
-        )
 
         return bank
 
@@ -83,8 +69,6 @@ class BankModelSerializer(serializers.ModelSerializer):
             phone_region_code=user.phone_region_code,
             role=PartnerType.admin,
         )
-
-        partner_detail = PartnerDetail.objects.create(partner=partner_creator,)
 
         return partner_creator
 

@@ -4,14 +4,14 @@
 from django.test import TestCase
 from bk_service.banks.models.meetings import Meeting
 # Utils
-from bk_service.banks.tests.utils.setup import create_meeting, create_bank_rules
+from bk_service.banks.tests.utils.setup import create_meeting, create_bank
 
 
 class MeetingTestCase(TestCase):
     """ Meeting test class """
 
     def test_meeting_success(self):
-        bank = create_bank_rules()
+        bank = create_bank()
         meeting_created = create_meeting(bank=bank)
         meeting = Meeting.objects.get(id=meeting_created.id)
 

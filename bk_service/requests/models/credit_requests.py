@@ -13,7 +13,7 @@ from bk_service.utils.enums.requests import CreditUse, CreditUseDetail, CreditPa
 class CreditRequest(RequestModelBase, models.Model):
     """ Credit Request model"""
 
-    installments = models.PositiveIntegerField(blank=False, default=0)
-    credit_use = models.CharField(max_length=40, blank=False, choices=CreditUse.choices)
-    credit_use_detail = models.CharField(max_length=40, blank=False, choices=CreditUseDetail.choices)
-    payment_type = models.CharField(max_length=40, blank=False, choices=CreditPayType.choices)
+    installments = models.PositiveIntegerField(null=False, default=0)
+    credit_use = models.CharField(max_length=40, null=False, choices=CreditUse.choices)
+    credit_use_detail = models.CharField(max_length=40, null=False, choices=CreditUseDetail.choices)
+    payment_type = models.CharField(max_length=40, null=False, choices=CreditPayType.choices)

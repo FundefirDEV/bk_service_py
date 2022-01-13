@@ -23,7 +23,7 @@ class CityModelSerializer(serializers.ModelSerializer):
     """ City model serializers """
     class Meta:
         model = City
-        fields = ('name',)
+        fields = ('id', 'name',)
 
 
 class StateModelSerializer(serializers.ModelSerializer):
