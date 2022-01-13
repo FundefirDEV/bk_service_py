@@ -81,7 +81,7 @@ class BankModelSerializer(serializers.ModelSerializer):
                 name=partner['name'],
                 phone_number=partner['phone_number'],
                 phone_region_code=partner['phone_region_code'],
-                bank=bank
+                bank=bank,
             ))
 
         return PartnerGuest.objects.bulk_create(partner_guest_list)

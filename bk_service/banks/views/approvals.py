@@ -50,8 +50,8 @@ class ApprovalsAPIView(APIView):
     def get(self, request, *args, **kwargs):
 
         partner = request.user.get_partner()
-        if partner.role != PartnerType.admin:
-            raise CustomException(error=PARTNER_IS_NOT_ADMIN)
+        # if partner.role != PartnerType.admin:
+        #     raise CustomException(error=PARTNER_IS_NOT_ADMIN)
 
         bank = partner.bank
 
@@ -68,10 +68,10 @@ class ApprovalsAPIView(APIView):
             approval_status=ApprovalStatus.pending
         )
 
-        total_payment_request = payment_schedule_request.aggregate(Sum('amount'))["amount__sum"]
+        total_payment_request_amount = payment_schedule_request.aggregate(Sum('amount'))["amount__sum"]
 
-        if total_payment_request == None:
-            total_payment_request = 0.0
+        if total_payment_request_amount == None:
+            total_payment_request_amount = 0.0
 
         share_request_serializer = ShareRequestModelSerializer(
             share_request,
@@ -118,7 +118,7 @@ class ApprovalsAPIView(APIView):
             "cash_balance": bank.cash_balance,
             "total_shares_quantity": bank.shares,
             "total_credit_amount": bank.active_credits,
-            "total_payment_request": total_payment_request,
+            "total_payment_request_amount": total_payment_request_amount,
             "credit_request": credit_request_serializer.data,
             "shares_request": share_request_serializer.data,
             "payment_schedule_request": payment_schedule_request_serializer.data,

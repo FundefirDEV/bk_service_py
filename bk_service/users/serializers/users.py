@@ -160,8 +160,10 @@ class UserSignUpSerializer(serializers.ModelSerializer):
                 phone_region_code=partner_guest.phone_region_code,
                 bank=partner_guest.bank,
                 user=user,
-                role=PartnerType.partner
+                role=PartnerType.partner,
             )
+            partner_guest.is_active = True
+            partner_guest.save()
 
         return user
 
@@ -218,6 +220,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         if partner is not None:
             partner_data['partner_id'] = partner.id
+            partner_data['role'] = partner.role
 
         data = {**token_data, **user_serializer.data, **partner_data}
 

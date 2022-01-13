@@ -71,7 +71,16 @@ class SingUpWithPartnerSuccessAPITestCase(APITestCase):
         partner_id = body['partner_id']
         user_id = body['id']
 
+        partner_from_partner_guest = Partner.objects.get(phone_number=partner_guest.phone_number)
+
         self.assertEqual(request.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(partner_from_partner_guest.bank, partner.bank)
+        self.assertEqual(partner_from_partner_guest.is_active, True)
+        self.assertEqual(partner_from_partner_guest.phone_region_code, partner_guest.phone_region_code)
+        self.assertEqual(partner_from_partner_guest.role, PartnerType.partner)
+        self.assertEqual(partner_from_partner_guest.user.id, user_id)
+
         self.assertIsNotNone(access_token)
         self.assertIsNotNone(refresh_token)
         self.assertIsNotNone(partner_id)

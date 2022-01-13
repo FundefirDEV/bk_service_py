@@ -53,13 +53,13 @@ class GetApprovalsAPITestCase(APITestCase):
         cash_balance = body['cash_balance']
         total_shares_quantity = body['total_shares_quantity']
         total_credit_amount = body['total_credit_amount']
-        total_payment_request = body['total_payment_request']
+        total_payment_request_amount = body['total_payment_request_amount']
 
         self.assertEqual(request.status_code, status.HTTP_200_OK)
         self.assertEqual(cash_balance, 0.0)
         self.assertEqual(total_shares_quantity, 0)
         self.assertEqual(total_credit_amount, 0.0)
-        self.assertEqual(total_payment_request, 10000.0)
+        self.assertEqual(total_payment_request_amount, 10000.0)
 
         # Shares
         shares_request = body['shares_request'][0]
