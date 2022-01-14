@@ -48,7 +48,7 @@ class BankSuccessAPITestCase(APITestCase):
         self.assertEqual(body, {"message": "Bank created"})
 
         bank = Bank.objects.first()
-        bank_rules = BankRules.objects.get(bank=bank)
+        bank_rules = bank.get_bank_rules()
 
         partners_guest = PartnerGuest.objects.all()
         partner = Partner.objects.get(bank_id=bank.id)

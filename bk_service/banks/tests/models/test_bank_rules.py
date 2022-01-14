@@ -15,7 +15,7 @@ class BankRulesTestCase(TestCase):
 
     def test_bank_rules_success(self):
         """ Bank Rules success """
-        bankRules = BankRules.objects.get(bank=self.bank)
+        bankRules = self.bank.get_bank_rules()
         self.assertEqual(bankRules.bank.name, 'new_bank')
         self.assertEqual(bankRules.ordinary_interest, 3.0)
         self.assertEqual(bankRules.delay_interest, 5.0)

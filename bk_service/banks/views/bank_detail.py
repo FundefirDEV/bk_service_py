@@ -23,11 +23,16 @@ class BankDetailAPIView(APIView):
         partner = request.user.get_partner()
         partner_detail = partner.partner_detail()
         bank = partner.bank
-        rules = BankRules.objects.get(bank=bank, is_active=True)
+        rules = bank.get_bank_rules()
 
-        core = BkCore()
-        maximun_number_of_shares = BkCore().maximun_number_of_shares(total_shares=bank.shares,
-                                                                     maximum_shares_percentage=rules.maximum_shares_percentage_per_partner)
+        if bank.get_numbers_of_meets() == 0:
+            maximun_number_of_shares = 0
+        else:
+            core = BkCore()
+            maximun_number_of_shares = BkCore().maximun_number_of_shares(
+                total_shares=bank.shares,
+                maximum_shares_percentage=rules.maximum_shares_percentage_per_partner
+            )
 
         return Response({"rules": {"share_value": rules.share_value,
                                    "maximum_shares_percentage_per_partner": maximun_number_of_shares},

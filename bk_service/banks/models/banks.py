@@ -5,7 +5,8 @@ from django.db import models
 
 # Models
 from bk_service.locations.models.cities import City
-# from bk_service.banks.models.bank_rules import BankRules
+from bk_service.banks.models.bank_rules import BankRules
+from bk_service.banks.models.meetings import Meeting
 
 # Utils
 from bk_service.utils.models import BkServiceModel
@@ -45,11 +46,18 @@ class Bank(BkServiceModel, models.Model):
         """ Return Bank """
         return str(self.name)
 
-    # def get_rules(self):
-    #     try:
-    #         bank_rules = BankRules.objects.get(bank_id=self.id)
-    #         return bank_rules
-    #     except:
-    #         return None
+    def get_numbers_of_meets(self):
+        try:
+            meets = Meeting.objects.filter(bank_id=self.id)
+            return len(meets)
+        except:
+            return 0
+
+    def get_bank_rules(self):
+        try:
+            bank_rules = BankRules.objects.get(bank_id=self.id, is_active=True)
+            return bank_rules
+        except:
+            return None
 
     REQUIRED_FIELDS = ['name', 'city', ]

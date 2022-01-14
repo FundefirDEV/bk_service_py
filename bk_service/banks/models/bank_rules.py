@@ -4,7 +4,7 @@
 from django.db import models
 
 # Models
-from .banks import Bank
+# from .banks import Bank
 
 # Utils
 from bk_service.utils.models import BkServiceModel
@@ -15,7 +15,7 @@ bank_rules = BankRulesConstants()
 
 class BankRules(BkServiceModel, models.Model):
     """ Bank rules model """
-    bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
+    bank = models.ForeignKey('Bank', on_delete=models.PROTECT)
 
     ordinary_interest = models.DecimalField(max_digits=10, decimal_places=4,
                                             null=False, default=bank_rules.ORDINARY_INTEREST)

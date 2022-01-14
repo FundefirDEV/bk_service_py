@@ -4,7 +4,7 @@
 from django.db import models
 
 # Models
-from .banks import Bank
+# from .banks import Bank
 
 # Utils
 from bk_service.utils.models import BkServiceModel
@@ -14,7 +14,7 @@ class Meeting(BkServiceModel, models.Model):
     """ Bank model """
 
     # Relations
-    bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
+    bank = models.ForeignKey('Bank', on_delete=models.PROTECT)
 
     # (use create at)
     # date_meeting = models.DateTimeField(auto_now_add=True,)
