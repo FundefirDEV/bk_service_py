@@ -19,6 +19,6 @@ class RequestsAPIView(APIView):
 
         partner = request.user.get_partner()
 
-        serializer.create(partner=partner, quantity=int(validated_data['quantity']))
+        serializer.create_share_request(partner=partner, quantity=int(validated_data['quantity']))
 
         return Response('share request success !')

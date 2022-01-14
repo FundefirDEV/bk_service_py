@@ -81,3 +81,26 @@ class BkCoreSDK():
         share_request.save()
 
         return share_request
+
+    def create_credit_request(self, requested_credit_quantity,):
+
+        bank_rules = BankRules.objects.get(bank=self.bank, is_active=True)
+
+        # Validate credit quantity
+        self.bk_core_validation.maximun_credit_quantity(
+            partner=self.partner,
+            requested_quantity=requested_credit_quantity,
+            bank_rules=bank_rules,
+        )
+
+        amount = requested_shares_quantity * bank_rules.share_value
+
+        # share_request = ShareRequest.objects.create(
+        #     partner=self.partner,
+        #     bank=self.bank,
+        #     quantity=requested_shares_quantity,
+        #     amount=amount,
+        #     approval_status=ApprovalStatus.pending
+        # )
+
+        return None

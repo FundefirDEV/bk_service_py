@@ -430,3 +430,27 @@ PARTNER_IS_NOT_ADMIN = Errors(
     error_code=68,
     error_mensage='This partner is not admin.'
 )
+
+PENDING_REQUEST = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=69,
+    error_mensage='This partner already have a pending request'
+)
+
+CASH_BALANCE_EXCCEDED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=70,
+    error_mensage='Request quantity exceed Cash balance '
+)
+
+MAX_CREDIT_EXCCEDED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=71,
+    error_mensage='Request quantity exceed maximun credit value '
+)
+
+MAX_PARTNER_CREDIT_EXCCEDED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=72,
+    error_mensage='Request quantity exceed maximun credit value of this partner '
+)

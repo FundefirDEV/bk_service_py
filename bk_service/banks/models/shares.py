@@ -22,3 +22,4 @@ class Share(BkServiceModel, models.Model):
 
     quantity = models.PositiveIntegerField(blank=False, default=0)
     amount = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
+    is_active = models.BooleanField(blank=False, default=True)

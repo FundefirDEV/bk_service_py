@@ -82,8 +82,12 @@ class RequestsSerializer(serializers.Serializer):
         required=False,
     )
 
-    def create(self, partner, quantity):
-
+    def create_share_request(self, partner, quantity):
         bk_core_sdk = BkCoreSDK(partner=partner)
         share_request = bk_core_sdk.create_shares_request(requested_shares_quantity=quantity)
         return share_request
+
+    def create_credit_request(self, partner, quantity):
+        bk_core_sdk = BkCoreSDK(partner=partner)
+        credit_request = bk_core_sdk.create_credit_request(requested_shares_quantity=quantity)
+        return credit_request
