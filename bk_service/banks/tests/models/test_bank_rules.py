@@ -4,18 +4,18 @@
 from django.test import TestCase
 from bk_service.banks.models.bank_rules import BankRules
 # Utils
-from bk_service.banks.tests.utils.setup import create_bank_rules
+from bk_service.banks.tests.utils.setup import create_bank
 
 
 class BankRulesTestCase(TestCase):
     """ Bank Rules test class """
 
     def setUp(self):
-        create_bank_rules()
+        self.bank = create_bank()
 
     def test_bank_rules_success(self):
         """ Bank Rules success """
-        bankRules = BankRules.objects.get(id=1)
+        bankRules = self.bank.get_bank_rules()
         self.assertEqual(bankRules.bank.name, 'new_bank')
         self.assertEqual(bankRules.ordinary_interest, 3.0)
         self.assertEqual(bankRules.delay_interest, 5.0)

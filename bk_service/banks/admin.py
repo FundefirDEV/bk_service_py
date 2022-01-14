@@ -23,6 +23,14 @@ class PartnerDetailAdmin(admin.ModelAdmin):
     # list_filter = ('is_active', 'name', 'code',)
 
 
+@admin.register(PartnerGuest)
+class PartnerAdmin(admin.ModelAdmin):
+    """ Partner guest model admin """
+    # list_display = '__all__'
+    # search_fields = ('name', 'code',)
+    # list_filter = ('is_active', 'name', 'code',)
+
+
 @admin.register(Bank)
 class BankAdmin(admin.ModelAdmin):
     """ Bank model admin """

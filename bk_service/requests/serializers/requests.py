@@ -4,7 +4,10 @@
 from rest_framework import serializers
 
 # Models
-from bk_service.utils.constants_errors import *
+from bk_service.requests.models import ShareRequest, CreditRequest, PaymentScheduleRequest
+
+# Serializers
+from bk_service.banks.serializers.partners import PartnerModelSerializer
 
 # Utils
 from bk_service.utils.enums.requests import (
@@ -13,6 +16,7 @@ from bk_service.utils.enums.requests import (
     CreditUse,
     CreditUseDetail,
 )
+from bk_service.utils.constants_errors import *
 
 
 # Bk core
@@ -91,3 +95,44 @@ class RequestsSerializer(serializers.Serializer):
         bk_core_sdk = BkCoreSDK(partner=partner)
         credit_request = bk_core_sdk.create_credit_request(requested_shares_quantity=quantity)
         return credit_request
+
+
+class ShareRequestModelSerializer(serializers.ModelSerializer):
+    """ share request model serializers """
+
+    partner = PartnerModelSerializer(read_only=True)
+
+    class Meta:
+        model = ShareRequest
+        fields = ('id', 'quantity', 'amount', 'approval_status', 'partner', 'created_at')
+
+
+class CreditRequestModelSerializer(serializers.ModelSerializer):
+    """ credit requests model serializers """
+
+    partner = PartnerModelSerializer(read_only=True)
+
+    class Meta:
+        model = CreditRequest
+        fields = (
+            'id',
+            'installments',
+            'amount',
+            'approval_status',
+            'partner',
+            'created_at',
+            'credit_use',
+            'credit_use_detail',
+            'payment_type',
+            'installments'
+        )
+
+
+class PaymentScheduleRequestModelSerializer(serializers.ModelSerializer):
+    """ payment schedule request serializers """
+
+    partner = PartnerModelSerializer(read_only=True)
+
+    class Meta:
+        model = PaymentScheduleRequest
+        fields = ('id', 'schedule_installment', 'amount', 'approval_status', 'partner', 'created_at')

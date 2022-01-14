@@ -14,6 +14,9 @@ from bk_service.banks.models import Bank, PartnerDetail
 from bk_service.banks.models.bank_rules import BankRules
 from bk_service.requests.models import *
 
+# Utils test
+from bk_service.utils.tests.test_security import security_test_post
+
 URL = '/requests/requests/'
 
 
@@ -21,6 +24,8 @@ class ShareRequestsAPITestCase(APITestCase):
     """ Share request test class """
 
     def setUp(self):
+        security_test_post(self=self, URL=URL)
+
         self.partner = create_partner()
 
     def test_share_request_success(self):

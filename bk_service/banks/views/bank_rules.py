@@ -12,7 +12,7 @@ class BankRuleApiView(APIView):
 
         bank = request.user.get_partner().bank
 
-        rules = BankRules.objects.get(bank=bank, is_active=True)
+        rules = bank.get_bank_rules()
 
         return Response({"bankName": bank.name,
                          "ordinary_interest": rules.ordinary_interest,

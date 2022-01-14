@@ -16,3 +16,9 @@ class Scholarship(models.TextChoices):
     university = "university"
     master = "master"
     doctorate = "doctorate"
+
+
+class PaymentStatus(models.TextChoices):
+    pending = "pending"
+    complete = "complete"
+    incomplete = "incomplete"

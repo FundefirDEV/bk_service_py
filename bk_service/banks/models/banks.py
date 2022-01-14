@@ -5,7 +5,8 @@ from django.db import models
 
 # Models
 from bk_service.locations.models.cities import City
-# from bk_service.banks.models.bank_rules import BankRules
+from bk_service.banks.models.bank_rules import BankRules
+from bk_service.banks.models.meetings import Meeting
 
 # Utils
 from bk_service.utils.models import BkServiceModel
@@ -16,7 +17,7 @@ class Bank(BkServiceModel, models.Model):
     """ Bank model """
     name = models.CharField(
         max_length=30,
-        blank=False,
+        null=False,
         unique=True,
         error_messages={
             'required': build_error_message(BANK_NAME_REQUIRED),
@@ -33,11 +34,11 @@ class Bank(BkServiceModel, models.Model):
             'does_not_exist': build_error_message(CITY_INVALID)
         }
     )
-    cash_balance = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
-    active_credits = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
-    shares = models.PositiveIntegerField(blank=False, default=0)
-    expense_fund = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
-    bad_debt_reserve = models.DecimalField(max_digits=100, decimal_places=4, blank=False, default=0.0)
+    cash_balance = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    active_credits = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    shares = models.PositiveIntegerField(null=False, default=0)
+    expense_fund = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    bad_debt_reserve = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
     # Need one to one relation with bank
 
@@ -45,11 +46,18 @@ class Bank(BkServiceModel, models.Model):
         """ Return Bank """
         return str(self.name)
 
-    # def get_rules(self):
-    #     try:
-    #         bank_rules = BankRules.objects.get(bank_id=self.id)
-    #         return bank_rules
-    #     except:
-    #         return None
+    def get_numbers_of_meets(self):
+        try:
+            meets = Meeting.objects.filter(bank_id=self.id)
+            return len(meets)
+        except:
+            return 0
+
+    def get_bank_rules(self):
+        try:
+            bank_rules = BankRules.objects.get(bank_id=self.id, is_active=True)
+            return bank_rules
+        except:
+            return None
 
     REQUIRED_FIELDS = ['name', 'city', ]

@@ -20,7 +20,7 @@ class BkCoreSDK():
 
     def create_shares_request(self, requested_shares_quantity,):
 
-        bank_rules = BankRules.objects.get(bank=self.bank, is_active=True)
+        bank_rules = self.bank.get_bank_rules()
 
         # Validate shares quantity
         self.bk_core_validation.maximun_number_of_shares(

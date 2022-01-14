@@ -24,6 +24,8 @@ from bk_service.utils.constants_errors import *
 # error
 from bk_service.utils.constants_errors import build_error_message, PARTNER_GUEST_NOT_EXIST
 
+# Utils test
+from bk_service.utils.tests.test_security import security_test_post
 
 # import pdb
 # pdb.set_trace()
@@ -42,6 +44,9 @@ class InvitePartnerGuestTestCase(APITestCase):
     """invite partner guest test class """
 
     def setUp(self):
+        security_test_post(self=self, URL=INVITE_PARTNER_GUEST_URL)
+        security_test_post(self=self, URL=DELETE_PARTNER_GUEST_URL)
+
         self.partner = create_partner(phone_number='1234567890')
         self.user = self.partner.user
         invite_partner(bank=self.partner.bank, phone_number='30000000')

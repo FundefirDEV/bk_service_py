@@ -39,7 +39,7 @@ class Partner(BkServiceModel, models.Model):
         max_length=18,
         validators=[
             MinLengthValidator(4)],
-        blank=False,
+        null=False,
         unique=True,
         error_messages={
             'required': build_error_message(PHONE_REQUIRED),
@@ -54,7 +54,7 @@ class Partner(BkServiceModel, models.Model):
     )
     phone_region_code = models.CharField(
         max_length=4,
-        blank=False,
+        null=False,
         validators=[region_code_regex, MinLengthValidator(1)],
         error_messages={
             'required': build_error_message(PHONE_REGION_CODE_REQUIRED),
@@ -62,7 +62,7 @@ class Partner(BkServiceModel, models.Model):
     )
     role = models.CharField(
         max_length=8,
-        blank=False,
+        null=False,
         choices=PartnerType.choices,
         error_messages={
             'required': build_error_message(PARTNER_ROLE_REQUIRED),

@@ -18,7 +18,7 @@ class LocationsAPIView(APIView):
 
     def get(self, request, *args, **kwargs):
 
-        code = request.user.city.state.country.code
+        code = kwargs['code']
         countries = Country.objects.get(is_active=True, code=code)
         serializer = CountryModelSerializer(countries,)
 

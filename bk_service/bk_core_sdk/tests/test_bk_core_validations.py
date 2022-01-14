@@ -30,7 +30,7 @@ class MaximunNumberOfSharesTest(TestCase):
 
     def setUp(self):
         self.partner = create_partner()
-        self.bank_rules = BankRules.objects.get(bank=self.partner.bank, is_active=True)
+        self.bank_rules = self.partner.bank.get_bank_rules()
 
     def test_maximun_number_of_shares_cero_quantity(self):
         bk_validation = BkCoreSDKValidations(partner=self.partner)
