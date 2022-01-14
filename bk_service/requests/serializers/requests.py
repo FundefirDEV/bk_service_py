@@ -60,7 +60,7 @@ class RequestsSerializer(serializers.Serializer):
         choices=CreditUse.choices
 
     )
-    detail = serializers.ChoiceField(
+    credit_use_detail = serializers.ChoiceField(
         required=False,
         error_messages={
             'invalid': build_error_message(CREDIT_USE_INVALID),
@@ -86,14 +86,21 @@ class RequestsSerializer(serializers.Serializer):
         required=False,
     )
 
-    def create_share_request(self, partner, quantity):
+    def create_request(self, partner, validated_data):
         bk_core_sdk = BkCoreSDK(partner=partner)
-        share_request = bk_core_sdk.create_shares_request(requested_shares_quantity=quantity)
-        return share_request
+        type_request = validated_data['type_request']
 
-    def create_credit_request(self, partner, quantity):
+        if type_request == TypeRequest.share:
+            quantity = int(validated_data['quantity'])
+            share_request = bk_core_sdk.create_shares_request(requested_shares_quantity=quantity)
+            return share_request
+
+        if type_request == TypeRequest.credit:
+            self.create_credit_request(partner=partner, validated_data=validated_data)
+
+    def create_credit_request(self, partner, validated_data):
         bk_core_sdk = BkCoreSDK(partner=partner)
-        credit_request = bk_core_sdk.create_credit_request(requested_shares_quantity=quantity)
+        credit_request = bk_core_sdk.create_credit_request(**validated_data)
         return credit_request
 
 

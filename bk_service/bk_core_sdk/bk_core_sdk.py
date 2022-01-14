@@ -5,6 +5,9 @@ from .bk_core_sdk_validations import BkCoreSDKValidations
 from bk_service.banks.models import BankRules, Share
 from bk_service.requests.models import *
 
+from bk_service.utils.exceptions_errors import CustomException
+from bk_service.utils.constants_errors import *
+
 # Utils
 from bk_service.utils.enums.requests import ApprovalStatus
 
@@ -82,25 +85,35 @@ class BkCoreSDK():
 
         return share_request
 
-    def create_credit_request(self, requested_credit_quantity,):
+    def create_credit_request(self, amount, quantity, credit_use, credit_use_detail, payment_type):
 
+        # TODO FIX WITH METHOD
         bank_rules = BankRules.objects.get(bank=self.bank, is_active=True)
 
-        # Validate credit quantity
-        self.bk_core_validation.maximun_credit_quantity(
+        self.validate_credit_use(credit_use=credit_use, credit_use_detail=credit_use_detail)
+
+        # Validate credit amount
+        self.bk_core_validation.credit_request_validations(
             partner=self.partner,
-            requested_quantity=requested_credit_quantity,
+            requested_amount=requested_credit_amount,
             bank_rules=bank_rules,
+            quantity=quantity,
+            payment_type=payment_type
         )
 
-        amount = requested_shares_quantity * bank_rules.share_value
+        credit_request = CreditRequest.objects.create(
+            partner=self.partner,
+            bank=self.bank,
+            installments=quantity,
+            amount=amount,
+            credit_use=credit_use,
+            credit_use_detail=credit_use_detail,
+            payment_type=payment_type,
+            approval_status=ApprovalStatus.pending
+        )
 
-        # share_request = ShareRequest.objects.create(
-        #     partner=self.partner,
-        #     bank=self.bank,
-        #     quantity=requested_shares_quantity,
-        #     amount=amount,
-        #     approval_status=ApprovalStatus.pending
-        # )
+        return credit_request
 
-        return None
+    def validate_credit_use(credit_use, credit_use_detail):
+        if credit_use == None or credit_use_detail == None:
+            raise CustomException(error=CREDIT_USE_REQUIRED)

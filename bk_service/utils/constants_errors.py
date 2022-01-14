@@ -454,3 +454,8 @@ MAX_PARTNER_CREDIT_EXCCEDED = Errors(
     error_code=72,
     error_mensage='Request quantity exceed maximun credit value of this partner '
 )
+MAX_CREDIT_INSTALLMENTS_EXCCEDED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=73,
+    error_mensage='Credit Request installments exceed'
+)
