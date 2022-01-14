@@ -19,7 +19,7 @@ class ScheduleInstallment(BkServiceModel, models.Model):
     total_pay_installment = models.DecimalField(max_digits=100, decimal_places=4, null=False)
 
     # (User create at)
-    # payment_date = models.DateTimeField(null=False)
+    payment_date = models.DateTimeField(null=False)
 
     payment_status = models.CharField(
         max_length=20,
@@ -31,6 +31,7 @@ class ScheduleInstallment(BkServiceModel, models.Model):
     REQUIRED_FIELDS = [
         'credit',
         'capital_installment',
+        'payment_date'
         'ordinary_interest_percentage',
         'interest_calculated',
         'total_pay_installment'
