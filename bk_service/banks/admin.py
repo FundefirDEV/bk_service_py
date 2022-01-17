@@ -45,3 +45,35 @@ class BankRulesAdmin(admin.ModelAdmin):
     # list_display = '__all__'
     # search_fields = ('name', 'code',)
     # list_filter = ('is_active', 'name', 'code',)
+
+
+@admin.register(Share)
+class ShareAdmin(admin.ModelAdmin):
+    """ Share model admin """
+    # list_display = '__all__'
+    # search_fields = ('name', 'code',)
+    # list_filter = ('is_active', 'name', 'code',)
+
+
+@admin.register(Credit)
+class CreditAdmin(admin.ModelAdmin):
+    """ Credit model admin """
+    # list_display = '__all__'
+    # search_fields = ('name', 'code',)
+    # list_filter = ('is_active', 'name', 'code',)
+
+
+@admin.register(PaymentSchedule)
+class PaymentScheduleAdmin(admin.ModelAdmin):
+    """ PaymentSchedule model admin """
+    # list_display = '__all__'
+    # search_fields = ('name', 'code',)
+    # list_filter = ('is_active', 'name', 'code',)
+
+
+@admin.register(ScheduleInstallment)
+class ScheduleInstallmentAdmin(admin.ModelAdmin):
+    """ ScheduleInstallment model admin """
+    # list_display = '__all__'
+    # search_fields = ('name', 'code',)
+    # list_filter = ('is_active', 'name', 'code',)

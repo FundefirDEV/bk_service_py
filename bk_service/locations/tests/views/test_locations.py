@@ -29,7 +29,7 @@ class BankSuccessAPITestCase(APITestCase):
     """ Locations success test class """
 
     def setUp(self):
-        security_test_get(self=self, URL=f'{URL}CO')
+        security_test_get(self=self, URL=f'{URL}CO/')
 
         city = create_locations(city_name='Distrito Capital')
         self.user = create_user(city)
@@ -54,7 +54,7 @@ class BankSuccessAPITestCase(APITestCase):
             ],
         },
 
-        request = get_with_token(URL=f'{URL}CO', user=self.user,)
+        request = get_with_token(URL=f'{URL}CO/', user=self.user,)
 
         body = json.dumps(request.data)
         status_code = request.status_code

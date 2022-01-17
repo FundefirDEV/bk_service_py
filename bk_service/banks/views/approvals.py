@@ -68,10 +68,7 @@ class ApprovalsAPIView(APIView):
             approval_status=ApprovalStatus.pending
         )
 
-        total_payment_request_amount = payment_schedule_request.aggregate(Sum('amount'))["amount__sum"]
-
-        if total_payment_request_amount == None:
-            total_payment_request_amount = 0.0
+        total_payment_request_amount = payment_schedule_request.aggregate(Sum('amount'))["amount__sum"] or 0.0
 
         share_request_serializer = ShareRequestModelSerializer(
             share_request,

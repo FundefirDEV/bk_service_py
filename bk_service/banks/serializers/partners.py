@@ -49,7 +49,7 @@ class PartnerGuestPhoneExistSerializer(serializers.Serializer):
         required=True,
         validators=[
             UniqueValidator(queryset=PartnerGuest.objects.all(), message=build_error_message(PHONE_EXIST)),
-            UniqueValidator(queryset=Partner.objects.all(), message=build_error_message(PHONE_EXIST))
+            UniqueValidator(queryset=User.objects.all(), message=build_error_message(PHONE_EXIST))
         ],
         error_messages={
             'required': build_error_message(PHONE_REQUIRED),

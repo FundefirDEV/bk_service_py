@@ -13,6 +13,9 @@ from bk_service.locations.tests.utils.setup import create_locations
 # Utils Enums
 from bk_service.utils.enums.banks import PartnerType
 
+
+from datetime import date
+
 # # import pdb
 # pdb.set_trace()
 
@@ -149,6 +152,8 @@ def create_schedule_installment(credit=None):
         interest_calculated=1000,
         total_pay_installment=0,
         payment_status=PaymentStatus.pending,
+        payment_date=date.today()
+
     )
     return schedule_installment
 

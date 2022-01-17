@@ -18,5 +18,5 @@ from bk_service.locations.views import LocationsAPIView
 # ]
 
 urlpatterns = [
-    path('locations/location/<str:code>', LocationsAPIView.as_view(), name='location_view'),
+    path('locations/location/<str:code>/', LocationsAPIView.as_view(), name='location_view'),
 ]
