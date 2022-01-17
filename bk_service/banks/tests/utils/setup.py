@@ -101,12 +101,12 @@ def invite_partner(
     return partner_guest
 
 
-def create_share(partner=None, share_request=None):
+def create_share(partner=None, share_request=None, quantity=1, amount=10000):
     if partner == None:
         partner = create_partner()
 
     if share_request == None:
-        share_request = create_share_request(partner)
+        share_request = create_share_request(partner=partner, quantity=quantity, amount=amount)
 
     share = Share.objects.create(
         bank=partner.bank,

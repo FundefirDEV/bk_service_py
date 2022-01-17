@@ -14,11 +14,13 @@ class RequestsAPIView(APIView):
 
         data = request.data
         serializer = RequestsSerializer(data=data)
+
         serializer.is_valid(raise_exception=True)
+
         validated_data = dict(serializer.validated_data)
 
         partner = request.user.get_partner()
 
         serializer.create_request(partner=partner, validated_data=validated_data)
 
-        return Response('share request success !')
+        return Response(validated_data['type_request']+' request success !')

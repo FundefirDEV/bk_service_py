@@ -68,13 +68,13 @@ class RequestsSerializer(serializers.Serializer):
         choices=CreditUseDetail.choices
 
     )
+
     payment_type = serializers.ChoiceField(
         required=False,
         error_messages={
             'invalid': build_error_message(PAYMENT_TYPE_INVALID),
         },
         choices=CreditPayType.choices
-
     )
     id_schedule_installment = serializers.CharField(
         required=False,

@@ -30,6 +30,6 @@ class CreditRequestTestCase(TestCase):
         self.assertEqual(creditRequest.amount, 100000)
         self.assertEqual(creditRequest.installments, 1)
         self.assertEqual(creditRequest.credit_use_detail, CreditUseDetail.Education)
-        self.assertEqual(creditRequest.credit_use, CreditUse.Consumption)
+        self.assertEqual(creditRequest.credit_use, CreditUse.consumption)
         self.assertEqual(creditRequest.payment_type, CreditPayType.installments)
         self.assertEqual(creditRequest.approval_status, ApprovalStatus.pending)

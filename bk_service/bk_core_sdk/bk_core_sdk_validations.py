@@ -59,7 +59,8 @@ class BkCoreSDKValidations():
     def credit_request_validations(self, partner, requested_amount, bank_rules, quantity, payment_type):
         bk_core = BkCore()
         bank = partner.bank
-        # requested_quantity needs to be positeve
+
+        # requested_quantity needs to be positive
         if requested_amount <= 0:
             raise CustomException(error=AMOUNT_INVALID)
 

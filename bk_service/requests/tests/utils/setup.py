@@ -31,7 +31,7 @@ def create_credit_request(
         installments=1,
         payment_type=CreditPayType.installments,
         approval_status=ApprovalStatus.pending,
-        credit_use=CreditUse.Consumption,
+        credit_use=CreditUse.consumption,
         credit_use_detail=CreditUseDetail.Education,
 ):
     credit_request = CreditRequest.objects.create(

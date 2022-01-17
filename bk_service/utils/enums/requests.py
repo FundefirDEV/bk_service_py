@@ -20,13 +20,13 @@ class CreditPayType(models.TextChoices):
 
 
 class CreditUse(models.TextChoices):
-    GenerationIncome = "GenerationIncome"
-    FamilyStrengthening = "FamilyStrengthening"
-    Consumption = "Consumption"
+    generationIncome = "generationIncome"
+    familyStrengthening = "familyStrengthening"
+    consumption = "consumption"
 
 
 class CreditUseDetail(models.TextChoices):
-    Trade = "Trade"
+    trade = "trade"
     Smallcompany = "Smallcompany"
     HousingImprovement = "HousingImprovement"
     Education = "Education"

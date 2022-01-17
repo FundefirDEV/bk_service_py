@@ -93,7 +93,7 @@ class GetApprovalsAPITestCase(APITestCase):
 
         self.assertEqual(credit_request_amount, 100000)
         self.assertEqual(credit_request_installments, 3)
-        self.assertEqual(credit_request_credit_use, CreditUse.Consumption)
+        self.assertEqual(credit_request_credit_use, CreditUse.consumption)
         self.assertEqual(credit_request_credit_use_detail, CreditUseDetail.Education)
         self.assertEqual(credit_request_payment_type, CreditPayType.installments)
         self.assertEqual(credit_partner_id, self.partner.id)
@@ -119,7 +119,7 @@ class GetApprovalsAPITestCase(APITestCase):
 
         self.assertEqual(partner_credit_request_amount, 100000)
         self.assertEqual(partner_credit_request_installments, 3)
-        self.assertEqual(partner_credit_request_credit_use, CreditUse.Consumption)
+        self.assertEqual(partner_credit_request_credit_use, CreditUse.consumption)
         self.assertEqual(partner_credit_request_credit_use_detail, CreditUseDetail.Education)
         self.assertEqual(partner_credit_request_payment_type, CreditPayType.installments)
         self.assertEqual(partner_credit_partner_id, self.partner.id)
