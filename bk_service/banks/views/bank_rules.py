@@ -23,6 +23,6 @@ class BankRuleApiView(APIView):
                          "maximum_shares_percentage_per_partner": rules.maximum_shares_percentage_per_partner,
                          "maximum_active_credits_per_partner": rules.maximum_active_credits_per_partner,
                          "expenditure_fund_percentage": rules.expenditure_fund_percentage,
-                         "reserve_fund_of_bad_debt": rules.reserve_fund_of_bad_debt,
+                         "reserve_fund_of_bad_debt_percentage": rules.reserve_fund_of_bad_debt_percentage,
                          "payment_period_of_installment": rules.payment_period_of_installment,
                          "credit_investment_relationship": rules.credit_investment_relationship})

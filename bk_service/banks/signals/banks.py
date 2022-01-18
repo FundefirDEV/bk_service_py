@@ -28,7 +28,7 @@ def post_save_create_bank(sender, instance, created, **kwargs):
             maximum_shares_percentage_per_partner=bank_rules.MAXIMUM_SHARES_PERCENTAGE_PER_PARTNER,
             maximum_active_credits_per_partner=bank_rules.MAXIMUM_ACTIVE_CREDITS_PER_PARTNER,
             expenditure_fund_percentage=bank_rules.EXPENDITURE_FUND_PERCENTAGE,
-            reserve_fund_of_bad_debt=bank_rules.RESERVE_FUND_OF_BAD_DEBT,
+            reserve_fund_of_bad_debt_percentage=bank_rules.RESERVE_FUND_OF_BAD_DEBT_PERCENTAGE,
             payment_period_of_installment=bank_rules.PAYMENT_PERIOD_OF_INSTALLMENT,
             credit_investment_relationship=bank_rules.CREDIT_INVESTMENT_RELATIONSHIP,
             is_active=True,

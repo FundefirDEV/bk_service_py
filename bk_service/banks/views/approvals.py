@@ -114,7 +114,7 @@ class ApprovalsAPIView(APIView):
         return Response({
             "cash_balance": bank.cash_balance,
             "total_shares_quantity": bank.shares,
-            "total_credit_amount": bank.active_credits,
+            "total_credits_amount": bank.active_credits,
             "total_payment_request_amount": total_payment_request_amount,
             "credit_request": credit_request_serializer.data,
             "shares_request": share_request_serializer.data,

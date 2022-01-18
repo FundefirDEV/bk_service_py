@@ -4,19 +4,9 @@
 
 # Django REST Framework
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
 
 # Models
 from bk_service.locations.models import Country, State, City
-
-from bk_service.utils.exceptions_errors import CustomException
-from bk_service.utils.constants_errors import *
-
-
-# class LocationSerializer(serializers.Serializer):
-#     countries = CountryModelSerializer(many=True)
-#     states = StateModelSerializer(many=True)
-#     cities = CityModelSerializer(many=True)
 
 
 class CityModelSerializer(serializers.ModelSerializer):

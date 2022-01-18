@@ -5,3 +5,4 @@ from .bank_rules import *
 from .bank_detail import *
 from .approvals import *
 from .partners import *
+from .meetings import *

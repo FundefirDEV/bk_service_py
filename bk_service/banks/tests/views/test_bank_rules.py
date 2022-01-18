@@ -36,7 +36,7 @@ class BankRulesAPITestCase(APITestCase):
                     "maximum_shares_percentage_per_partner": 25.0000,
                     "maximum_active_credits_per_partner": 1.0000,
                     "expenditure_fund_percentage": 5.0000,
-                    "reserve_fund_of_bad_debt": 5.0000,
+                    "reserve_fund_of_bad_debt_percentage": 5.0000,
                     "payment_period_of_installment": 30,
                     "credit_investment_relationship": 5.0000}
 
