@@ -140,7 +140,7 @@ class BkCoreSDK():
         total_interest = total_ordinary_interest + total_delay_interest
 
         # Calculate capital
-        capital_balance = payments_schedule.aggregate(
+        total_capital = payments_schedule.aggregate(
             Sum('capital_paid'))["capital_paid__sum"] or 0.0
 
         # Expenditure fund
@@ -173,24 +173,25 @@ class BkCoreSDK():
             bank_shares_quantity=self.bank.shares
         )
 
-        res = {
-            "cash_balance": float(cash_balance),
-            "expenditure_fund": total_expenditure_fund,
-            "reserve_fund_of_bad_debt": total_reserve_fund_of_bad_debt,
+        meeting_data = {
+            "cash_balance": cash_balance,
+            "expenditure_fund": expenditure_fund,
+            "reserve_fund_of_bad_debt": reserve_fund_of_bad_debt,
+            "total_expenditure_fund": total_expenditure_fund,
+            "total_reserve_fund_of_bad_debt": total_reserve_fund_of_bad_debt,
             "earning_by_share": earning_by_share,
             "total_shares_quantity": total_shares_quantity,
-            "total_shares_amount": float(total_shares_amount),
+            "total_shares_amount": total_shares_amount,
             "total_delay_interest": total_delay_interest,
             "total_ordinary_interest": total_ordinary_interest,
-            "total_credits_amount": float(total_credits_amount),
+            "total_credits_amount": total_credits_amount,
             "total_credits_quantity": total_credits_quantity,
-            "capital_balance": float(capital_balance)
+            "total_capital": total_capital
         }
 
         if preview:
-            res['resource'] = 'PREVIEW'
+            meeting_data['resource'] = 'PREVIEW'
         else:
-            """create meeting here"""
-            pass
+            meeting_data['bank'] = self.bank.id
 
-        return res
+        return meeting_data

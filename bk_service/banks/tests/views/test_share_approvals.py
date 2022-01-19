@@ -53,7 +53,7 @@ class ShareApprovalsAPITestCase(APITestCase):
         self.assertEqual(share.partner, self.partner)
         self.assertEqual(share.bank, self.partner.bank)
 
-        partner_detail = PartnerDetail.objects.get(partner=self.partner)
+        partner_detail = self.partner.partner_detail()
 
         self.assertEqual(partner_detail.shares, 20)
         self.assertEqual(partner_detail.partner.bank.shares, 20)
@@ -82,7 +82,7 @@ class ShareApprovalsAPITestCase(APITestCase):
         self.assertEqual(share_request.partner, self.partner)
         self.assertEqual(share_request.bank, self.partner.bank)
 
-        partner_detail = PartnerDetail.objects.get(partner=self.partner)
+        partner_detail = self.partner.partner_detail()
         share_request = ShareRequest.objects.get(partner=self.partner, bank=self.partner.bank)
 
         self.assertEqual(partner_detail.shares, 0)
@@ -104,7 +104,7 @@ class ShareApprovalsAPITestCase(APITestCase):
         self.assertEqual(request.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(body, {'detail': build_error_message(error=ID_REQUESTS_INVALID)})
 
-        partner_detail = PartnerDetail.objects.get(partner=self.partner)
+        partner_detail = self.partner.partner_detail()
         share_request = ShareRequest.objects.get(partner=self.partner, bank=self.partner.bank)
 
         self.assertEqual(partner_detail.shares, 0)
@@ -129,7 +129,7 @@ class ShareApprovalsAPITestCase(APITestCase):
         self.assertEqual(request.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(body, {'detail': build_error_message(error=PARTNER_IS_NOT_ADMIN)})
 
-        partner_detail = PartnerDetail.objects.get(partner=self.partner)
+        partner_detail = self.partner.partner_detail()
         share_request = ShareRequest.objects.get(partner=self.partner, bank=self.partner.bank)
 
         self.assertEqual(partner_detail.shares, 0)

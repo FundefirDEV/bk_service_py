@@ -21,7 +21,7 @@ class Meeting(BkServiceModel, models.Model):
 
     # Integer
     total_shares_quantity = models.PositiveIntegerField(null=False, default=0)
-    total_credit_quantity = models.PositiveIntegerField(null=False, default=0)
+    total_credits_quantity = models.PositiveIntegerField(null=False, default=0)
 
     # Decimal
     total_shares_amount = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
@@ -30,7 +30,7 @@ class Meeting(BkServiceModel, models.Model):
     total_capital = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     total_delay_interest = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
-    earning_by_shares = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    earning_by_share = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     # balance = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     expenditure_fund = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     reserve_fund_of_bad_debt = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
@@ -44,10 +44,10 @@ class Meeting(BkServiceModel, models.Model):
         'total_shares_amount',
         'total_credits_amount',
         'total_shares_quantity',
-        'total_credit_quantity',
+        'total_credits_quantity',
         'total_ordinary_interest',
         'total_capital',
-        'earning_by_shares',
+        'earning_by_share',
         'total_delay_interest'
         # 'balance',
         'expenditure_fund',

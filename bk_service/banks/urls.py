@@ -16,6 +16,7 @@ from bk_service.banks.views import (
     ApprovalsAPIView,
     PartnerAPIView,
     MeetingsGetAPIView,
+    CloseMeetingsAPIView
 )
 
 urlpatterns = [
@@ -41,5 +42,6 @@ urlpatterns = [
     path('banks/approvals/', ApprovalsAPIView.as_view(), name="approvals"),
 
     path('banks/meetings/', MeetingsGetAPIView.as_view(), name="meetings"),
+    path('banks/meetings/close/', CloseMeetingsAPIView.as_view(), name="close_meetings"),
 
 ]

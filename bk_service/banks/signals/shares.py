@@ -19,7 +19,7 @@ def post_save_approve_share_request(sender, instance, created, **kwargs):
 
         if instance.approval_status == ApprovalStatus.approved:
 
-            partner_detail = PartnerDetail.objects.get(partner_id=instance.partner.id)
+            partner_detail = instance.partner.partner_detail()
             bank = Bank.objects.get(pk=instance.bank.id)
 
             share = Share.objects.create(

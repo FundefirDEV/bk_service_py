@@ -3,6 +3,9 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework.exceptions import ErrorDetail
 
+# Models
+from bk_service.banks.models import Meeting, Bank
+
 # Utils commons
 from bk_service.utils.tests.requests import get_with_token
 
@@ -13,11 +16,11 @@ from bk_service.requests.tests.utils.setup import *
 # test-utils
 from bk_service.utils.tests.test_security import security_test_get
 
-URL = '/banks/meetings/'
+URL = '/banks/meetings/close/'
 
 
-class GetMeetingAPITestCase(APITestCase):
-    """ GET meeting test class """
+class CloseMeetingAPITestCase(APITestCase):
+    """ close meeting test class """
 
     def setUp(self):
         security_test_get(self=self, URL=URL)
@@ -48,15 +51,14 @@ class GetMeetingAPITestCase(APITestCase):
             payment_schedule_request=self.payment_schedule_request
         )
 
-    def test_meeting_get_success(self):
-        """ test GET meeting success """
+    def test_close_meeting_success(self):
+        """ test close meeting success """
 
         request = get_with_token(URL=URL, user=self.partner.user,)
         body = request.data
 
         self.assertEqual(request.status_code, status.HTTP_200_OK)
 
-        resource = body['resource']
         cash_balance = body['cash_balance']
         expenditure_fund = body['expenditure_fund']
         reserve_fund_of_bad_debt = body['reserve_fund_of_bad_debt']
@@ -72,8 +74,11 @@ class GetMeetingAPITestCase(APITestCase):
         total_capital = body['total_capital']
 
         bank = Bank.objects.get(pk=self.partner.bank.pk)
+        partner_detail = self.partner.partner_detail()
+        meeting = Meeting.objects.first()
+        earnings_share = EarningShare.objects.filter(meeting=meeting)
 
-        self.assertEqual(resource, 'PREVIEW')
+        # Verify body
         self.assertEqual(cash_balance, bank.cash_balance)
         self.assertEqual(expenditure_fund, 50)
         self.assertEqual(reserve_fund_of_bad_debt, 50)
@@ -88,3 +93,31 @@ class GetMeetingAPITestCase(APITestCase):
         self.assertEqual(total_credits_amount, self.credit.amount)
         self.assertEqual(total_credits_quantity, 1)
         self.assertEqual(total_capital, self.payment_schedule.capital_paid)
+
+        # Verify new meet
+        self.assertEqual(meeting.bank.cash_balance, bank.cash_balance)
+        self.assertEqual(meeting.expenditure_fund, 50)
+        self.assertEqual(meeting.reserve_fund_of_bad_debt, 50)
+        self.assertEqual(meeting.total_shares_quantity, self.share.quantity)
+        self.assertEqual(meeting.total_shares_amount, self.share.amount)
+        self.assertEqual(meeting.total_delay_interest, 0)
+        self.assertEqual(meeting.earning_by_share, 45)
+        self.assertEqual(
+            meeting.total_ordinary_interest, self.payment_schedule.interest_paid)
+        self.assertEqual(meeting.total_credits_amount, self.credit.amount)
+        self.assertEqual(meeting.total_credits_quantity, 1)
+        self.assertEqual(meeting.total_capital, self.payment_schedule.capital_paid)
+
+        # Verify bank
+        self.assertEqual(bank.cash_balance, cash_balance)
+        self.assertEqual(expenditure_fund, 50)
+        self.assertEqual(reserve_fund_of_bad_debt, 50)
+
+        # Verify partner detail
+        self.assertEqual(partner_detail.earnings, 900.0)
+
+        # Verify earning shares
+        self.assertEqual(earnings_share[0].share, self.share)
+        self.assertEqual(earnings_share[0].earning_by_share, 45.0)
+        self.assertEqual(earnings_share[0].total_earning_by_share, 900.0)
+        self.assertEqual(earnings_share[0].is_paid, False)
