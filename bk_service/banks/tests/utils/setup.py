@@ -35,12 +35,12 @@ PARTNER_GUEST_NAME_TEST = 'new_partner_guest'
 PARTNER_GUEST_PHONE_TEST = '31300000001'
 
 
-def create_bank(city=None):
+def create_bank(city=None, name=BANK_NAME_TEST):
 
     if city == None:
         city = create_locations()
 
-    bank = Bank.objects.create(name=BANK_NAME_TEST, city=city)
+    bank = Bank.objects.create(name=name, city=city)
 
     return bank
 
@@ -72,13 +72,20 @@ def create_user(
 def create_partner(
         phone_number=PHONE_TEST,
         phone_region_code=PHONE_REGION_CODE_TEST,
-        role=PartnerType.partner):
+        role=PartnerType.partner,
+        email=USERNAME_TEST,
+        bank=None,
+        user=None,
+):
+    if bank == None:
+        bank = create_bank()
 
-    bank = create_bank()
     user = create_user(
         city=bank.city,
         phone_number=phone_number,
-        phone_region_code=phone_region_code
+        phone_region_code=phone_region_code,
+        email=email,
+        username=email
     )
     partner = Partner.objects.create(
         bank=bank,

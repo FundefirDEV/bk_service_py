@@ -14,7 +14,10 @@ from bk_service.banks.tests.utils.setup import *
 from bk_service.requests.tests.utils.setup import *
 
 # test-utils
-from bk_service.utils.tests.test_security import security_test_get
+from bk_service.utils.tests.test_security import (
+    security_test_get,
+    security_test_partner_admin_get
+)
 
 URL = '/banks/meetings/close/'
 
@@ -26,6 +29,9 @@ class CloseMeetingAPITestCase(APITestCase):
         security_test_get(self=self, URL=URL)
 
         self.partner = create_partner(role=PartnerType.admin)
+
+        security_test_partner_admin_get(self=self, URL=URL,)
+
         self.share_request = create_share_request(
             partner=self.partner, quantity=20, amount=200000
         )
