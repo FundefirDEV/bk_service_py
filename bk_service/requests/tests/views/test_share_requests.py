@@ -46,7 +46,7 @@ class ShareRequestsAPITestCase(APITestCase):
         self.assertEqual(share_request.quantity, 20)
 
     def test_share_request_success_with_meeting(self):
-        """ Share request success """
+        """ Share request success with meeting"""
         meeting = create_meeting(bank=self.partner.bank)
 
         self.partner.bank.shares = 200
@@ -68,7 +68,7 @@ class ShareRequestsAPITestCase(APITestCase):
         self.assertEqual(share_request.quantity, 20)
 
     def test_share_request_fail_exceed_maximun_quantity(self):
-        """ Share request success """
+        """ Share request fail exceed maximun quantity  """
 
         meeting = create_meeting(bank=self.partner.bank)
 
@@ -84,7 +84,7 @@ class ShareRequestsAPITestCase(APITestCase):
         self.assertEqual(body, {'detail': build_error_message(error=MAXIMUN_NUMBER_OF_SHARES)})
 
     def test_share_request_fail_cero_quantity(self):
-        """ Share request success """
+        """ Share request fail cero quantity  """
 
         meeting = create_meeting(bank=self.partner.bank)
 

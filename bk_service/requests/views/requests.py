@@ -21,4 +21,4 @@ class RequestsAPIView(APIView):
 
         serializer.create_request(partner=partner, validated_data=validated_data)
 
-        return Response('share request success !')
+        return Response(f'{validated_data["type_request"]} request success !')

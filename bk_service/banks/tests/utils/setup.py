@@ -170,7 +170,7 @@ def create_schedule_installment(credit=None):
         capital_installment=90000,
         ordinary_interest_percentage=1,
         interest_calculated=1000,
-        total_pay_installment=0,
+        total_pay_installment=91000,
         payment_status=PaymentStatus.pending,
         payment_date=date.today()
 
