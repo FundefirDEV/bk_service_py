@@ -13,7 +13,7 @@ class PartnerDetailTestCase(TestCase):
     def test_partner_detail_success(self):
 
         partner = create_partner()
-        partner_detail = PartnerDetail.objects.get(partner=partner)
+        partner_detail = partner.partner_detail()
 
         self.assertEqual(partner_detail.partner, partner)
         self.assertEqual(partner_detail.earnings, 0)

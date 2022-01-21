@@ -7,14 +7,12 @@ from django.db import models
 from bk_service.banks.models import Bank, Partner
 
 # Utils
-from bk_service.utils.models import BkServiceModel
 from bk_service.requests.models.payment_schedule_request import PaymentScheduleRequest
+from bk_service.banks.utils import BankOperationsBaseModel
 
 
-class PaymentSchedule(BkServiceModel, models.Model):
+class PaymentSchedule(BankOperationsBaseModel, models.Model):
 
-    bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
-    partner = models.ForeignKey(Partner, on_delete=models.PROTECT)
     payment_schedule_request = models.ForeignKey(PaymentScheduleRequest, on_delete=models.PROTECT)
 
     amount = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)

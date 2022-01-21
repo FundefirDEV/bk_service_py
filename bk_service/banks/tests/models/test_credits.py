@@ -17,6 +17,7 @@ class CreditsTestCase(TestCase):
         credit = Credit.objects.get(id=credit_created.id)
         self.assertEqual(credit.amount, 100000)
         self.assertEqual(credit.installments, 1)
+        self.assertEqual(credit.total_interest, 3000.0000)
         self.assertEqual(credit.credit_request.partner, credit_created.partner)
         self.assertEqual(credit.credit_use, '')
         self.assertEqual(credit.credit_use_detail, '')

@@ -37,8 +37,8 @@ class Bank(BkServiceModel, models.Model):
     cash_balance = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     active_credits = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     shares = models.PositiveIntegerField(null=False, default=0)
-    expense_fund = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
-    bad_debt_reserve = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    expenditure_fund = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    reserve_fund_of_bad_debt = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
     # Need one to one relation with bank
 

@@ -7,7 +7,7 @@ class BankRulesConstants():
         self.DELAY_INTEREST = 5.0
         self.MAXIMUN_CREDIT_INSTALLMENTS = 3
         self.EXPENDITURE_FUND_PERCENTAGE = 5.0
-        self.RESERVE_FUND_OF_BAD_DEBT = 5.0
+        self.RESERVE_FUND_OF_BAD_DEBT_PERCENTAGE = 5.0
         self.MAXIMUM_SHARES_PERCENTAGE_PER_PARTNER = 25.0
         self.MAXIMUM_ACTIVE_CREDITS_PER_PARTNER = 1
         self.CREDIT_INVESTMENT_RELATIONSHIP = 5
@@ -21,7 +21,7 @@ class BankRulesConstants():
             self.DELAY_INTEREST = 5.0
             self.MAXIMUN_CREDIT_INSTALLMENTS = 3
             self.EXPENDITURE_FUND_PERCENTAGE = 5.0
-            self.RESERVE_FUND_OF_BAD_DEBT = 5.0
+            self.RESERVE_FUND_OF_BAD_DEBT_PERCENTAGE = 5.0
             self.MAXIMUM_SHARES_PERCENTAGE_PER_PARTNER = 25.0
             self.MAXIMUM_ACTIVE_CREDITS_PER_PARTNER = 1
             self.CREDIT_INVESTMENT_RELATIONSHIP = 5
@@ -35,7 +35,7 @@ class BankRulesConstants():
             self.DELAY_INTEREST = 5.0
             self.MAXIMUN_CREDIT_INSTALLMENTS = 3
             self.EXPENDITURE_FUND_PERCENTAGE = 5.0
-            self.RESERVE_FUND_OF_BAD_DEBT = 5.0
+            self.RESERVE_FUND_OF_BAD_DEBT_PERCENTAGE = 5.0
             self.MAXIMUM_SHARES_PERCENTAGE_PER_PARTNER = 25.0
             self.MAXIMUM_ACTIVE_CREDITS_PER_PARTNER = 1
             self.CREDIT_INVESTMENT_RELATIONSHIP = 5
@@ -49,7 +49,7 @@ class BankRulesConstants():
             self.DELAY_INTEREST = 5.0
             self.MAXIMUN_CREDIT_INSTALLMENTS = 3
             self.EXPENDITURE_FUND_PERCENTAGE = 5.0
-            self.RESERVE_FUND_OF_BAD_DEBT = 5.0
+            self.RESERVE_FUND_OF_BAD_DEBT_PERCENTAGE = 5.0
             self.MAXIMUM_SHARES_PERCENTAGE_PER_PARTNER = 25.0
             self.MAXIMUM_ACTIVE_CREDITS_PER_PARTNER = 1
             self.CREDIT_INVESTMENT_RELATIONSHIP = 5

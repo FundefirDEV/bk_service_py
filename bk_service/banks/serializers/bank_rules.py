@@ -18,27 +18,12 @@ from bk_service.utils.exceptions_errors import CustomException
 
 class BankRulesSerializer(serializers.ModelSerializer):
     """ Bank rules serializers """
-    ordinary_interest = serializer.DecimalField()
-    # phone_number = serializers.CharField(
-
-    #     required=True,
-
-    #     validators=[
-    #         UniqueValidator(queryset=PartnerGuest.objects.all(),
-    #                         message=build_error_message(PARTNER_GUEST_PHONE_EXIST)),
-    #         UniqueValidator(queryset=Partner.objects.all(), message=build_error_message(PHONE_EXIST))
-    #     ],
-    #     error_messages={
-    #         'required': build_error_message(PARTNER_GUEST_PHONE_REQUIRED),
-    #         'invalid': build_error_message(PARTNER_GUEST_PHONE_INVALID),
-    #     },
-    # )
 
     class Meta:
         model = BankRules
         fields = ('ordinary_interest', 'maximun_credit_installments',
                   'maximun_credit_value', 'share_value', 'maximum_shares_percentage_per_partner',
-                  'maximum_active_credits_per_partner', 'expenditure_fund_percentage', 'reserve_fund_of_bad_debt',
+                  'maximum_active_credits_per_partner', 'expenditure_fund_percentage', 'reserve_fund_of_bad_debt_percentage',
                   'payment_period_of_installment', 'credit_investment_relationship', 'bank')
 
         extra_kwargs = {

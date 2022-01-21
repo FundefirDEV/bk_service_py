@@ -11,7 +11,7 @@ from bk_service.utils.enums.requests import ApprovalStatus
 from bk_service.utils.models import BkServiceModel
 
 
-class RequestModelBase(BkServiceModel, models.Model):
+class RequestBaseModel(BkServiceModel, models.Model):
     """ Requests base model"""
 
     bank = models.ForeignKey(Bank, on_delete=models.PROTECT)

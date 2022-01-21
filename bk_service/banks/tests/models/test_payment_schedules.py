@@ -14,9 +14,9 @@ class PaymentScheduleTestCase(TestCase):
         """ payment schedule success """
         payment_schedule_created = create_payment_schedules()
         payment_schedule = PaymentSchedule.objects.get(id=payment_schedule_created.id)
-        self.assertEqual(payment_schedule.amount, 10000)
+        self.assertEqual(payment_schedule.amount, 10000.0)
         self.assertEqual(payment_schedule.bank, payment_schedule_created.bank)
         self.assertEqual(payment_schedule.partner, payment_schedule_created.partner)
         self.assertEqual(payment_schedule.payment_schedule_request, payment_schedule_created.payment_schedule_request)
-        self.assertEqual(payment_schedule.interest_paid, 0)
-        self.assertEqual(payment_schedule.capital_paid, 0)
+        self.assertEqual(payment_schedule.interest_paid, 1000.0)
+        self.assertEqual(payment_schedule.capital_paid, 90000.0000)

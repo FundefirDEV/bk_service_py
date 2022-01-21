@@ -4,13 +4,13 @@
 from django.db import models
 
 # Request Utils
-from bk_service.requests.utils.models import RequestModelBase
+from bk_service.requests.utils.models import RequestBaseModel
 
 # Utils
 from bk_service.utils.enums.requests import CreditUse, CreditUseDetail, CreditPayType
 
 
-class CreditRequest(RequestModelBase, models.Model):
+class CreditRequest(RequestBaseModel, models.Model):
     """ Credit Request model"""
 
     installments = models.PositiveIntegerField(null=False, default=0)

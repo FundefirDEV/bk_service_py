@@ -16,6 +16,9 @@ from bk_service.utils.enums.banks import PartnerType
 
 from datetime import date
 
+# Bk Core
+from bk_service.bk_core_sdk.bk_core import BkCore
+
 # # import pdb
 # pdb.set_trace()
 
@@ -32,12 +35,12 @@ PARTNER_GUEST_NAME_TEST = 'new_partner_guest'
 PARTNER_GUEST_PHONE_TEST = '31300000001'
 
 
-def create_bank(city=None):
+def create_bank(city=None, name=BANK_NAME_TEST):
 
     if city == None:
         city = create_locations()
 
-    bank = Bank.objects.create(name=BANK_NAME_TEST, city=city)
+    bank = Bank.objects.create(name=name, city=city)
 
     return bank
 
@@ -69,13 +72,20 @@ def create_user(
 def create_partner(
         phone_number=PHONE_TEST,
         phone_region_code=PHONE_REGION_CODE_TEST,
-        role=PartnerType.partner):
+        role=PartnerType.partner,
+        email=USERNAME_TEST,
+        bank=None,
+        user=None,
+):
+    if bank == None:
+        bank = create_bank()
 
-    bank = create_bank()
     user = create_user(
         city=bank.city,
         phone_number=phone_number,
-        phone_region_code=phone_region_code
+        phone_region_code=phone_region_code,
+        email=email,
+        username=email
     )
     partner = Partner.objects.create(
         bank=bank,
@@ -111,12 +121,11 @@ def create_share(partner=None, share_request=None, quantity=1, amount=10000):
     if share_request == None:
         share_request = create_share_request(partner=partner, quantity=quantity, amount=amount)
 
-    share = Share.objects.create(
-        bank=partner.bank,
-        share_request=share_request,
-        partner=partner,
-        quantity=share_request.quantity,
-        amount=share_request.amount)
+    share_request.approval_status = ApprovalStatus.approved
+    share_request.save()
+
+    share = Share.objects.get(share_request=share_request)
+
     return share
 
 
@@ -128,13 +137,24 @@ def create_credit(partner=None, credit_request=None):
     if credit_request == None:
         credit_request = create_credit_request(partner)
 
+    bk_core = BkCore()
+
+    ordinary_interest = partner.bank.get_bank_rules().ordinary_interest
+
+    total_interest = bk_core.calculate_credit_total_interest(
+        amount=credit_request.amount,
+        ordinary_interest=ordinary_interest,
+        installments=credit_request.installments
+    )
+
     credit = Credit.objects.create(
         bank=partner.bank,
         partner=partner,
         credit_request=credit_request,
         installments=credit_request.installments,
         amount=credit_request.amount,
-        payment_type=CreditPayType.installments
+        payment_type=CreditPayType.installments,
+        total_interest=total_interest,
     )
 
     return credit
@@ -158,14 +178,25 @@ def create_schedule_installment(credit=None):
     return schedule_installment
 
 
-def create_payment_schedules(credit=None):
-    schedule_installment = create_schedule_installment(credit)
-    payment_schedule_request = create_payment_schedule_request(schedule_installment.credit, schedule_installment)
+def create_payment_schedules(credit=None, payment_schedule_request=None):
+
+    if credit == None:
+        credit = create_credit()
+
+    if payment_schedule_request == None:
+        schedule_installment = create_schedule_installment(credit)
+        payment_schedule_request = create_payment_schedule_request(
+            schedule_installment.credit,
+            schedule_installment
+        )
+
     payment_schedule = PaymentSchedule.objects.create(
         payment_schedule_request=payment_schedule_request,
         amount=payment_schedule_request.amount,
         partner=payment_schedule_request.partner,
         bank=payment_schedule_request.bank,
+        capital_paid=payment_schedule_request.schedule_installment.capital_installment,
+        interest_paid=payment_schedule_request.schedule_installment.interest_calculated,
     )
     return payment_schedule
 

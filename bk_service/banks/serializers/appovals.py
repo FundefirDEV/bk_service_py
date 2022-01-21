@@ -50,7 +50,7 @@ class AppovalsSerializer(serializers.Serializer):
         if approval_status == ApprovalStatus.approved:
 
             if type_request == TypeRequest.share:
-                share_request = bk_core_sdk.approve_shares_request(share_requests_id=request_id)
+                bk_core_sdk.approve_shares_request(share_requests_id=request_id)
 
             if type_request == TypeRequest.credit:
                 # share_request = bk_core_sdk.approve_shares_request(share_requests_id=request_id)

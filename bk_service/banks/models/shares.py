@@ -9,15 +9,13 @@ from bk_service.banks.models.partners import Partner
 from bk_service.requests.models.share_requests import ShareRequest
 
 # Utils
-from bk_service.utils.models import BkServiceModel
+from bk_service.banks.utils import BankOperationsBaseModel
 
 
-class Share(BkServiceModel, models.Model):
+class Share(BankOperationsBaseModel, models.Model):
     """ Share model """
 
     # Relations
-    bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
-    partner = models.ForeignKey(Partner, on_delete=models.PROTECT)
     share_request = models.ForeignKey(ShareRequest, on_delete=models.PROTECT)
 
     quantity = models.PositiveIntegerField(blank=False, default=0)

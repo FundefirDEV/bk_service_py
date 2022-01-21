@@ -20,6 +20,6 @@ class BankTestCase(TestCase):
         self.assertEqual(bank.cash_balance, 0)
         self.assertEqual(bank.active_credits, 0)
         self.assertEqual(bank.shares, 0)
-        self.assertEqual(bank.expense_fund, 0)
-        self.assertEqual(bank.bad_debt_reserve, 0)
+        self.assertEqual(bank.expenditure_fund, 0)
+        self.assertEqual(bank.reserve_fund_of_bad_debt, 0)
         self.assertEqual(bank.city.name, 'Bogota')

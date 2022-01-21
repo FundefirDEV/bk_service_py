@@ -27,7 +27,7 @@ class BankModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bank
         fields = ('name', 'city', 'cash_balance', 'active_credits', 'shares',
-                  'expense_fund', 'bad_debt_reserve', )
+                  'expenditure_fund', 'reserve_fund_of_bad_debt', )
 
         extra_kwargs = {
             'name': {
