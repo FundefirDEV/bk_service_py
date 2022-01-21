@@ -81,8 +81,6 @@ class MaximunNumberOfSharesTest(TestCase):
 
             bk_validation.credit_request_validations(
                 requested_amount=0,
-                partner=self.partner,
-                bank_rules=self.bank_rules,
                 quantity=1,
                 payment_type=CreditPayType.advance
             )
@@ -95,8 +93,6 @@ class MaximunNumberOfSharesTest(TestCase):
         with pytest.raises(CustomException) as e_info:
             bk_validation.credit_request_validations(
                 requested_amount=100000,
-                partner=self.partner,
-                bank_rules=self.bank_rules,
                 quantity=1,
                 payment_type=CreditPayType.advance
             )
@@ -107,8 +103,6 @@ class MaximunNumberOfSharesTest(TestCase):
         with pytest.raises(CustomException) as e_info:
             bk_validation.credit_request_validations(
                 requested_amount=100000,
-                partner=self.partner,
-                bank_rules=self.bank_rules,
                 quantity=1,
                 payment_type=None
             )
@@ -119,8 +113,6 @@ class MaximunNumberOfSharesTest(TestCase):
         with pytest.raises(CustomException) as e_info:
             bk_validation.credit_request_validations(
                 requested_amount=100000,
-                partner=self.partner,
-                bank_rules=self.bank_rules,
                 quantity=0,
                 payment_type=CreditPayType.advance
             )
@@ -131,8 +123,6 @@ class MaximunNumberOfSharesTest(TestCase):
         with pytest.raises(CustomException) as e_info:
             bk_validation.credit_request_validations(
                 requested_amount=100000,
-                partner=self.partner,
-                bank_rules=self.bank_rules,
                 quantity=69,
                 payment_type=CreditPayType.advance
             )
@@ -145,8 +135,6 @@ class MaximunNumberOfSharesTest(TestCase):
         with pytest.raises(CustomException) as e_info:
             bk_validation.credit_request_validations(
                 requested_amount=100000,
-                partner=self.partner,
-                bank_rules=self.bank_rules,
                 quantity=1,
                 payment_type=CreditPayType.advance
             )
@@ -157,8 +145,6 @@ class MaximunNumberOfSharesTest(TestCase):
         with pytest.raises(CustomException) as e_info:
             bk_validation.credit_request_validations(
                 requested_amount=100000,
-                partner=self.partner,
-                bank_rules=self.bank_rules,
                 quantity=1,
                 payment_type=CreditPayType.advance
             )
@@ -171,8 +157,6 @@ class MaximunNumberOfSharesTest(TestCase):
         with pytest.raises(CustomException) as e_info:
             bk_validation.credit_request_validations(
                 requested_amount=1000001,
-                partner=self.partner,
-                bank_rules=self.bank_rules,
                 quantity=1,
                 payment_type=CreditPayType.advance
             )
@@ -185,8 +169,6 @@ class MaximunNumberOfSharesTest(TestCase):
         with pytest.raises(CustomException) as e_info:
             bk_validation.credit_request_validations(
                 requested_amount=10000,
-                partner=self.partner,
-                bank_rules=self.bank_rules,
                 quantity=1,
                 payment_type=CreditPayType.advance
             )
@@ -201,7 +183,7 @@ class MaximunNumberOfSharesTest(TestCase):
         share2 = create_share(partner=self.partner)
 
         bk_validation.credit_request_validations(
-            requested_amount=10000, partner=self.partner, bank_rules=self.bank_rules,
+            requested_amount=10000,
             quantity=1,
             payment_type=CreditPayType.advance
         )

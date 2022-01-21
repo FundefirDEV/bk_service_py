@@ -56,9 +56,11 @@ class BkCoreSDKValidations():
         except:
             raise CustomException(error=ID_REQUESTS_INVALID)
 
-    def credit_request_validations(self, partner, requested_amount, bank_rules, quantity, payment_type):
+    def credit_request_validations(self, requested_amount, quantity, payment_type):
         bk_core = BkCore()
-        bank = partner.bank
+        partner = self.partner
+        bank = self.bank
+        bank_rules = bank.get_bank_rules()
 
         # requested_quantity needs to be positive
         if requested_amount <= 0:
