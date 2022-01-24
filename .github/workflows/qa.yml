@@ -37,7 +37,6 @@ jobs:
         run: |
           chmod 777 create-envs.sh
           ./create-envs.sh QA
-          cat .envs/.production/.postgres
 
       - name: Build production image
         run : docker-compose -f production.yml build
