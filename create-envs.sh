@@ -2,7 +2,6 @@
 
 envdir=.envs/.production
 
-mkdir -m 777 .envs/
 mkdir -m 777 $envdir
 cd $envdir
 touch -m .django .postgres .caddy

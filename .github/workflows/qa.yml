@@ -24,14 +24,14 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: Build the Docker images
-        run: docker-compose -f local.yml build
+      # - name: Build the Docker images
+      #   run: docker-compose -f local.yml build
 
-      - name: Run Migrate
-        run: docker-compose -f local.yml run --rm django python manage.py migrate 
+      # - name: Run Migrate
+      #   run: docker-compose -f local.yml run --rm django python manage.py migrate 
 
-      - name: Run test
-        run: docker-compose -f local.yml run --rm django pytest
+      # - name: Run test
+      #   run: docker-compose -f local.yml run --rm django pytest
 
       - name: Create .env folder
         run: |
@@ -40,6 +40,12 @@ jobs:
 
       - name: Build production image
         run : docker-compose -f production.yml build
+
+      - name: Run Migrate
+        run: docker-compose -f production.yml run --rm django python manage.py migrate
+        
+      - name: Up
+        run: docker-compose -f production.yml up 
 
   # deploy:
   #   name: Deploy
