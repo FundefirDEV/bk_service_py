@@ -90,7 +90,7 @@ jobs:
         # Push
 
 
-        docker-compose -f production.yml push --rm django
+        docker-compose -f production.yml push django
 
         # docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
