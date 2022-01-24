@@ -27,7 +27,7 @@ djangorestframework-simplejwt == 4.6.0
 argon2-cffi==20.1.0
 
 # Static files
-whitenoise==4.1.2
+whitenoise==5.3.0
 
 # Celery
 tornado>=4.2.0,<6.0.0

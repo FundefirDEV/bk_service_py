@@ -269,6 +269,7 @@ tags
 ### Project template
 
 bk_service/media/
+bk_service/static/
 
 .pytest_cache/
 
