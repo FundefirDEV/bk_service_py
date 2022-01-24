@@ -4,7 +4,11 @@ COMMAND=$1
 
 ENV="_$COMMAND"
 
-if [[ $COMMAND != ''  ]]; then
+echo "*************************************"
+echo $ENV
+echo "*************************************"
+
+if [[ $COMMAND == ''  ]]; then
     ENV=''
 fi
 
@@ -13,9 +17,6 @@ envdir=.envs/.production
 mkdir -m 777 $envdir
 cd $envdir
 touch -m .django .postgres .caddy
-echo "*************************************"
-echo $ENV
-echo "*************************************"
 
 # Set postgres env
 echo "POSTGRES_HOST=\${{secrets.POSTGRES_HOST$ENV}}" >> .postgres
@@ -39,3 +40,5 @@ echo "POSTGRES_PORT=\${{secrets.POSTGRES_PORT$ENV}}" >> .caddy
 echo "POSTGRES_DB=\${{secrets.POSTGRES_DB$ENV}}" >> .caddy
 echo "POSTGRES_USER=\${{secrets.POSTGRES_USER$ENV}}" >> .caddy
 echo "POSTGRES_PASSWORD=\${{secrets.POSTGRES_PASSWORD$ENV}}" >> .caddy
+
+cd ..
