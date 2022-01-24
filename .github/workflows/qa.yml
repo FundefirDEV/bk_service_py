@@ -33,64 +33,74 @@ jobs:
       - name: Run test
         run: docker-compose -f local.yml run --rm django pytest
 
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    environment: production
+      - name: Create .env folder
+        run: |
+          chmod 777 create-envs.sh
+          ./create-envs.sh
 
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Build production image
+        run : docker-compose -f production.yml build
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+  # deploy:
+  #   name: Deploy
+  #   runs-on: ubuntu-latest
+  #   environment: production
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v2
 
-    - name: Build, tag, and push image to Amazon ECR
-      id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        # Build a docker container and
-        # push it to ECR so that it can
-        # be deployed to ECS.
+  #   - name: Configure AWS credentials
+  #     uses: aws-actions/configure-aws-credentials@v1
+  #     with:
+  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #       aws-region: ${{ env.AWS_REGION }}
 
-        # Create .env folder
-        chmod 777 create-envs.sh
-        ./create-envs.sh
+  #   - name: Login to Amazon ECR
+  #     id: login-ecr
+  #     uses: aws-actions/amazon-ecr-login@v1
+
+    # - name: Build, tag, and push image to Amazon ECR
+    #   id: build-image
+    #   env:
+    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+    #     IMAGE_TAG: ${{ github.sha }}
+      # run: |
+      #   Build a docker container and
+      #   push it to ECR so that it can
+      #   be deployed to ECS.
+
+      #   Create .env folder
+      #   chmod 777 create-envs.sh
+      #   ./create-envs.sh
 
         # Build production image
-        docker-compose -f production.yml build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        # docker-compose -f production.yml build
+
+        # docker-compose -f production.yml build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         # Run Migrate
-        docker-compose -f production.yml run --rm django python manage.py migrate 
+        # docker-compose -f production.yml run --rm django python manage.py migrate 
         # Push
-        docker-compose -f production.yml push
+        # docker-compose -f production.yml push
 
         # docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         # echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-    - name: Fill in the new image ID in the Amazon ECS task definition
-      id: task-def
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition: ${{ env.ECS_TASK_DEFINITION }}
-        container-name: ${{ env.CONTAINER_NAME }}
-        image: ${{ steps.build-image.outputs.image }}
+    # - name: Fill in the new image ID in the Amazon ECS task definition
+    #   id: task-def
+    #   uses: aws-actions/amazon-ecs-render-task-definition@v1
+    #   with:
+    #     task-definition: ${{ env.ECS_TASK_DEFINITION }}
+    #     container-name: ${{ env.CONTAINER_NAME }}
+    #     image: ${{ steps.build-image.outputs.image }}
 
-    - name: Deploy Amazon ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ env.ECS_SERVICE }}
-        cluster: ${{ env.ECS_CLUSTER }}
-        wait-for-service-stability: true
+    # - name: Deploy Amazon ECS task definition
+    #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+    #   with:
+    #     task-definition: ${{ steps.task-def.outputs.task-definition }}
+    #     service: ${{ env.ECS_SERVICE }}
+    #     cluster: ${{ env.ECS_CLUSTER }}
+    #     wait-for-service-stability: true
 
