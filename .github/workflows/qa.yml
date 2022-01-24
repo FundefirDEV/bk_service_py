@@ -42,10 +42,10 @@ jobs:
         run : docker-compose -f production.yml build
 
       - name: Run Migrate
-        run: docker-compose -f production.yml run --rm django python manage.py migrate
+        run : docker-compose -f production.yml run --rm django python manage.py migrate
         
       - name: Up
-        run: docker-compose -f production.yml up 
+        run : docker-compose -f production.yml up 
 
   # deploy:
   #   name: Deploy
