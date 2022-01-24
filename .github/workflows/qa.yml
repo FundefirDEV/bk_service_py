@@ -7,10 +7,10 @@ on:
     branches: [ qa ]
 
 env:
-  AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: MY_ECR_REPOSITORY           # set this to your Amazon ECR repository name
+  AWS_REGION: us-east-2                   # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: bk-service-qa-ecr           # set this to your Amazon ECR repository name
   ECS_SERVICE: MY_ECS_SERVICE                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: MY_ECS_CLUSTER                 # set this to your Amazon ECS cluster name
+  ECS_CLUSTER: bk-service-py-cluster                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
@@ -33,62 +33,64 @@ jobs:
       # - name: Run test
       #   run: docker-compose -f local.yml run --rm django pytest
 
-      - name: Create .env folder
-        run: |
-          chmod 777 create-envs.sh
-          ./create-envs.sh QA
+      # - name: Create .env folder
+      #   run: |
+      #     chmod 777 create-envs.sh
+      #     ./create-envs.sh QA
 
-      - name: Build production image
-        run : docker-compose -f production.yml build
+      # - name: Build production image
+      #   run : docker-compose -f production.yml build
 
-      - name: Run Migrate
-        run : docker-compose -f production.yml run --rm django python manage.py migrate
-        
-      - name: Up
-        run : docker-compose -f production.yml up 
+      # - name: Run Migrate
+      #   run : docker-compose -f production.yml run --rm django python manage.py migrate
 
-  # deploy:
-  #   name: Deploy
-  #   runs-on: ubuntu-latest
-  #   environment: production
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
 
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v2
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
 
-  #   - name: Configure AWS credentials
-  #     uses: aws-actions/configure-aws-credentials@v1
-  #     with:
-  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #       aws-region: ${{ env.AWS_REGION }}
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
-  #   - name: Login to Amazon ECR
-  #     id: login-ecr
-  #     uses: aws-actions/amazon-ecr-login@v1
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
 
-    # - name: Build, tag, and push image to Amazon ECR
-    #   id: build-image
-    #   env:
-    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-    #     IMAGE_TAG: ${{ github.sha }}
-      # run: |
-      #   Build a docker container and
-      #   push it to ECR so that it can
-      #   be deployed to ECS.
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        # Build a docker container and
+        # push it to ECR so that it can
+        # be deployed to ECS.
 
-      #   Create .env folder
-      #   chmod 777 create-envs.sh
-      #   ./create-envs.sh
+        # Create .env folder
+        chmod 777 create-envs.sh
+        ./create-envs.sh
 
         # Build production image
-        # docker-compose -f production.yml build
+
+        
+        docker-compose -f production.yml build django
 
         # docker-compose -f production.yml build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        # docker push -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         # Run Migrate
         # docker-compose -f production.yml run --rm django python manage.py migrate 
         # Push
-        # docker-compose -f production.yml push
+
+
+        docker-compose -f production.yml push --rm django
 
         # docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG

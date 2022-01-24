@@ -10,7 +10,8 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
-    image: bk_service_production_django
+    # image: bk_service_production_django
+    image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
     depends_on:
       - postgres
       - redis
