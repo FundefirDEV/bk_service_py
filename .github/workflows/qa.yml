@@ -36,7 +36,8 @@ jobs:
       - name: Create .env folder
         run: |
           chmod 777 create-envs.sh
-          ./create-envs.sh
+          ./create-envs.sh QA
+          cat .env/.production/.postgres
 
       - name: Build production image
         run : docker-compose -f production.yml build
