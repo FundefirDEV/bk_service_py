@@ -46,7 +46,7 @@ phases:
         - ls
         - cat .envs/.local/.postgres
         - cat .envs/.production/.postgres
-        - docker-compose -f production.yml build
+        - docker-compose build
   #post_build:
     #commands:
       # - command
