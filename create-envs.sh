@@ -1,16 +1,16 @@
 #!/bin/bash
 
-COMMAND=$1
+# COMMAND=$1
 
-ENV="_$COMMAND"
+# ENV="_$COMMAND"
 
-echo "*************************************"
-echo $ENV
-echo "*************************************"
+# echo "*************************************"
+# echo $ENV
+# echo "*************************************"
 
-if [[ $COMMAND == ''  ]]; then
-    ENV=''
-fi
+# if [[ $COMMAND == ''  ]]; then
+#     ENV=''
+# fi
 
 envdir=.envs/.production
 

@@ -26,8 +26,8 @@ phases:
   #       - docker-compose up -d
   install:
    commands:
-     - mv /usr/local/bin/docker /usr/bin/docker
-     - curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
+    #  - mv /usr/local/bin/docker /usr/bin/docker
+    #  - curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
     #runtime-versions:
       # name: version
       # name: version
@@ -37,7 +37,7 @@ phases:
 
   pre_build:
     commands:
-        - docker --version
+        - docker-compose --version
         - chmod 777 create-envs.sh
         - ./create-envs.sh
   build:
