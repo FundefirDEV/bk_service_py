@@ -42,6 +42,10 @@ phases:
         - ./create-envs.sh
   build:
     commands:
+        - pwd
+        - ls
+        - service docker start
+
         - docker-compose -f production.yml build
   #post_build:
     #commands:
