@@ -44,8 +44,8 @@ phases:
     commands:
         - pwd
         - ls
-        - service docker start
-
+        - cat /.envs/.local/.postgres
+        - cat /.envs/.production/.postgres
         - docker-compose -f production.yml build
   #post_build:
     #commands:
