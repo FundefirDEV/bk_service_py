@@ -37,14 +37,11 @@ phases:
 
   pre_build:
     commands:
-        - systemctl status docker
-        - systemctl start docker
-        - docker-compose --version
         - chmod 777 create-envs.sh
         - ./create-envs.sh
   build:
     commands:
-        - docker-compose -f production.yml build
+        - docker-compose -f production.yml build django
   #post_build:
     #commands:
       # - command
