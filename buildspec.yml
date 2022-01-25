@@ -37,16 +37,14 @@ phases:
 
   pre_build:
     commands:
+        - systemctl status docker
+        - systemctl start docker
         - docker-compose --version
         - chmod 777 create-envs.sh
         - ./create-envs.sh
   build:
     commands:
-        - pwd
-        - ls
-        - cat .envs/.local/.postgres
-        - cat .envs/.production/.postgres
-        - docker-compose build
+        - docker-compose -f production.yml build
   #post_build:
     #commands:
       # - command
