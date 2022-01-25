@@ -19,8 +19,10 @@ class RequestsAPIView(APIView):
 
         validated_data = dict(serializer.validated_data)
 
+        request_type = validated_data["type_request"]
+
         partner = request.user.get_partner()
 
         serializer.create_request(partner=partner, validated_data=validated_data)
 
-        return Response(f'{validated_data["type_request"]} request success !')
+        return Response(request_type + ' request success !')

@@ -110,6 +110,8 @@ class RequestsSerializer(serializers.Serializer):
             return share_request
 
         if type_request == TypeRequest.credit:
+            validated_data.pop('id_schedule_installment')
+            validated_data.pop('type_request')
             self.create_credit_request(partner=partner, validated_data=validated_data)
 
         if type_request == TypeRequest.installment_payment:

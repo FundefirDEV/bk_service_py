@@ -72,7 +72,7 @@ class BkCoreSDK():
 
         return share_request
 
-    def create_credit_request(self, amount, quantity, credit_use, credit_use_detail, payment_type, type_request):
+    def create_credit_request(self, amount, quantity, credit_use, credit_use_detail, payment_type):
         bank_rules = self.bank.get_bank_rules()
 
         if credit_use == None or credit_use_detail == None:
