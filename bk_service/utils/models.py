@@ -8,7 +8,7 @@ from django.db import models
 
 
 class BkServiceModel(models.Model):
-    """ Comparte Ride base model"""
+    """ BkService base model"""
 
     created_at = models.DateTimeField(
         verbose_name='create at',

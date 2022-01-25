@@ -32,14 +32,14 @@ class RequestsSerializer(serializers.Serializer):
         },
         choices=TypeRequest.choices
     )
-    amount = serializers.CharField(
+    amount = serializers.FloatField(
         required=False,
         error_messages={
             'required': build_error_message(AMOUNT_REQUIRED),
-            'invalid': build_error_message(AMOUNT_REQUIRED),
+            'invalid': build_error_message(AMOUNT_INVALID),
         },
     )
-    quantity = serializers.CharField(
+    quantity = serializers.IntegerField(
         required=False,
         error_messages={
             'invalid': build_error_message(QUANTITY_INVALID),
@@ -76,7 +76,7 @@ class RequestsSerializer(serializers.Serializer):
         },
         choices=CreditPayType.choices
     )
-    id_schedule_installment = serializers.CharField(
+    id_schedule_installment = serializers.FloatField(
         required=False,
         error_messages={
             'invalid': build_error_message(ID_SCHEDULE_INSTALMENT_INVALID),
@@ -85,6 +85,20 @@ class RequestsSerializer(serializers.Serializer):
     date = serializers.DateTimeField(
         required=False,
     )
+
+    def validate(self, data):
+
+        # Set None if key not exist
+        if 'quantity' not in data:
+            data['quantity'] = None
+
+        if 'amount' not in data:
+            data['amount'] = None
+
+        if 'id_schedule_installment' not in data:
+            data['id_schedule_installment'] = None
+
+        return data
 
     def create_request(self, partner, validated_data):
         bk_core_sdk = BkCoreSDK(partner=partner)
@@ -97,6 +111,18 @@ class RequestsSerializer(serializers.Serializer):
 
         if type_request == TypeRequest.credit:
             self.create_credit_request(partner=partner, validated_data=validated_data)
+
+        if type_request == TypeRequest.installment_payment:
+
+            amount = validated_data['amount']
+            id_schedule_installment = validated_data['id_schedule_installment']
+
+            payment_schedule_request = bk_core_sdk.create_payment_schedule_request(
+                amount=amount,
+                id_schedule_installment=id_schedule_installment
+            )
+
+            # self.create_credit_request(partner=partner, validated_data=validated_data)
 
     def create_credit_request(self, partner, validated_data):
         bk_core_sdk = BkCoreSDK(partner=partner)

@@ -45,7 +45,7 @@ class ApprovalsAPIView(APIView):
 
         serializer.create(partner=partner, **validated_data)
 
-        return Response(f'share {validated_data["approval_status"]} success !')
+        return Response(f'{validated_data["type_request"]} {validated_data["approval_status"]} success !')
 
     def get(self, request, *args, **kwargs):
 

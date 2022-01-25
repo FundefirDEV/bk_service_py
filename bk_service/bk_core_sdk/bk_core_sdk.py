@@ -102,6 +102,23 @@ class BkCoreSDK():
 
         return credit_request
 
+    def create_payment_schedule_request(self, amount, id_schedule_installment):
+
+        self.bk_core_validation.payment_schedule_request_validations(
+            amount=amount,
+            id_schedule_installment=id_schedule_installment,
+        )
+
+        payment_schedule_request = PaymentScheduleRequest.objects.create(
+            partner=self.partner,
+            bank=self.bank,
+            schedule_installment_id=id_schedule_installment,
+            amount=amount,
+            approval_status=ApprovalStatus.pending
+        )
+
+        return payment_schedule_request
+
     def validate_credit_use(self, credit_use, credit_use_detail):
         if credit_use == None or credit_use_detail == None:
             raise CustomException(error=CREDIT_USE_REQUIRED)
