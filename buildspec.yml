@@ -26,8 +26,8 @@ phases:
   #       - docker-compose up -d
   install:
    commands:
-      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2&
-      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+    #  - mv /usr/local/bin/docker /usr/bin/docker
+    #  - curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
     #runtime-versions:
       # name: version
       # name: version
