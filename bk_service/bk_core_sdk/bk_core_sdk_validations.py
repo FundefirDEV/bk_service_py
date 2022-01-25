@@ -64,6 +64,20 @@ class BkCoreSDKValidations():
         except:
             raise CustomException(error=ID_REQUESTS_INVALID)
 
+    def validate_credit_requests(self, credit_requests_id, bank):
+
+        try:
+            credit_request = CreditRequest.objects.get(
+                pk=credit_requests_id,
+                approval_status=ApprovalStatus.pending
+            )
+            if(credit_request.amount > bank.cash_balance):
+                raise CustomException(error=CASH_BALANCE_EXCCEDED)
+
+            return credit_request
+        except:
+            raise CustomException(error=ID_REQUESTS_INVALID)
+
     def credit_request_validations(self, requested_amount, quantity, payment_type):
         bk_core = BkCore()
         partner = self.partner

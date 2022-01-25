@@ -7,7 +7,7 @@ from rest_framework.exceptions import ErrorDetail
 from bk_service.users.tests.utils.commons import *
 
 # Model
-from bk_service.banks.models.credits import Credit
+from bk_service.banks.models import Credit, ScheduleInstallment
 
 # Banks test Utils
 from bk_service.banks.tests.utils.setup import *
@@ -27,13 +27,15 @@ class BankDetailAPITestCase(APITestCase):
         self.bank = self.partner.bank
         self.bank.shares = 100
         self.bank.save()
-        self.credit_request = create_credit_request(partner=self.partner)
+        self.credit_request = create_credit_request(partner=self.partner, installments=3)
 
     def test_credits_signal_approve_credit(self):
         self.credit_request.approval_status = ApprovalStatus.approved
         self.credit_request.save()
         credit = Credit.objects.get(partner=self.partner)
+        schedule_installment = ScheduleInstallment.objects.filter(credit=credit)
         self.assertEqual(credit.credit_request, self.credit_request)
+        self.assertEqual(len(schedule_installment), 3)
 
     def test_credits_signal_reject_credit(self):
         self.credit_request.approval_status = ApprovalStatus.rejected

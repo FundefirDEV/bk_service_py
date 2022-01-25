@@ -98,6 +98,28 @@ class BkCoreSDK():
 
         return credit_request
 
+    def approve_credit_request(self, credit_requests_id, bank):
+
+        # Validate credit requests
+        credit_request = self.bk_core_validation.validate_credit_requests(
+            credit_requests_id=credit_requests_id, bank=bank
+        )
+
+        credit_request.approval_status = ApprovalStatus.approved
+        credit_request.save()
+
+    def reject_credit_request(self, credit_requests_id,):
+
+        # Validate credit requests
+        credit_request = self.bk_core_validation.validate_credit_requests(
+            credit_requests_id=credit_requests_id
+        )
+
+        credit_request.approval_status = ApprovalStatus.rejected
+        credit_request.save()
+
+        return credit_request
+
     def create_payment_schedule_request(self, amount, id_schedule_installment):
 
         self.bk_core_validation.payment_schedule_request_validations(
