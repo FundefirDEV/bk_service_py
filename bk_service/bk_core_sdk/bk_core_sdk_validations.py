@@ -4,13 +4,21 @@ from django.db.models.functions import Coalesce
 # Errors
 from bk_service.utils.exceptions_errors import CustomException
 from bk_service.utils.constants_errors import *
+
 # Models
-from bk_service.banks.models import Meeting, BankRules, Share, Credit, CreditRequest
-from bk_service.requests.models import ShareRequest
+from bk_service.banks.models import (
+    Meeting,
+    BankRules,
+    Share,
+    Credit,
+    ScheduleInstallment,
+)
+
+from bk_service.requests.models import *
 # BkCore
 from .bk_core import BkCore
 # Utils
-from bk_service.utils.enums.requests import ApprovalStatus
+from bk_service.utils.enums import ApprovalStatus, PaymentStatus
 
 
 class BkCoreSDKValidations():
@@ -101,3 +109,28 @@ class BkCoreSDKValidations():
             partner=partner, is_active=True).aggregate(sum=Sum('amount'))["sum"] or 0
 
         return total_shares_amount
+
+    def payment_schedule_request_validations(self, amount, id_schedule_installment):
+
+        if amount == None or float(amount) <= 0:
+            raise CustomException(error=AMOUNT_INVALID)
+
+        if id_schedule_installment == None:
+            raise CustomException(error=ID_SCHEDULE_INSTALMENT_REQUIRED)
+
+        # Pending request
+        if PaymentScheduleRequest.objects.filter(
+            partner=self.partner,
+            approval_status=ApprovalStatus.pending
+        ).exists():
+            raise CustomException(error=PENDING_REQUEST)
+
+        # schedule installment exists
+        schedule_installment = ScheduleInstallment.objects.filter(
+            pk=id_schedule_installment,
+            credit__partner=self.partner,
+            payment_status=PaymentStatus.pending,
+        )
+
+        if schedule_installment.exists() is not True:
+            raise CustomException(error=ID_SCHEDULE_INSTALMENT_NOT_EXIST)
