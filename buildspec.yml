@@ -41,8 +41,8 @@ phases:
         - ./create-envs.sh
   build:
     commands:
-        - docker info
-        - docker-compose -f production.yml build django
+        # - docker info
+        - sudo docker-compose -f production.yml build django
   #post_build:
     #commands:
       # - command
