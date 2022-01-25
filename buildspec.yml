@@ -20,13 +20,14 @@ version: 0.2
   #build-matrix:
   #build-graph:
 phases:
-  build:
-    commands:
-        - cd deployments/platformdeployment/Docker
-        - docker-compose up -d
-  #install:
-    #If you use the Ubuntu standard image 2.0 or later, you must specify runtime-versions.
-    #If you specify runtime-versions and use an image other than Ubuntu standard image 2.0, the build fails.
+  # build:
+  #   commands:
+  #       - cd deployments/platformdeployment/Docker
+  #       - docker-compose up -d
+  install:
+   commands:
+     - mv /usr/local/bin/docker /usr/bin/docker
+     - curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
     #runtime-versions:
       # name: version
       # name: version
