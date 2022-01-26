@@ -9,7 +9,7 @@ phases:
   # install:
   #  commands:
 
-  test:
+  pre_build:
     commands:
         - docker-compose -f local.yml build
         - docker-compose -f local.yml run --rm django python manage.py migrate
