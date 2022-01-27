@@ -98,17 +98,17 @@ class BkCoreSDK():
 
         return credit_request
 
-    def approve_credit_request(self, credit_requests_id, bank):
+    def approve_credit_request(self, credit_requests_id):
 
         # Validate credit requests
         credit_request = self.bk_core_validation.validate_credit_requests(
-            credit_requests_id=credit_requests_id, bank=bank
+            credit_requests_id=credit_requests_id
         )
 
         credit_request.approval_status = ApprovalStatus.approved
         credit_request.save()
 
-    def reject_credit_request(self, credit_requests_id,):
+    def reject_credit_request(self, credit_requests_id):
 
         # Validate credit requests
         credit_request = self.bk_core_validation.validate_credit_requests(
