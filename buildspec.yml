@@ -1,0 +1,33 @@
+version: 0.2
+
+env:
+  variables:
+    POSTGRES_HOST: $POSTGRES_HOST 
+    POSTGRES_PORT: $POSTGRES_PORT 
+    POSTGRES_DB: $POSTGRES_DB 
+    POSTGRES_USER: $POSTGRES_USER 
+    POSTGRES_PASSWORD: $POSTGRES_PASSWORD 
+    DJANGO_SECRET_KEY: $DJANGO_SECRET_KEY 
+    DJANGO_ADMIN_URL: $DJANGO_ADMIN_URL 
+    DJANGO_ALLOWED_HOSTS: $DJANGO_ALLOWED_HOSTS 
+    REDIS_URL: $REDIS_URL 
+    CELERY_FLOWER_USER: $CELERY_FLOWER_USER 
+    CELERY_FLOWER_PASSWORD: $CELERY_FLOWER_PASSWORD 
+
+phases:
+  # install:
+  #  commands:
+
+  pre_build:
+    commands:
+        - docker-compose -f local.yml build
+        - docker-compose -f local.yml run --rm django python manage.py migrate
+        - docker-compose -f local.yml run --rm django pytest
+
+        - chmod 777 create-envs.sh
+        - ./create-envs.sh
+        - cat .envs/.production/.postgres
+  build:
+    commands:
+        - docker-compose -f production.yml build
+  
