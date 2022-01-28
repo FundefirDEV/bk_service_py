@@ -64,6 +64,17 @@ class BkCoreSDKValidations():
         except:
             raise CustomException(error=ID_REQUESTS_INVALID)
 
+    def validate_payment_schedule_requests(self, payment_schedule_request_id):
+
+        try:
+            payment_schedule_request = PaymentScheduleRequest.objects.get(
+                pk=payment_schedule_request_id,
+                approval_status=ApprovalStatus.pending
+            )
+            return payment_schedule_request
+        except:
+            raise CustomException(error=ID_REQUESTS_INVALID)
+
     def credit_request_validations(self, partner, requested_amount, bank_rules, quantity, payment_type):
         bk_core = BkCore()
         bank = partner.bank

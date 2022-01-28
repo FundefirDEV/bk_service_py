@@ -47,12 +47,12 @@ def create_credit_request(
     return credit_request
 
 
-def create_payment_schedule_request(credit, schedule_installment):
+def create_payment_schedule_request(credit, schedule_installment, amount=10000):
     payment_schedule_request = PaymentScheduleRequest.objects.create(
         schedule_installment=schedule_installment,
         partner=credit.partner,
         bank=credit.bank,
-        amount=10000,
+        amount=amount,
         approval_status=ApprovalStatus.pending,
     )
     return payment_schedule_request
