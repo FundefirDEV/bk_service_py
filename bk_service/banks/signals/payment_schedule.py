@@ -38,7 +38,7 @@ def post_save_approve_payment_schedule_request(sender, instance, created, **kwar
                 is_payment_advance=is_payment_advance
             )
 
-            capital_paid = instance.amount - interest_paid
+            capital_paid = float(instance.amount) - float(interest_paid)
 
             payment_schedule = PaymentSchedule.objects.create(
                 bank=bank,

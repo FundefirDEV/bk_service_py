@@ -141,6 +141,84 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             interest_paid=1000
         )
 
+    def test_payment_schedule_approve_requests_success_payment_interest_incomplete(self):
+        """ PaymentSchedule approvals approve requests success capital payment incomplete """
+
+        schedule_installment = create_schedule_installment(self.credit)
+
+        payment_schedule_request = create_payment_schedule_request(
+            credit=self.credit,
+            schedule_installment=schedule_installment, amount=900
+        )
+
+        request_body = {
+            'type_request': 'installment_payment',
+            'request_id': payment_schedule_request.id,
+            'approval_status': 'approved'
+        }
+
+        request = post_with_token(URL=URL, user=self.partner.user, body=request_body)
+        body = request.data
+
+        self.assertEqual(request.status_code, status.HTTP_200_OK)
+        self.assertEqual(body, 'installment_payment approved success !')
+
+        validate_payment_schedule(
+            self=self,
+            schedule_installment_id=schedule_installment.id,
+            schedule_installment_payment_status=PaymentStatus.pending,
+            payment_schedule_request_id=payment_schedule_request.id,
+            payment_schedule_request_approval_status=ApprovalStatus.approved,
+            amount=900,
+            capital_paid=0,
+            interest_paid=900
+        )
+
+    def test_payment_schedule_approve_requests_success_payment_credit_advance(self):
+        """ PaymentSchedule approvals approve requests success capital payment incomplete """
+
+        credit_request = create_credit_request(
+            partner=self.partner,
+            payment_type=CreditPayType.advance
+        )
+
+        credit = create_credit(partner=self.partner, credit_request=credit_request)
+        schedule_installment = create_schedule_installment(
+            credit=credit,
+            capital_installment=90000,
+            ordinary_interest_percentage=1,
+            total_pay_installment=90000,
+            interest_calculated=0,
+        )
+
+        payment_schedule_request = create_payment_schedule_request(
+            credit=self.credit,
+            schedule_installment=schedule_installment, amount=90000
+        )
+
+        request_body = {
+            'type_request': 'installment_payment',
+            'request_id': payment_schedule_request.id,
+            'approval_status': 'approved'
+        }
+
+        request = post_with_token(URL=URL, user=self.partner.user, body=request_body)
+        body = request.data
+
+        self.assertEqual(request.status_code, status.HTTP_200_OK)
+        self.assertEqual(body, 'installment_payment approved success !')
+
+        validate_payment_schedule(
+            self=self,
+            schedule_installment_id=schedule_installment.id,
+            schedule_installment_payment_status=PaymentStatus.complete,
+            payment_schedule_request_id=payment_schedule_request.id,
+            payment_schedule_request_approval_status=ApprovalStatus.approved,
+            amount=90000,
+            capital_paid=90000,
+            interest_paid=0
+        )
+
 
 def validate_payment_schedule(
     self,
