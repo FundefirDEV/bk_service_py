@@ -137,6 +137,28 @@ class BkCoreSDK():
 
         return payment_schedule_request
 
+    def approve_payment_schedule_request(self, payment_schedule_request_id,):
+
+        # Validate share requests
+        payment_schedule_request = self.bk_core_validation.validate_payment_schedule_requests(
+            payment_schedule_request_id=payment_schedule_request_id
+        )
+
+        payment_schedule_request.approval_status = ApprovalStatus.approved
+        payment_schedule_request.save()
+
+    def reject_payment_schedule_request(self, payment_schedule_request_id,):
+
+        # Validate payment schedule requests
+        payment_schedule_request = self.bk_core_validation.validate_payment_schedule_requests(
+            payment_schedule_request_id=payment_schedule_request_id
+        )
+
+        payment_schedule_request.approval_status = ApprovalStatus.rejected
+        payment_schedule_request.save()
+
+        return payment_schedule_request
+
     def validate_credit_use(self, credit_use, credit_use_detail):
         if credit_use == None or credit_use_detail == None:
             raise CustomException(error=CREDIT_USE_REQUIRED)

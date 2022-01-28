@@ -74,3 +74,28 @@ class BkCore():
                                            'capital_value': installment_value - installment_ordinary_interest,
                                            'installment_payment_date': installment_payment_date})
         return schedules_installments
+
+    def calculate_interest_paid(
+        self,
+        amount_paid,
+        payment_schedule_request_amount,
+        schedule_installment_interest,
+        is_payment_advance,
+    ):
+
+        if is_payment_advance:
+            return 0.0
+
+        interest_paid = 0.0
+
+        if(amount_paid >= schedule_installment_interest):
+            interest_paid = 0.0
+        else:
+            pending_interest = schedule_installment_interest - amount_paid
+
+            if(payment_schedule_request_amount >= pending_interest):
+                interest_paid = pending_interest
+            else:
+                interest_paid = payment_schedule_request_amount
+
+        return interest_paid

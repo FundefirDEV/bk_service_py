@@ -160,17 +160,23 @@ def create_credit(partner=None, credit_request=None):
     return credit
 
 
-def create_schedule_installment(credit=None):
+def create_schedule_installment(
+    credit=None,
+    capital_installment=90000,
+    ordinary_interest_percentage=1,
+    total_pay_installment=91000,
+    interest_calculated=1000,
+):
 
     if credit == None:
         credit = create_credit()
 
     schedule_installment = ScheduleInstallment.objects.create(
         credit=credit,
-        capital_installment=90000,
-        ordinary_interest_percentage=1,
-        interest_calculated=1000,
-        total_pay_installment=91000,
+        capital_installment=capital_installment,
+        ordinary_interest_percentage=ordinary_interest_percentage,
+        interest_calculated=interest_calculated,
+        total_pay_installment=total_pay_installment,
         payment_status=PaymentStatus.pending,
         payment_date=date.today()
 
