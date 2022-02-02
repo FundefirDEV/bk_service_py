@@ -30,8 +30,8 @@ def post_save_create_credit_schedule_installment(sender, instance, created, **kw
             ordinary_interest=bank_rules.ordinary_interest,
             credit_amount=instance.amount,
             installments=instance.installments,
-            payment_type=instance.payment_type,
-            payment_period_of_installment=bank_rules.payment_period_of_installment
+            payment_period_of_installment=bank_rules.payment_period_of_installment,
+            payment_type=instance.payment_type
         )
 
         for schedule_installment in schedule_installments_core:

@@ -8,6 +8,9 @@ from django.dispatch import receiver
 from bk_service.banks.models import PartnerDetail, Bank, Credit
 from bk_service.requests.models import CreditRequest
 
+# core
+from bk_service.bk_core_sdk.bk_core_sdk import BkCoreSDK, BkCore
+
 # Utils
 from bk_service.utils.enums.requests import ApprovalStatus
 
@@ -21,6 +24,11 @@ def post_save_approve_credit_request(sender, instance, created, **kwargs):
 
             partner_detail = instance.partner.partner_detail()
             bank = Bank.objects.get(pk=instance.bank.id)
+            ordinary_interest = bank.get_bank_rules().ordinary_interest
+            total_interest = BkCore().calculate_credit_total_interest(
+                amount=instance.amount,
+                ordinary_interest=ordinary_interest,
+                installments=instance.installments)
 
             credit = Credit.objects.create(
                 bank=bank,
@@ -30,14 +38,7 @@ def post_save_approve_credit_request(sender, instance, created, **kwargs):
                 amount=instance.amount,
                 credit_use=instance.credit_use,
                 credit_use_detail=instance.credit_use_detail,
-                payment_type=instance.payment_type
-            )
-
-            # Update partner detail
-            partner_detail.active_credit += instance.amount
-            partner_detail.save()
-
-            # Update bank
-            bank.active_credits += instance.amount
-            bank.cash_balance -= instance.amount
-            bank.save()
+                payment_type=instance.payment_type,
+                total_interest=total_interest)
+            BkCoreSDK(partner=instance.partner).update_bank_partner_active_credit(
+                credit=credit, ordinary_interest=ordinary_interest)

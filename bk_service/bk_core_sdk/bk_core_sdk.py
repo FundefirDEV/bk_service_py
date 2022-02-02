@@ -108,8 +108,26 @@ class BkCoreSDK():
         credit_request.approval_status = ApprovalStatus.approved
         credit_request.save()
 
-    def reject_credit_request(self, credit_requests_id):
+    def update_bank_partner_active_credit(self, credit, ordinary_interest):
 
+        if credit.payment_type == CreditPayType.advance:
+            interest = BkCore().calculate_credit_total_interest(amount=credit.amount,
+                                                                ordinary_interest=ordinary_interest,
+                                                                installments=credit.installments)
+            debt = credit.amount - interest
+        else:
+            debt = credit.amount
+
+        # update partner detail
+        partner_detail = self.partner.partner_detail()
+        partner_detail.active_credit += debt
+        partner_detail.save()
+        # update bank
+        self.bank.active_credits += debt
+        self.bank.cash_balance -= debt
+        self.bank.save()
+
+    def reject_credit_request(self, credit_requests_id):
         # Validate credit requests
         credit_request = self.bk_core_validation.validate_credit_requests(
             credit_requests_id=credit_requests_id

@@ -29,7 +29,7 @@ class BankDetailAPITestCase(APITestCase):
         self.bank.save()
         self.credit_request = create_credit_request(partner=self.partner, installments=3)
 
-    def test_credits_signal_approve_credit(self):
+    def test_credits_signal_approve_credit_installments(self):
         self.credit_request.approval_status = ApprovalStatus.approved
         self.credit_request.save()
         credit = Credit.objects.get(partner=self.partner)

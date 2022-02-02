@@ -23,7 +23,7 @@ from bk_service.banks.models import Bank, PartnerDetail, Share
 from bk_service.utils.enums.requests import ApprovalStatus
 
 # Utils Enums
-from bk_service.utils.enums.banks import PartnerType
+from bk_service.utils.enums import PartnerType, CreditPayType
 
 URL = '/banks/approvals/'
 
@@ -33,8 +33,7 @@ class CreditApprovalsAPITestCase(APITestCase):
 
     def setUp(self):
         self.partner = create_partner(role=PartnerType.admin)
-        # self.partner.bank.cash_balance = 1200000
-        # self.partner.bank.save()
+        self.bank = self.partner.bank
         self.share = create_share(
             partner=self.partner, quantity=30, amount=300000
         )
@@ -51,8 +50,8 @@ class CreditApprovalsAPITestCase(APITestCase):
             }
         )
 
-    def test_credit_approvals_approve_requests_success(self):
-        """ Credit approvals approve requests success """
+    def test_credit_installments_approvals_approve_requests_success(self):
+        """ Credit installment approvals approve requests success """
         request_body = {
             'type_request': 'credit',
             'request_id': self.credit_request.id,
@@ -76,6 +75,39 @@ class CreditApprovalsAPITestCase(APITestCase):
         self.assertEqual(len(schedule_installment), credit.installments)
         # partner_detail "active_credit" need to change
         self.assertEqual(partner_detail.active_credit, credit.amount)
+        # cash balance need to change
+        self.assertEqual(post_bank_info.cash_balance, cash_balance_calculated)
+
+    def test_credit_advance_approvals_approve_requests_success(self):
+
+        previous_bank_info = Bank.objects.get(pk=self.partner.bank.id)
+        credit_request = create_credit_request(partner=self.partner, payment_type=CreditPayType.advance)
+        """ Credit advance approvals approve requests success """
+        request_body = {
+            'type_request': 'credit',
+            'request_id': credit_request.id,
+            'approval_status': 'approved'
+        }
+        request = post_with_token(URL=URL, user=self.partner.user, body=request_body)
+        post_bank_info = Bank.objects.get(pk=self.partner.bank.id)
+        body = request.data
+        credit = Credit.objects.get(credit_request=credit_request)
+        schedule_installment = ScheduleInstallment.objects.filter(credit=credit)
+
+        partner_detail = self.partner.partner_detail()
+        cash_balance_calculated = float(self.previous_bank_info.cash_balance) - \
+            float(credit.amount) + float(credit.total_interest)
+
+        self.assertEqual(request.status_code, status.HTTP_200_OK)
+        self.assertEqual(body, 'credit approved success !')
+        # credit = credit request validation
+        self.assertEqual(credit.amount, self.credit_request.amount)
+        self.assertEqual(credit.installments, self.credit_request.installments)
+        # credit installments created
+        self.assertEqual(len(schedule_installment), credit.installments)
+        self.assertEqual(schedule_installment[0].interest_calculated, 0)
+        # partner_detail "active_credit" need to change
+        self.assertEqual(partner_detail.active_credit, float(credit.amount) - float(credit.total_interest))
         # cash balance need to change
         self.assertEqual(post_bank_info.cash_balance, cash_balance_calculated)
 

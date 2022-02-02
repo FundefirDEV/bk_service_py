@@ -4,6 +4,8 @@ import math
 
 # datetime
 from datetime import datetime, timedelta
+# enum
+from bk_service.utils.enums import CreditPayType
 
 
 class BkCore():
@@ -41,9 +43,12 @@ class BkCore():
         return (total_earning / bank_shares_quantity)
 
     def calculate_schedule_installment(self, installments, payment_type, ordinary_interest, credit_amount, payment_period_of_installment):
-        total_ordinary_interest = self.calculate_credit_total_interest(
-            amount=credit_amount, installments=installments, ordinary_interest=ordinary_interest
-        )
+
+        if payment_type == CreditPayType.installments:
+            total_ordinary_interest = self.calculate_credit_total_interest(
+                amount=credit_amount, installments=installments, ordinary_interest=ordinary_interest)
+        if payment_type == CreditPayType.advance:
+            total_ordinary_interest = 0
 
         total_credit_value = credit_amount + total_ordinary_interest
         installment_int_value, installment_dec_value = divmod(total_credit_value, installments)
