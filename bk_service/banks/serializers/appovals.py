@@ -53,20 +53,24 @@ class AppovalsSerializer(serializers.Serializer):
                 bk_core_sdk.approve_shares_request(share_requests_id=request_id)
 
             if type_request == TypeRequest.credit:
-                # share_request = bk_core_sdk.approve_shares_request(share_requests_id=request_id)
+                bk_core_sdk.approve_credit_request(credit_requests_id=request_id)
                 pass
+
             if type_request == TypeRequest.installment_payment:
-                # share_request = bk_core_sdk.approve_shares_request(share_requests_id=request_id)
-                pass
+
+                bk_core_sdk.approve_payment_schedule_request(payment_schedule_request_id=request_id)
 
         if approval_status == ApprovalStatus.rejected:
 
             if type_request == TypeRequest.share:
                 share_request = bk_core_sdk.reject_shares_request(share_requests_id=request_id)
-                pass
+
             if type_request == TypeRequest.credit:
-                # share_request = bk_core_sdk.approve_shares_request(share_requests_id=request_id)
+                bk_core_sdk.reject_credit_request(credit_requests_id=request_id)
                 pass
+
             if type_request == TypeRequest.installment_payment:
-                # share_request = bk_core_sdk.approve_shares_request(share_requests_id=request_id)
-                pass
+
+                share_request = bk_core_sdk.reject_payment_schedule_request(
+                    payment_schedule_request_id=request_id
+                )

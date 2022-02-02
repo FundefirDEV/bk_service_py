@@ -72,19 +72,15 @@ class BkCoreSDK():
 
         return share_request
 
-    def create_credit_request(self, amount, quantity, credit_use, credit_use_detail, payment_type, type_request):
-
-        # TODO FIX WITH METHOD
-        bank_rules = BankRules.objects.get(bank=self.bank, is_active=True)
+    def create_credit_request(self, amount, quantity, credit_use, credit_use_detail, payment_type):
+        bank_rules = self.bank.get_bank_rules()
 
         if credit_use == None or credit_use_detail == None:
             raise CustomException(error=CREDIT_USE_REQUIRED)
 
         # Validate credit params
         self.bk_core_validation.credit_request_validations(
-            partner=self.partner,
             requested_amount=int(amount),
-            bank_rules=bank_rules,
             quantity=int(quantity),
             payment_type=payment_type
         )
@@ -102,6 +98,28 @@ class BkCoreSDK():
 
         return credit_request
 
+    def approve_credit_request(self, credit_requests_id):
+
+        # Validate credit requests
+        credit_request = self.bk_core_validation.validate_credit_requests(
+            credit_requests_id=credit_requests_id
+        )
+
+        credit_request.approval_status = ApprovalStatus.approved
+        credit_request.save()
+
+    def reject_credit_request(self, credit_requests_id):
+
+        # Validate credit requests
+        credit_request = self.bk_core_validation.validate_credit_requests(
+            credit_requests_id=credit_requests_id
+        )
+
+        credit_request.approval_status = ApprovalStatus.rejected
+        credit_request.save()
+
+        return credit_request
+
     def create_payment_schedule_request(self, amount, id_schedule_installment):
 
         self.bk_core_validation.payment_schedule_request_validations(
@@ -116,6 +134,28 @@ class BkCoreSDK():
             amount=amount,
             approval_status=ApprovalStatus.pending
         )
+
+        return payment_schedule_request
+
+    def approve_payment_schedule_request(self, payment_schedule_request_id,):
+
+        # Validate share requests
+        payment_schedule_request = self.bk_core_validation.validate_payment_schedule_requests(
+            payment_schedule_request_id=payment_schedule_request_id
+        )
+
+        payment_schedule_request.approval_status = ApprovalStatus.approved
+        payment_schedule_request.save()
+
+    def reject_payment_schedule_request(self, payment_schedule_request_id,):
+
+        # Validate payment schedule requests
+        payment_schedule_request = self.bk_core_validation.validate_payment_schedule_requests(
+            payment_schedule_request_id=payment_schedule_request_id
+        )
+
+        payment_schedule_request.approval_status = ApprovalStatus.rejected
+        payment_schedule_request.save()
 
         return payment_schedule_request
 
