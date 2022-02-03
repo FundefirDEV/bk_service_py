@@ -209,7 +209,7 @@ class BkCoreSDK():
             Sum('total_interest'))["total_interest__sum"] or 0.0
 
         total_ordinary_interest_installments = payments_schedule.aggregate(
-            Sum('interest_paid'))["interest_paid__sum"] or 0.0
+            Sum('ordinary_interest_paid'))["ordinary_interest_paid__sum"] or 0.0
 
         total_ordinary_interest = float(total_ordinary_interest_advance) + float(total_ordinary_interest_installments)
 

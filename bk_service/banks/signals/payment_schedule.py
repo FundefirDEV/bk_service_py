@@ -14,6 +14,9 @@ from bk_service.utils.enums import ApprovalStatus, CreditPayType, PaymentStatus
 # Bk Core
 from bk_service.bk_core_sdk import BkCore
 
+# Python
+from decimal import Decimal
+
 
 @receiver(post_save, sender=PaymentScheduleRequest)
 def post_save_approve_payment_schedule_request(sender, instance, created, **kwargs):
@@ -31,29 +34,32 @@ def post_save_approve_payment_schedule_request(sender, instance, created, **kwar
 
             is_payment_advance = (schedule_installment.credit.payment_type == CreditPayType.advance)
 
-            interest_paid = bk_core.calculate_interest_paid(
+            ordinary_interest_paid = bk_core.calculate_ordinary_interest_paid(
                 amount_paid=schedule_installment.amount_paid,
                 payment_schedule_request_amount=instance.amount,
                 schedule_installment_interest=schedule_installment.interest_calculated,
                 is_payment_advance=is_payment_advance
             )
 
-            capital_paid = float(instance.amount) - float(interest_paid)
+            capital_paid = float(instance.amount) - float(ordinary_interest_paid)
 
             payment_schedule = PaymentSchedule.objects.create(
                 bank=bank,
                 partner=instance.partner,
                 amount=instance.amount,
                 payment_schedule_request=instance,
-                interest_paid=interest_paid,
+                ordinary_interest_paid=ordinary_interest_paid,
                 capital_paid=capital_paid,
             )
 
-            # Update bank
+            # Update schedule installment
             schedule_installment.amount_paid += instance.amount
 
             if schedule_installment.amount_paid >= schedule_installment.total_pay_installment:
                 schedule_installment.payment_status = PaymentStatus.complete
+
+            schedule_installment.capital_paid += Decimal(capital_paid)
+            schedule_installment.ordinary_interest_paid += Decimal(ordinary_interest_paid)
 
             schedule_installment.save()
 

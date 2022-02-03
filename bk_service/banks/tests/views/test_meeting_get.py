@@ -84,7 +84,7 @@ class GetMeetingAPITestCase(APITestCase):
         self.assertEqual(total_delay_interest, 0)
         self.assertEqual(earning_by_share, 45)
         self.assertEqual(
-            total_ordinary_interest, self.payment_schedule.interest_paid)
+            total_ordinary_interest, self.payment_schedule.ordinary_interest_paid)
         self.assertEqual(total_credits_amount, self.credit.amount)
         self.assertEqual(total_credits_quantity, 1)
         self.assertEqual(total_capital, self.payment_schedule.capital_paid)

@@ -95,7 +95,7 @@ class CloseMeetingAPITestCase(APITestCase):
         self.assertEqual(total_delay_interest, 0)
         self.assertEqual(earning_by_share, 45)
         self.assertEqual(
-            total_ordinary_interest, self.payment_schedule.interest_paid)
+            total_ordinary_interest, self.payment_schedule.ordinary_interest_paid)
         self.assertEqual(total_credits_amount, self.credit.amount)
         self.assertEqual(total_credits_quantity, 1)
         self.assertEqual(total_capital, self.payment_schedule.capital_paid)
@@ -109,7 +109,7 @@ class CloseMeetingAPITestCase(APITestCase):
         self.assertEqual(meeting.total_delay_interest, 0)
         self.assertEqual(meeting.earning_by_share, 45)
         self.assertEqual(
-            meeting.total_ordinary_interest, self.payment_schedule.interest_paid)
+            meeting.total_ordinary_interest, self.payment_schedule.ordinary_interest_paid)
         self.assertEqual(meeting.total_credits_amount, self.credit.amount)
         self.assertEqual(meeting.total_credits_quantity, 1)
         self.assertEqual(meeting.total_capital, self.payment_schedule.capital_paid)

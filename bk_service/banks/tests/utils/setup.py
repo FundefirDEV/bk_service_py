@@ -202,7 +202,7 @@ def create_payment_schedules(credit=None, payment_schedule_request=None):
         partner=payment_schedule_request.partner,
         bank=payment_schedule_request.bank,
         capital_paid=payment_schedule_request.schedule_installment.capital_installment,
-        interest_paid=payment_schedule_request.schedule_installment.interest_calculated,
+        ordinary_interest_paid=payment_schedule_request.schedule_installment.interest_calculated,
     )
     return payment_schedule
 
