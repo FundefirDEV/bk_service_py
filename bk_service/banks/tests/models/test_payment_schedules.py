@@ -18,5 +18,5 @@ class PaymentScheduleTestCase(TestCase):
         self.assertEqual(payment_schedule.bank, payment_schedule_created.bank)
         self.assertEqual(payment_schedule.partner, payment_schedule_created.partner)
         self.assertEqual(payment_schedule.payment_schedule_request, payment_schedule_created.payment_schedule_request)
-        self.assertEqual(payment_schedule.interest_paid, 1000.0)
+        self.assertEqual(payment_schedule.ordinary_interest_paid, 1000.0)
         self.assertEqual(payment_schedule.capital_paid, 90000.0000)

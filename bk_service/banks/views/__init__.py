@@ -6,3 +6,4 @@ from .bank_detail import *
 from .approvals import *
 from .partners import *
 from .meetings import *
+from .my_bank_info import *

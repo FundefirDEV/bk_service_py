@@ -18,7 +18,8 @@ class PaymentSchedule(BankOperationsBaseModel, models.Model):
     amount = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     # (Use create at)
     # date = models.DateTimeField(null=False)
-    interest_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    ordinary_interest_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    delay_interest_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     capital_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
     REQUIRED_FIELDS = [
@@ -26,6 +27,7 @@ class PaymentSchedule(BankOperationsBaseModel, models.Model):
         'partner',
         'payment_schedule_request',
         'amount',
-        'interest_paid'
-        'capital_paid'
+        'ordinary_interest_paid',
+        'capital_paid',
+        'delay_interest_paid',
     ]

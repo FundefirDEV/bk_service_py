@@ -35,6 +35,6 @@ class Credit(BankOperationsBaseModel, models.Model):
         'installments',
         'amount',
         'credit_use_detail',
-        'credit_use'
+        'credit_use',
         'payment_type',
     ]

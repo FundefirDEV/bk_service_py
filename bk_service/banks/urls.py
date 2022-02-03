@@ -4,20 +4,7 @@
 from django.urls import path
 
 # Views
-from bk_service.banks.views import (
-    BankCreationAPIView,
-    VerifyPartnerPhone,
-    VerifyPartnerGuestPhone,
-    DeletePartnerGuestAPIView,
-    VerifyMultiplePhones,
-    InvitePartnerGuestAPIView,
-    BankRuleApiView,
-    BankDetailAPIView,
-    ApprovalsAPIView,
-    PartnerAPIView,
-    MeetingsGetAPIView,
-    CloseMeetingsAPIView
-)
+from bk_service.banks.views import *
 
 urlpatterns = [
     path('banks/bank/', BankCreationAPIView.as_view(), name='bank_creation_view'),
@@ -43,5 +30,7 @@ urlpatterns = [
 
     path('banks/meetings/', MeetingsGetAPIView.as_view(), name="meetings"),
     path('banks/meetings/close/', CloseMeetingsAPIView.as_view(), name="close_meetings"),
+
+    path('banks/my-bank-info/', MyBankInfoAPIView.as_view(), name="my-bank-info"),
 
 ]

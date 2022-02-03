@@ -78,7 +78,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             payment_schedule_request_approval_status=ApprovalStatus.approved,
             amount=self.schedule_installment.total_pay_installment,
             capital_paid=self.schedule_installment.capital_installment,
-            interest_paid=self.schedule_installment.interest_calculated,
+            ordinary_interest_paid=self.schedule_installment.interest_calculated,
         )
 
     def test_payment_schedule_reject_requests_success(self):
@@ -138,7 +138,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             payment_schedule_request_approval_status=ApprovalStatus.approved,
             amount=81000,
             capital_paid=80000,
-            interest_paid=1000
+            ordinary_interest_paid=1000
         )
 
     def test_payment_schedule_approve_requests_success_payment_interest_incomplete(self):
@@ -171,7 +171,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             payment_schedule_request_approval_status=ApprovalStatus.approved,
             amount=900,
             capital_paid=0,
-            interest_paid=900
+            ordinary_interest_paid=900
         )
 
     def test_payment_schedule_approve_requests_success_payment_credit_advance(self):
@@ -216,7 +216,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             payment_schedule_request_approval_status=ApprovalStatus.approved,
             amount=90000,
             capital_paid=90000,
-            interest_paid=0
+            ordinary_interest_paid=0
         )
 
 
@@ -228,7 +228,7 @@ def validate_payment_schedule(
     payment_schedule_request_approval_status,
     amount,
     capital_paid,
-    interest_paid
+    ordinary_interest_paid
 ):
 
     schedule_installment = ScheduleInstallment.objects.get(
@@ -257,7 +257,7 @@ def validate_payment_schedule(
 
     self.assertEqual(payment_schedule.amount, amount)
     self.assertEqual(payment_schedule.capital_paid, capital_paid)
-    self.assertEqual(payment_schedule.interest_paid, interest_paid)
+    self.assertEqual(payment_schedule.ordinary_interest_paid, ordinary_interest_paid)
 
     self.assertEqual(payment_schedule.partner, self.partner)
     self.assertEqual(payment_schedule.bank, self.partner.bank)
