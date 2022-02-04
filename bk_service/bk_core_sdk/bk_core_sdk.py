@@ -186,8 +186,8 @@ class BkCoreSDK():
         cash_balance = self.bank.cash_balance
         bank_rules = self.bank.get_bank_rules()
 
-        credits = Credit.objects.filter(bank=self.bank, meeting=None)
-        shares = Share.objects.filter(bank=self.bank, meeting=None)
+        credits = Credit.objects.filter(bank=self.bank, is_active=True, meeting=None)
+        shares = Share.objects.filter(bank=self.bank, is_active=True, meeting=None)
         payments_schedule = PaymentSchedule.objects.filter(bank=self.bank, meeting=None)
 
         # Shares

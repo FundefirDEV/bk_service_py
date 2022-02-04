@@ -32,6 +32,7 @@ urlpatterns = [
     path('banks/meetings/close/', CloseMeetingsAPIView.as_view(), name="close_meetings"),
 
     path('banks/my-bank-info/', MyBankInfoAPIView.as_view(), name="my-bank-info"),
-    path('banks/shares-current-meeting/', ShareCurrentMeetingAPIView.as_view(), name="shares-current-meeting"),
+    path('banks/shares-current-meeting/', SharesCurrentMeetingAPIView.as_view(), name="shares-current-meeting"),
+    path('banks/credits-current-meeting/', CreditsCurrentMeetingAPIView.as_view(), name="shares-current-meeting"),
 
 ]

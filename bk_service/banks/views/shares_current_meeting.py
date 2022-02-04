@@ -9,11 +9,11 @@ from bk_service.banks.models import Share, Meeting
 from bk_service.banks.serializers import SharesModelSerializer
 
 
-class ShareCurrentMeetingAPIView(APIView):
+class SharesCurrentMeetingAPIView(APIView):
     def get(self, request, *args, **kwargs):
 
         partner = request.user.get_partner()
-        shares = Share.objects.filter(is_active=True, meeting=None)
+        shares = Share.objects.filter(is_active=True, meeting=None, bank=partner.bank)
         serializer = SharesModelSerializer(shares, many=True)
 
         last_cash_balance = self.get_last_cash_balance(bank=partner.bank)

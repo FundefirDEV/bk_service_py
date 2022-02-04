@@ -50,6 +50,7 @@ def post_save_approve_payment_schedule_request(sender, instance, created, **kwar
                 payment_schedule_request=instance,
                 ordinary_interest_paid=ordinary_interest_paid,
                 capital_paid=capital_paid,
+                payment_type=schedule_installment.credit.payment_type,
             )
 
             # Update schedule installment

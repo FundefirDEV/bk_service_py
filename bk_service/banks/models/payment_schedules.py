@@ -10,6 +10,9 @@ from bk_service.banks.models import Bank, Partner
 from bk_service.requests.models.payment_schedule_request import PaymentScheduleRequest
 from bk_service.banks.utils import BankOperationsBaseModel
 
+# Utils enums
+from bk_service.utils.enums.requests import CreditPayType
+
 
 class PaymentSchedule(BankOperationsBaseModel, models.Model):
 
@@ -21,6 +24,7 @@ class PaymentSchedule(BankOperationsBaseModel, models.Model):
     ordinary_interest_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     delay_interest_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     capital_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    payment_type = models.CharField(max_length=40, null=False, choices=CreditPayType.choices)
 
     REQUIRED_FIELDS = [
         'bank',
@@ -30,4 +34,5 @@ class PaymentSchedule(BankOperationsBaseModel, models.Model):
         'ordinary_interest_paid',
         'capital_paid',
         'delay_interest_paid',
+        'payment_type',
     ]
