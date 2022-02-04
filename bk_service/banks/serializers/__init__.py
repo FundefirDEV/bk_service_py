@@ -5,3 +5,4 @@ from .appovals import *
 from .meetings import *
 from .credits import *
 from .schedule_installments import *
+from .shares import *

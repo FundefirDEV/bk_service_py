@@ -16,9 +16,6 @@ class Meeting(BkServiceModel, models.Model):
     # Relations
     bank = models.ForeignKey('Bank', on_delete=models.PROTECT)
 
-    # (use create at)
-    # date_meeting = models.DateTimeField(auto_now_add=True,)
-
     # Integer
     total_shares_quantity = models.PositiveIntegerField(null=False, default=0)
     total_credits_quantity = models.PositiveIntegerField(null=False, default=0)
@@ -31,7 +28,7 @@ class Meeting(BkServiceModel, models.Model):
     total_delay_interest = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
     earning_by_share = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
-    # balance = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    cash_balance = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     expenditure_fund = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     reserve_fund_of_bad_debt = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
@@ -49,7 +46,6 @@ class Meeting(BkServiceModel, models.Model):
         'total_capital',
         'earning_by_share',
         'total_delay_interest'
-        # 'balance',
         'expenditure_fund',
         'reserve_fund_of_bad_debt'
     ]

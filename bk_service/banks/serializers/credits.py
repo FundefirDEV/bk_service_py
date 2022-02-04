@@ -12,7 +12,7 @@ from bk_service.banks.serializers.schedule_installments import ScheduleInstallme
 
 
 class CreditsModelSerializer(serializers.ModelSerializer):
-    """ Schedule Installment Model serializers """
+    """ Credits Model serializers """
 
     schedule_installments = ScheduleInstallmentModelSerializer(many=True, read_only=True)
 

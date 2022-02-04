@@ -7,3 +7,4 @@ from .approvals import *
 from .partners import *
 from .meetings import *
 from .my_bank_info import *
+from .shares_current_meeting import *

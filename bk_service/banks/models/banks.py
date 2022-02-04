@@ -60,4 +60,11 @@ class Bank(BkServiceModel, models.Model):
         except:
             return None
 
+    def get_last_meeting(self):
+        try:
+            meeting = Meeting.objects.get(bank_id=self.id).last()
+            return meeting
+        except:
+            return None
+
     REQUIRED_FIELDS = ['name', 'city', ]

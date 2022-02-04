@@ -63,7 +63,6 @@ class CloseMeetingsAPIView(APIView):
         bank = Bank.objects.get(pk=partner.bank.id)
 
         res = serializer.data
-        res['cash_balance'] = bank.cash_balance
         res['total_expenditure_fund'] = total_expenditure_fund
         res['total_reserve_fund_of_bad_debt'] = total_reserve_fund_of_bad_debt
 

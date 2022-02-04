@@ -15,6 +15,7 @@ class MeetingsModelSerializer(serializers.ModelSerializer):
         model = Meeting
         fields = (
             'bank',
+            'cash_balance',
             'total_shares_amount',
             'total_credits_amount',
             'total_shares_quantity',
