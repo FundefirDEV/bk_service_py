@@ -159,3 +159,10 @@ class BkCoreSDKValidations():
 
         if schedule_installment.exists() is not True:
             raise CustomException(error=ID_SCHEDULE_INSTALMENT_NOT_EXIST)
+
+    def change_rules_validations(self):
+        share_requests = ShareRequest.objects.filter(approval_status=ApprovalStatus.pending)
+        credit_requests = CreditRequest.objects.filter(approval_status=ApprovalStatus.pending)
+        payment_requests = PaymentScheduleRequest.objects.filter(approval_status=ApprovalStatus.pending)
+        if len(share_requests) > 0 or len(credit_requests) > 0 or len(payment_requests) > 0:
+            raise CustomException(error=CHANGE_RULES_PENDING_REQUEST)

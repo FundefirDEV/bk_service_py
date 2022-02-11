@@ -21,10 +21,7 @@ class BankRulesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BankRules
-        fields = ('ordinary_interest', 'maximun_credit_installments',
-                  'maximun_credit_value', 'share_value', 'maximum_shares_percentage_per_partner',
-                  'maximum_active_credits_per_partner', 'expenditure_fund_percentage', 'reserve_fund_of_bad_debt_percentage',
-                  'payment_period_of_installment', 'credit_investment_relationship', 'bank')
+        fields = ('__all__')
 
         extra_kwargs = {
             'bank': {

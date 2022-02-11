@@ -459,3 +459,8 @@ MAX_CREDIT_INSTALLMENTS_EXCCEDED = Errors(
     error_code=73,
     error_mensage='Credit Request installments exceed'
 )
+CHANGE_RULES_PENDING_REQUEST = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=74,
+    error_mensage="Can't change rules with pending requests"
+)
