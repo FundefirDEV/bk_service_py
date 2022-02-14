@@ -110,7 +110,6 @@ class E2EOneMeetingAPITestCase(APITestCase):
             self.assertEqual(partner_from_partner_guest.is_active, True)
             self.assertEqual(partner_from_partner_guest.phone_region_code, guest["phone_region_code"])
             self.assertEqual(partner_from_partner_guest.role, PartnerType.partner)
-            self.assertEqual(partner_from_partner_guest.user.id, counter)
 
             self.assertIsNotNone(access_token)
             self.assertIsNotNone(refresh_token)
