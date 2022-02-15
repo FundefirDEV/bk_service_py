@@ -40,7 +40,8 @@ def post_save_create_credit_schedule_installment(sender, instance, created, **kw
                 capital_installment=schedule_installment['capital_value'],
                 ordinary_interest_percentage=bank_rules.ordinary_interest,
                 interest_calculated=schedule_installment['ordinary_insterest'],
-                total_pay_installment=0,
+                total_pay_installment=schedule_installment['capital_value'] +
+                schedule_installment['ordinary_insterest'],
                 payment_date=schedule_installment['installment_payment_date'],
                 payment_status=ApprovalStatus.pending,
                 installment_number=index

@@ -74,6 +74,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             self=self,
             schedule_installment_id=self.schedule_installment.id,
             schedule_installment_payment_status=PaymentStatus.complete,
+            credit_active=True,
             payment_schedule_request_id=self.payment_schedule_request.id,
             payment_schedule_request_approval_status=ApprovalStatus.approved,
             amount=self.schedule_installment.total_pay_installment,
@@ -135,6 +136,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             self=self,
             schedule_installment_id=schedule_installment.id,
             schedule_installment_payment_status=PaymentStatus.pending,
+            credit_active=True,
             payment_schedule_request_id=payment_schedule_request.id,
             payment_schedule_request_approval_status=ApprovalStatus.approved,
             amount=81000,
@@ -169,6 +171,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             self=self,
             schedule_installment_id=schedule_installment.id,
             schedule_installment_payment_status=PaymentStatus.pending,
+            credit_active=True,
             payment_schedule_request_id=payment_schedule_request.id,
             payment_schedule_request_approval_status=ApprovalStatus.approved,
             amount=900,
@@ -215,6 +218,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             self=self,
             schedule_installment_id=schedule_installment.id,
             schedule_installment_payment_status=PaymentStatus.complete,
+            credit_active=True,
             payment_schedule_request_id=payment_schedule_request.id,
             payment_schedule_request_approval_status=ApprovalStatus.approved,
             amount=90000,
@@ -226,6 +230,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
 
 def validate_payment_schedule(
     self,
+    credit_active,
     schedule_installment_id,
     schedule_installment_payment_status,
     payment_schedule_request_id,
@@ -240,9 +245,13 @@ def validate_payment_schedule(
         pk=schedule_installment_id
     )
 
+    credit = Credit.objects.get(pk=schedule_installment.credit.id)
+
     payment_schedule_request = PaymentScheduleRequest.objects.get(
         pk=payment_schedule_request_id
     )
+
+    self.assertEqual(credit.is_active, credit_active)
 
     self.assertEqual(
         schedule_installment.payment_status,
