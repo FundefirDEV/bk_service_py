@@ -16,6 +16,7 @@ class ScheduleInstallmentModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = ScheduleInstallment
         fields = (
+            'id',
             'credit',
             'capital_installment',
             'payment_date',
@@ -27,4 +28,5 @@ class ScheduleInstallmentModelSerializer(serializers.ModelSerializer):
             'capital_paid',
             'ordinary_interest_paid',
             'delay_interest_paid',
+            'installment_number',
         )
