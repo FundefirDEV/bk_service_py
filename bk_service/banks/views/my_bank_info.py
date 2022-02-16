@@ -20,13 +20,14 @@ class MyBankInfoAPIView(APIView):
 
         serializer = CreditsModelSerializer(credits, many=True)
 
-        data = serializer.data
+        data = serializer.data.copy()
 
         # Return only schedule installments pending
         for credit_index, credit in enumerate(serializer.data):
-            for schedule_installment_index, schedule_installment in enumerate(credit['schedule_installments']):
+            schedule_installments = credit['schedule_installments']
+            schedule_installments = [
+                schedule_installment for schedule_installment in schedule_installments if schedule_installment['payment_status'] is str(PaymentStatus.pending)]
 
-                if schedule_installment['payment_status'] is not str(PaymentStatus.pending):
-                    data[credit_index]['schedule_installments'].pop(schedule_installment_index)
+            data[credit_index]['schedule_installments'] = schedule_installments
 
-        return Response(serializer.data)
+        return Response(data)
