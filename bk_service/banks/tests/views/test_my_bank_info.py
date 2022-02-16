@@ -54,7 +54,14 @@ class MyBankInfoAPITestCase(APITestCase):
     def test_my_bank_info_success(self):
         """ test my bank info success """
 
+        self.schedule_installment.payment_status = PaymentStatus.complete
+        self.schedule_installment.save()
+
         request = get_with_token(URL=URL, user=self.partner.user,)
         body = request.data
 
         self.assertEqual(request.status_code, status.HTTP_200_OK)
+        import pdb
+        pdb.set_trace()
+
+        self.assertEqual(len(body[0]['schedule_installments']), 3)
