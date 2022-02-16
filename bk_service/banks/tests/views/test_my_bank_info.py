@@ -61,7 +61,5 @@ class MyBankInfoAPITestCase(APITestCase):
         body = request.data
 
         self.assertEqual(request.status_code, status.HTTP_200_OK)
-        import pdb
-        pdb.set_trace()
 
         self.assertEqual(len(body[0]['schedule_installments']), 3)
