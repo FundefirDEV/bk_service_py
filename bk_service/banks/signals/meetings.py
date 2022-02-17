@@ -24,7 +24,7 @@ from decimal import Decimal
 def inserts_earnings_shares(shares, meeting):
     earning_share_list = []
     for share in shares:
-        total_earning_by_share = meeting.earning_by_share * share.quantity
+        total_earning_by_share = round(meeting.earning_by_share * share.quantity, 4)
         earning_share_list.append(
             EarningShare(
                 share=share,
