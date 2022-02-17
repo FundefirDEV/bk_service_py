@@ -71,6 +71,11 @@ class GetMeetingAPITestCase(APITestCase):
         total_credits_quantity = body['total_credits_quantity']
         total_capital = body['total_capital']
 
+        total_earning = body['total_earning']
+        total_ordinary_interest_advance = body['total_ordinary_interest_advance']
+        total_interest = body['total_interest']
+        total_ordinary_interest_installments = body['total_ordinary_interest_installments']
+
         bank = Bank.objects.get(pk=self.partner.bank.pk)
 
         self.assertEqual(resource, 'PREVIEW')
@@ -88,3 +93,8 @@ class GetMeetingAPITestCase(APITestCase):
         self.assertEqual(total_credits_amount, self.credit.amount)
         self.assertEqual(total_credits_quantity, 1)
         self.assertEqual(total_capital, self.payment_schedule.capital_paid)
+
+        self.assertEqual(total_earning, 900)
+        self.assertEqual(total_ordinary_interest_advance, 0)
+        self.assertEqual(total_interest, self.payment_schedule.ordinary_interest_paid)
+        self.assertEqual(total_ordinary_interest_installments, self.payment_schedule.ordinary_interest_paid)
