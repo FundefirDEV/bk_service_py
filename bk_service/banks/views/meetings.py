@@ -54,6 +54,11 @@ class CloseMeetingsAPIView(APIView):
         total_expenditure_fund = meeting_data.pop('total_expenditure_fund')
         total_reserve_fund_of_bad_debt = meeting_data.pop('total_reserve_fund_of_bad_debt')
 
+        total_earning = meeting_data.pop('total_earning')
+        total_ordinary_interest_advance = meeting_data.pop('total_ordinary_interest_advance')
+        total_interest = meeting_data.pop('total_interest')
+        total_ordinary_interest_installments = meeting_data.pop('total_ordinary_interest_installments')
+
         serializer = MeetingsModelSerializer(data=meeting_data)
         serializer.is_valid(raise_exception=True)
         validated_data = dict(serializer.validated_data)
@@ -65,5 +70,10 @@ class CloseMeetingsAPIView(APIView):
         res = serializer.data
         res['total_expenditure_fund'] = total_expenditure_fund
         res['total_reserve_fund_of_bad_debt'] = total_reserve_fund_of_bad_debt
+
+        res['total_earning'] = total_earning
+        res['total_ordinary_interest_advance'] = total_ordinary_interest_advance
+        res['total_interest'] = total_interest
+        res['total_ordinary_interest_installments'] = total_ordinary_interest_installments
 
         return Response(res)

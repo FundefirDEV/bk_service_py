@@ -34,13 +34,15 @@ def post_save_create_credit_schedule_installment(sender, instance, created, **kw
             payment_type=instance.payment_type
         )
 
-        for schedule_installment in schedule_installments_core:
+        for index, schedule_installment in enumerate(schedule_installments_core):
             schedule = ScheduleInstallment.objects.create(
                 credit=instance,
                 capital_installment=schedule_installment['capital_value'],
                 ordinary_interest_percentage=bank_rules.ordinary_interest,
                 interest_calculated=schedule_installment['ordinary_insterest'],
-                total_pay_installment=0,
+                total_pay_installment=schedule_installment['capital_value'] +
+                schedule_installment['ordinary_insterest'],
                 payment_date=schedule_installment['installment_payment_date'],
                 payment_status=ApprovalStatus.pending,
+                installment_number=index
             )

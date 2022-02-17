@@ -178,8 +178,8 @@ def create_schedule_installment(
         interest_calculated=interest_calculated,
         total_pay_installment=total_pay_installment,
         payment_status=PaymentStatus.pending,
-        payment_date=date.today()
-
+        payment_date=date.today(),
+        installment_number=0
     )
     return schedule_installment
 

@@ -42,6 +42,8 @@ class MyBankInfoAPITestCase(APITestCase):
 
         self.credit = create_credit(partner=self.partner, credit_request=self.credit_request)
         self.schedule_installment = create_schedule_installment(self.credit)
+        self.schedule_installment_2 = create_schedule_installment(self.credit)
+
         self.payment_schedule_request = create_payment_schedule_request(
             credit=self.credit,
             schedule_installment=self.schedule_installment
@@ -54,7 +56,17 @@ class MyBankInfoAPITestCase(APITestCase):
     def test_my_bank_info_success(self):
         """ test my bank info success """
 
+        self.schedule_installment.payment_status = PaymentStatus.complete
+        self.schedule_installment.save()
+
+        self.schedule_installment_2.payment_status = PaymentStatus.complete
+        self.schedule_installment_2.save()
+
         request = get_with_token(URL=URL, user=self.partner.user,)
         body = request.data
 
         self.assertEqual(request.status_code, status.HTTP_200_OK)
+
+        installments = body[0]['schedule_installments']
+
+        self.assertEqual(len(body[0]['schedule_installments']), 3)

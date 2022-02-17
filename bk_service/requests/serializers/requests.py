@@ -159,7 +159,6 @@ class CreditRequestModelSerializer(serializers.ModelSerializer):
             'credit_use',
             'credit_use_detail',
             'payment_type',
-            'installments'
         )
 
 

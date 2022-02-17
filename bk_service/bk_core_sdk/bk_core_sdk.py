@@ -262,7 +262,12 @@ class BkCoreSDK():
             "total_ordinary_interest": total_ordinary_interest,
             "total_credits_amount": total_credits_amount,
             "total_credits_quantity": total_credits_quantity,
-            "total_capital": total_capital
+            "total_capital": total_capital,
+
+            "total_earning": total_earning,
+            "total_ordinary_interest_advance": total_ordinary_interest_advance,
+            "total_interest": total_interest,
+            "total_ordinary_interest_installments": total_ordinary_interest_installments,
         }
 
         if preview:

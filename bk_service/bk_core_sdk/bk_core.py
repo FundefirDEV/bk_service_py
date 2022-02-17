@@ -40,7 +40,9 @@ class BkCore():
         if bank_shares_quantity <= 0:
             return 0
 
-        return (total_earning / bank_shares_quantity)
+        res = total_earning / bank_shares_quantity
+
+        return round(res, 4)
 
     def calculate_schedule_installment(self, installments, payment_type, ordinary_interest, credit_amount, payment_period_of_installment):
 

@@ -7,6 +7,7 @@ from django.dispatch import receiver
 # Models
 from bk_service.banks.models import Bank, PaymentSchedule
 from bk_service.requests.models import PaymentScheduleRequest
+from bk_service.banks.models.schedule_installments import ScheduleInstallment
 
 # Utils
 from bk_service.utils.enums import ApprovalStatus, CreditPayType, PaymentStatus
@@ -29,10 +30,11 @@ def post_save_approve_payment_schedule_request(sender, instance, created, **kwar
 
             schedule_installment = instance.schedule_installment
 
-            bk_core = BkCore()
-            CreditPayType
+            credit = schedule_installment.credit
 
-            is_payment_advance = (schedule_installment.credit.payment_type == CreditPayType.advance)
+            bk_core = BkCore()
+
+            is_payment_advance = (credit.payment_type == CreditPayType.advance)
 
             ordinary_interest_paid = bk_core.calculate_ordinary_interest_paid(
                 amount_paid=schedule_installment.amount_paid,
@@ -50,7 +52,7 @@ def post_save_approve_payment_schedule_request(sender, instance, created, **kwar
                 payment_schedule_request=instance,
                 ordinary_interest_paid=ordinary_interest_paid,
                 capital_paid=capital_paid,
-                payment_type=schedule_installment.credit.payment_type,
+                payment_type=credit.payment_type,
             )
 
             # Update schedule installment
@@ -67,3 +69,15 @@ def post_save_approve_payment_schedule_request(sender, instance, created, **kwar
             # Update bank
             bank.cash_balance += instance.amount
             bank.save()
+
+            # Verify if the credit is complete
+
+            schedule_installments_length = len(ScheduleInstallment.objects.filter(
+                credit=credit,
+                payment_status=ApprovalStatus.pending,
+            ))
+
+            if schedule_installments_length == 0:
+
+                credit.is_active = False
+                credit.save()

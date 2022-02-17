@@ -21,6 +21,7 @@ class ScheduleInstallment(BkServiceModel, models.Model):
     delay_interest_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
     payment_date = models.DateTimeField(null=False)
+    installment_number = models.PositiveIntegerField(null=False)
 
     payment_status = models.CharField(
         max_length=20,
