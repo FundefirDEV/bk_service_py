@@ -41,7 +41,7 @@ class BkCoreSDKValidations():
             total_shares = self.bank.shares
             partner_share_quantity = self.partner.partner_detail().shares
 
-            total_shares_quantity = partner_share_quantity + requested_shares_quantity
+            total_shares_quantity = requested_shares_quantity
 
             bk_core = BkCore()
 
