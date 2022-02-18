@@ -33,6 +33,7 @@ class PartnersAPITestCase(APITestCase):
         response = [
             {'id': self.partner.id,
              'phone': self.partner.phone_number,
+             'phone_region_code': self.partner.phone_region_code,
              'first_name': self.partner.user.first_name,
              'last_name': self.partner.user.last_name,
              'name':  f'{ self.partner.user.first_name} {self.partner.user.last_name}',
@@ -40,6 +41,7 @@ class PartnersAPITestCase(APITestCase):
              },
             {'id': self.guest.id,
              'phone': self.guest.phone_number,
+             'phone_region_code': self.partner.phone_region_code,
              'name':  self.guest.name,
              'is_active': False,
              'role': PartnerType.guest
