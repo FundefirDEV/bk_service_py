@@ -30,8 +30,21 @@ class PartnersAPITestCase(APITestCase):
     def test_partners_success(self):
         """ Partners success """
 
-        response = [{'id': self.partner.id, 'phone': self.partner.phone_number, 'is_active': True, 'role': PartnerType.partner},
-                    {'id': self.guest.id, 'phone': self.guest.phone_number, 'is_active': False, 'role': PartnerType.guest}]
+        response = [
+            {'id': self.partner.id,
+             'phone': self.partner.phone_number,
+             'first_name': self.partner.user.first_name,
+             'last_name': self.partner.user.last_name,
+             'name':  f'{ self.partner.user.first_name} {self.partner.user.last_name}',
+             'is_active': True, 'role': PartnerType.partner,
+             },
+            {'id': self.guest.id,
+             'phone': self.guest.phone_number,
+             'name':  self.guest.name,
+             'is_active': False,
+             'role': PartnerType.guest
+             }
+        ]
 
         request = get_with_token(URL=URL, user=self.partner.user)
         body = request.data

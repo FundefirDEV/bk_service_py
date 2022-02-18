@@ -24,6 +24,9 @@ class PartnerAPIView(APIView):
         for partner in partners:
             partners_response.append({'id': partner.id,
                                       'phone': partner.phone_number,
+                                      'first_name': partner.user.first_name,
+                                      'last_name': partner.user.last_name,
+                                      'name':  f'{ partner.user.first_name} {partner.user.last_name}',
                                       'is_active': partner.is_active,
                                       'role': partner.role})
 
@@ -31,6 +34,7 @@ class PartnerAPIView(APIView):
             partners_response.append({'id': partner_guest.id,
                                       'phone': partner_guest.phone_number,
                                       'is_active': False,
+                                      'name':  partner_guest.name,
                                       'role': PartnerType.guest})
 
         return Response(partners_response)
