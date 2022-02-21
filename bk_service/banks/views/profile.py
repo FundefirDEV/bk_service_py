@@ -12,7 +12,16 @@ class ProfileAPIView(APIView):
     def get(self, request, *args, **kwargs):
 
         partner = request.user.get_partner()
+        country = partner.user.city.state.country
+        country_data = {
+            'id': country.id,
+            'name': country.name,
+            'code': country.code,
+        }
 
         serializer = PartnerDetailModelSerializer(partner.partner_detail())
 
-        return Response(serializer.data)
+        data = serializer.data
+        data['country'] = country_data
+
+        return Response(data)

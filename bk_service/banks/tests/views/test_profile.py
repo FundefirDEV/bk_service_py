@@ -27,6 +27,8 @@ class ProfileAPITestCase(APITestCase):
     def test_profile_success(self):
         """ profile success """
 
+        country = self.partner.user.city.state.country
+
         response = {
             'partner': OrderedDict(
                 [('id', self.partner.id),
@@ -52,7 +54,12 @@ class ProfileAPITestCase(APITestCase):
             'document_number': '',
             'profession': '',
             'scholarship': 'noData',
-            'birth_date': None
+            'birth_date': None,
+            'country': {
+                'id': country.id,
+                'name': country.name,
+                'code': country.code,
+            }
         }
 
         request = get_with_token(URL=URL, user=self.partner.user)
