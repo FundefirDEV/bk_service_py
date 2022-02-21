@@ -464,3 +464,8 @@ CHANGE_RULES_PENDING_REQUEST = Errors(
     error_code=74,
     error_mensage="Can't change rules with pending requests"
 )
+ROLE_REQUIRED = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=75,
+    error_mensage="Role is required"
+)

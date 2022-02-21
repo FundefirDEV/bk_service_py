@@ -10,3 +10,4 @@ from .my_bank_info import *
 from .shares_current_meeting import *
 from .credits_current_meeting import *
 from .profile import *
+from .partner_admin import *
