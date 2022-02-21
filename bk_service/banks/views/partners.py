@@ -35,7 +35,7 @@ class PartnerAPIView(APIView):
             partners_response.append({'id': partner_guest.id,
                                       'phone': partner_guest.phone_number,
                                       'phone_region_code': partner_guest.phone_region_code,
-                                      'is_active': False,
+                                      'is_active': partner_guest.is_active,
                                       'name':  partner_guest.name,
                                       'role': PartnerType.guest})
 
