@@ -80,6 +80,7 @@ class SingUpWithPartnerSuccessAPITestCase(APITestCase):
         self.assertEqual(partner_from_partner_guest.phone_region_code, partner_guest.phone_region_code)
         self.assertEqual(partner_from_partner_guest.role, PartnerType.partner)
         self.assertEqual(partner_from_partner_guest.user.id, user_id)
+        self.assertEqual(partner_from_partner_guest.user.city.id, partner.user.city.id)
 
         self.assertIsNotNone(access_token)
         self.assertIsNotNone(refresh_token)

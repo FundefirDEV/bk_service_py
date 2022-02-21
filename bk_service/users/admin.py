@@ -12,7 +12,7 @@ class CustomUserAdmin(UserAdmin):
     """ User model admin """
 
     list_display = ('email', 'username', 'first_name', 'last_name',
-                    'phone_region_code', 'phone_number', 'is_staff', 'is_verified',)
+                    'phone_region_code', 'phone_number', 'is_staff', 'is_verified', 'city')
     list_filter = ('is_staff', 'created_at', 'updated_at', 'gender')
 
 

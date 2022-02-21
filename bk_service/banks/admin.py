@@ -77,3 +77,19 @@ class ScheduleInstallmentAdmin(admin.ModelAdmin):
     # list_display = '__all__'
     # search_fields = ('name', 'code',)
     # list_filter = ('is_active', 'name', 'code',)
+
+
+@admin.register(Meeting)
+class MeetingAdmin(admin.ModelAdmin):
+    """ Meeting model admin """
+    # list_display = '__all__'
+    # search_fields = ('name', 'code',)
+    # list_filter = ('is_active', 'name', 'code',)
+
+
+@admin.register(EarningShare)
+class EarningShareAdmin(admin.ModelAdmin):
+    """ EarningShare model admin """
+    # list_display = '__all__'
+    # search_fields = ('name', 'code',)
+    # list_filter = ('is_active', 'name', 'code',)

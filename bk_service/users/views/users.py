@@ -33,6 +33,7 @@ class UserSingUpAPIView(APIView):
         data = request.data
         serializer = UserSignUpSerializer(data=data)
         # serializer.validate(data=data)
+
         serializer.is_valid(raise_exception=True)
         validated_data = dict(serializer.validated_data)
 

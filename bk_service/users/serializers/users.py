@@ -90,7 +90,7 @@ class UserSignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'username', 'gender', 'first_name',
-                  'last_name', 'phone_number', 'phone_region_code', 'password', 'password_confirmation']
+                  'last_name', 'phone_number', 'phone_region_code', 'password', 'password_confirmation', 'city']
         extra_kwargs = {
             'email': {
                 "error_messages": {
@@ -150,6 +150,7 @@ class UserSignUpSerializer(serializers.ModelSerializer):
     def create(self, validated_data, *args, **kwargs):
 
         user = User.objects.create_user(**validated_data)
+
         partner_guest = self.find_partner_guest(user)
 
         if partner_guest is not None:
