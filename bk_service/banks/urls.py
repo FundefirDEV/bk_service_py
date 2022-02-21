@@ -26,6 +26,8 @@ urlpatterns = [
     path('banks/bank-detail/', BankDetailAPIView.as_view(), name="bank-details"),
     path('banks/partners/', PartnerAPIView.as_view(), name="bank-partners"),
 
+    path('banks/profile/', ProfileAPIView.as_view(), name="profile"),
+
     path('banks/approvals/', ApprovalsAPIView.as_view(), name="approvals"),
 
     path('banks/meetings/', MeetingsGetAPIView.as_view(), name="meetings"),

@@ -7,3 +7,4 @@ from .credits import *
 from .schedule_installments import *
 from .shares import *
 from .payment_schedule import *
+from .partner_details import *

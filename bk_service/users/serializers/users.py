@@ -14,8 +14,7 @@ from bk_service.locations.models import City
 from bk_service.banks.models import PartnerGuest, Partner, PartnerDetail
 
 # Serializers
-# from bk_service.banks.serializers.partners import PartnerModelSerializer
-
+from bk_service.locations.serializers import CityModelSerializer
 # Simple JWT
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -198,6 +197,8 @@ class UserSignUpSerializer(serializers.ModelSerializer):
 
 class UserModelSerializer(serializers.ModelSerializer):
     """ User model serializers """
+    city = CityModelSerializer(read_only=True)
+
     class Meta:
         model = User
         fields = ('id', 'email', 'username', 'gender', 'first_name',
