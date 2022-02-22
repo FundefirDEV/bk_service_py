@@ -18,19 +18,18 @@ class PartnerAdminApiView(APIView):
     def post(self, request, *args, **kwargs):
         partner = request.user.get_partner()
         bank = partner.bank
+        data = request.data
         if partner.role != PartnerType.admin:
             raise CustomException(error=PARTNER_IS_NOT_ADMIN)
-        data = request.data
-        serializer = PartnersAdminSerializer(data=data, many=True)
+        serializer = PartnersAdminSerializer(data=data)
         serializer.is_valid(raise_exception=True)
-        response_data = serializer.data
+        validated_data = dict(serializer.validated_data)
 
-        for valid_data in response_data:
-            # import pdb
-            # pdb.set_trace()
-            PartnersAdminSerializer.update_admin(
-                partner_id=valid_data['id'],
-                role=valid_data['role'],
-                bank=bank)
+        # import pdb
+        # pdb.set_trace()
+        PartnersAdminSerializer.update_admin(
+            partner_id=validated_data['id'],
+            role=validated_data['role'],
+            bank=bank)
 
         return Response('ok')

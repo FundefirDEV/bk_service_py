@@ -469,3 +469,8 @@ ROLE_REQUIRED = Errors(
     error_code=75,
     error_mensage="Role is required"
 )
+AT_LEAST_ONE_ADMIN = Errors(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    error_code=76,
+    error_mensage="At least one admin per bank"
+)
