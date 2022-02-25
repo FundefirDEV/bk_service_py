@@ -20,13 +20,16 @@ class BkCore():
         return (total_shares_amount * credit_investment_relationship)
 
     def calculate_credit_total_interest(self, amount, ordinary_interest, installments):
-        return (amount * (ordinary_interest / 100)) * installments
+        res = (amount * (ordinary_interest / 100)) * installments
+        return round(res, 4)
 
     def calculate_expenditure_fund(self, total_interest, expenditure_fund_percentage):
-        return total_interest * (expenditure_fund_percentage / 100)
+        res = total_interest * (expenditure_fund_percentage / 100)
+        return round(res, 4)
 
     def calculate_reserve_fund_of_bad_debt(self, total_interest, reserve_fund_of_bad_debt_percentage):
-        return total_interest * (reserve_fund_of_bad_debt_percentage / 100)
+        res = total_interest * (reserve_fund_of_bad_debt_percentage / 100)
+        return round(res, 4)
 
     def calculate_total_earning(self, total_interest, expenditure_fund, reserve_fund_of_bad_debt):
 
