@@ -35,7 +35,11 @@ urlpatterns = [
 
     path('banks/my-bank-info/', MyBankInfoAPIView.as_view(), name="my-bank-info"),
     path('banks/shares-current-meeting/', SharesCurrentMeetingAPIView.as_view(), name="shares-current-meeting"),
-    path('banks/credits-current-meeting/', CreditsCurrentMeetingAPIView.as_view(), name="shares-current-meeting"),
-    path('banks/partner-admin/', PartnerAdminApiView.as_view(), name="shares-current-meeting"),
+    path('banks/credits-current-meeting/', CreditsCurrentMeetingAPIView.as_view(), name="credits-current-meeting"),
+    path('banks/partner-admin/', PartnerAdminApiView.as_view(), name="partner-admin"),
+
+
+    path('banks/profit-payment-partners/', ProfitPaymentPartnersAPIView.as_view(), name="profit-payment-partners"),
+    path('banks/profit-payment/<int:partner_id>/', ProfitPaymentAPIView.as_view(), name="profit-payment"),
 
 ]

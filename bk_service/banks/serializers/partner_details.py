@@ -24,6 +24,7 @@ class PartnerDetailModelSerializer(serializers.ModelSerializer):
         fields = (
             'partner',
             'earnings',
+            'profit_obtained',
             'active_credit',
             'shares',
             'document_number',

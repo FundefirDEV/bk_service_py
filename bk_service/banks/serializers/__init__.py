@@ -8,3 +8,4 @@ from .schedule_installments import *
 from .shares import *
 from .payment_schedule import *
 from .partner_details import *
+from .earning_shares import *

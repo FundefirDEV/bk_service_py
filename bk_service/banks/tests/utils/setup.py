@@ -212,9 +212,14 @@ def create_meeting(bank):
     return meeting
 
 
-def create_earning_share():
-    share = create_share()
-    meeting = Meeting.objects.create(bank=share.bank,)
+def create_earning_share(share=None, meeting=None):
+
+    if share == None:
+        share = create_share()
+
+    if meeting == None:
+        meeting = Meeting.objects.create(bank=share.bank,)
+
     earning_share = EarningShare.objects.create(
         meeting=meeting,
         share=share,

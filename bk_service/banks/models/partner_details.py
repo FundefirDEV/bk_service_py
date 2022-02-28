@@ -14,6 +14,8 @@ class PartnerDetail(BkServiceModel, models.Model):
     partner = models.OneToOneField('banks.Partner', on_delete=models.CASCADE)
 
     earnings = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    profit_obtained = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+
     active_credit = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     shares = models.PositiveIntegerField(null=False, default=0,)
 

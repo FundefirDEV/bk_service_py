@@ -22,9 +22,6 @@ class EarningShare(BkServiceModel, models.Model):
     total_earning_by_share = models.DecimalField(max_digits=100, decimal_places=4)
     is_paid = models.BooleanField(default=False)
 
-    # (use create at)
-    # date_calculated = models.DateTimeField(null=False)
-
     REQUIRED_FIELDS = [
         'share',
         'meeting',

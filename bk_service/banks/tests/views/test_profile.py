@@ -55,6 +55,7 @@ class ProfileAPITestCase(APITestCase):
             'profession': '',
             'scholarship': 'noData',
             'birth_date': None,
+            'profit_obtained': Decimal('0.0000'),
             'country': {
                 'id': country.id,
                 'name': country.name,

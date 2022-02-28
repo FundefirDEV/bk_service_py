@@ -11,3 +11,5 @@ from .shares_current_meeting import *
 from .credits_current_meeting import *
 from .profile import *
 from .partner_admin import *
+from .profit_payment_partners import *
+from .profit_payment import *
