@@ -11,7 +11,7 @@ from bk_service.banks.tests.utils.setup import *
 from bk_service.requests.tests.utils.setup import *
 
 # test-utils
-from bk_service.utils.tests.test_security import security_test_get
+from bk_service.utils.tests.test_security import security_test_get, security_test_partner_admin_post
 
 URL = '/banks/profit-payment/'
 CLOSE_MEETING_URL = '/banks/meetings/close/'
@@ -72,6 +72,15 @@ class ProfitPaymentAPITestCase(APITestCase):
 
     def test_profit_payment_post_success(self):
         """ test post profit payment success """
+
+        security_test_partner_admin_post(
+            self=self,
+            URL=URL,
+            body={
+                'partner_id': 0,
+                'earning_shares_ids': [0],
+            }
+        )
         earning_share_2 = create_earning_share(share=self.share)
         earning_share_3 = create_earning_share(share=self.share)
 
