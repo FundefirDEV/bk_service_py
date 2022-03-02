@@ -75,6 +75,16 @@ case $COMMAND in
       docker-compose run --rm django pytest $DIR
     fi
     ;;
+  "coverage")
+    echo "runing coverage..."
+    if [[ $FUNTION != ''  ]]; then
+      docker-compose run --rm django coverage run -m pytest $DIR -k $FUNTION
+      docker-compose run --rm django coverage html $DIR -k $FUNTION
+    else
+      docker-compose run --rm django coverage run -m pytest $DIR
+      docker-compose run --rm django coverage html $DIR
+    fi
+    ;;
   "makemigrations")
     echo "runing django makemigrations..."
     docker-compose run --rm django python manage.py makemigrations 
