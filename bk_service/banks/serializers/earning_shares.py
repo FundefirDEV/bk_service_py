@@ -17,6 +17,7 @@ class EarningShareModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = EarningShare
         fields = (
+            'id',
             'share',
             'meeting',
             'earning_by_share',
