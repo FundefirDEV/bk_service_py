@@ -17,6 +17,8 @@ from bk_service.utils.tests.test_security import security_test_post
 
 # Models
 from bk_service.banks.models import *
+from bk_service.requests.models import *
+from bk_service.users.models.users import *
 
 CREATE_BANK_URL = '/banks/bank/'
 
@@ -47,7 +49,7 @@ class E2EOneMeetingAPITestCase(APITestCase):
             }
         ]
 
-    def test_create_bank_success(self):
+    def test_one_meeting_success(self):
         """ Bank success and basic rules creation"""
 
         request_data = bank_creation_data(city_id=self.city_id, partners_guest=self.guests)
@@ -115,3 +117,21 @@ class E2EOneMeetingAPITestCase(APITestCase):
             self.assertIsNotNone(refresh_token)
             self.assertIsNotNone(partner_id)
             self.assertIsNotNone(user_id)
+
+        """ Request Shares """
+
+        url_request_shares = '/requests/requests/'
+
+        body_request_shares = {
+            'type_request': 'share',
+            'quantity': 10
+        }
+        partners = Partner.objects.filter(bank=bank)
+        for partner in partners:
+            request = post_with_token(URL=url_request_shares, user=partner.user, body=body_request_shares)
+            body = request.data
+            status_code = request.status_code
+            self.assertEqual(request.status_code, status.HTTP_200_OK)
+            self.assertEqual(body, 'share request success !')
+
+        """ Approve Shares """
