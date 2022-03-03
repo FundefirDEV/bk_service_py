@@ -93,9 +93,6 @@ class ProfitConvertSharesAPITestCase(APITestCase):
         new_partner_detail = PartnerDetail.objects.get(partner=self.partner)
         new_bank = Bank.objects.get(pk=self.partner.bank.id)
 
-        import pdb
-        pdb.set_trace()
-
         self.assertEqual(new_partner_detail.earnings, pre_partner_detail.earnings - profit_amount)
         self.assertEqual(new_partner_detail.profit_obtained, pre_partner_detail.profit_obtained + profit_amount)
         self.assertEqual(new_bank.cash_balance, pre_bank.cash_balance - profit_amount)
