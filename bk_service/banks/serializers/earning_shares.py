@@ -67,20 +67,7 @@ class ProfitPaymentSerializer(serializers.Serializer):
 
         share = Share.objects.get(share_request=share_request)
 
-        earning_shares = EarningShare.objects.filter(
-            share__partner=partner,
-            pk__in=earning_shares_ids
-        )
-
-        earning_shares.update(is_paid=True)
-
-        profit_amount = earning_shares.aggregate(
-            Sum('total_earning_by_share'))["total_earning_by_share__sum"] or 0.0
-
-        profit_amount = profit_amount - share.amount
-        partner_detail = partner.partner_detail()
-
-        self.update_partner_detail_and_bank(partner_detail, bank, profit_amount)
+        self.pay_earnings_shares(bank, partner_id, earning_shares_ids)
 
     def update_partner_detail_and_bank(self, partner_detail, bank, profit_amount):
         new_earnings = partner_detail.earnings - profit_amount

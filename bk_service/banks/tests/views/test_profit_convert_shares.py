@@ -88,7 +88,7 @@ class ProfitConvertSharesAPITestCase(APITestCase):
         self.assertEqual(new_earning_share_3.is_paid, True)
 
         profit_amount = new_earning_share_2.total_earning_by_share + new_earning_share_3.total_earning_by_share
-        profit_amount = profit_amount - 20000
+        profit_amount = profit_amount
 
         new_partner_detail = PartnerDetail.objects.get(partner=self.partner)
         new_bank = Bank.objects.get(pk=self.partner.bank.id)
