@@ -40,7 +40,8 @@ urlpatterns = [
 
 
     path('banks/profit-payment-partners/', ProfitPaymentPartnersAPIView.as_view(), name="profit-payment-partners"),
-    path('banks/profit-payment/<int:partner_id>/', ProfitPaymentAPIView.as_view(), name="profit-payment"),
+    path('banks/profit-payment/<int:partner_id>/', ProfitPaymentAPIView.as_view(), name="profit-payment-partner-id"),
     path('banks/profit-payment/', ProfitPaymentAPIView.as_view(), name="profit-payment"),
+    path('banks/profit-convert-shares/', ProfitConvertSharesAPIView.as_view(), name="profit-convert-shares"),
 
 ]

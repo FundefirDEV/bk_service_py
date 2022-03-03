@@ -13,3 +13,4 @@ from .profile import *
 from .partner_admin import *
 from .profit_payment_partners import *
 from .profit_payment import *
+from .profit_convert_shares import *

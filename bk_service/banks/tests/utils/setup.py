@@ -212,7 +212,7 @@ def create_meeting(bank):
     return meeting
 
 
-def create_earning_share(share=None, meeting=None):
+def create_earning_share(share=None, meeting=None, earning_by_share=10, total_earning_by_share=100):
 
     if share == None:
         share = create_share()
@@ -223,8 +223,8 @@ def create_earning_share(share=None, meeting=None):
     earning_share = EarningShare.objects.create(
         meeting=meeting,
         share=share,
-        earning_by_share=10,
-        total_earning_by_share=100,
+        earning_by_share=earning_by_share,
+        total_earning_by_share=total_earning_by_share,
     )
     return earning_share
 
