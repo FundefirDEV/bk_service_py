@@ -10,6 +10,7 @@ from rest_framework import serializers
 # Models
 from bk_service.banks.models import EarningShare, Partner
 from bk_service.banks.models.shares import Share
+from bk_service.banks.models.banks import Bank
 
 # Bk core
 from bk_service.bk_core_sdk import BkCoreSDK
@@ -64,6 +65,8 @@ class ProfitPaymentSerializer(serializers.Serializer):
 
         share_request = bk_core_sdk.create_shares_request(quantity)
         bk_core_sdk.approve_shares_request(share_request.id)
+
+        bank = Bank.objects.get(pk=bank.id)
 
         share = Share.objects.get(share_request=share_request)
 
