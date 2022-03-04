@@ -62,7 +62,7 @@ class E2EOneMeetingAPITestCase(APITestCase):
         self.assertEqual(request.status_code, status.HTTP_200_OK)
         self.assertEqual(body, {"message": "Bank created"})
 
-        bank = Bank.objects.first()
+        bank = self.user.partner.bank
         bank_rules = bank.get_bank_rules()
         rules_verification = BankRules.objects.get(bank=bank)
 
@@ -119,7 +119,6 @@ class E2EOneMeetingAPITestCase(APITestCase):
             self.assertIsNotNone(user_id)
 
         """ Request Shares """
-
         url_request_shares = '/requests/requests/'
 
         body_request_shares = {
@@ -135,3 +134,58 @@ class E2EOneMeetingAPITestCase(APITestCase):
             self.assertEqual(body, 'share request success !')
 
         """ Approve Shares """
+        shares_requests = ShareRequest.objects.filter(bank=bank)
+        self.assertEqual(bank.cash_balance, 0)
+        self.assertEqual(len(shares_requests), len(partners))
+        url_share_request = '/banks/approvals/'
+        for share_request in shares_requests:
+            approve_shares_body = {
+                'type_request': 'share',
+                'request_id': share_request.id,
+                'approval_status': 'approved'
+            }
+            share_request_response = post_with_token(
+                URL=url_share_request,
+                user=self.user,
+                body=approve_shares_body)
+            body = share_request_response.data
+            self.assertEqual(share_request_response.status_code, status.HTTP_200_OK)
+            self.assertEqual(body, 'share approved success !')
+        bank = Bank.objects.last()
+        self.assertEqual(bank.cash_balance, 400000)
+
+        """ Request Credits """
+        url_request_credit = '/requests/requests/'
+        for partner in partners:
+            body_request_credits = {
+                'type_request': 'credit',
+                'amount': 100000,
+                'quantity': 3,
+                'credit_use': CreditUse.generationIncome,
+                'credit_use_detail': CreditUseDetail.trade,
+                'payment_type': CreditPayType.installments
+            }
+            request = post_with_token(URL=url_request_credit, user=partner.user, body=body_request_credits)
+            body = request.data
+            self.assertEqual(request.status_code, status.HTTP_200_OK)
+            self.assertEqual(body, 'credit request success !')
+        bank = Bank.objects.last()
+        self.assertEqual(bank.cash_balance, 400000)
+
+        """ Approve Credits """
+        credits_requests = CreditRequest.objects.filter(bank=bank)
+        for credit_request in credits_requests:
+            approve_credits_body = {
+                'type_request': 'credit',
+                'request_id': credit_request.id,
+                'approval_status': 'approved'
+            }
+            credit_request_response = post_with_token(
+                URL=url_share_request,
+                user=self.user,
+                body=approve_credits_body)
+            body = credit_request_response.data
+            self.assertEqual(credit_request_response.status_code, status.HTTP_200_OK)
+            self.assertEqual(body, 'credit approved success !')
+        bank = Bank.objects.first()
+        self.assertEqual(bank.cash_balance, 0)
