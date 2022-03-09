@@ -84,8 +84,8 @@ class MeetingAdmin(admin.ModelAdmin):
     """ Meeting model admin """
     list_display = (
         'bank',
-        'created_at',
-        'updated_at',
+        'close_date',
+        'close_date',
     )
     fields = ('bank',
               'total_shares_amount',
@@ -98,6 +98,7 @@ class MeetingAdmin(admin.ModelAdmin):
               'total_delay_interest',
               'expenditure_fund',
               'reserve_fund_of_bad_debt',
+              'close_date',
               )
     search_fields = ('bank__name',)
     list_filter = ('bank__name', 'created_at', 'updated_at')
