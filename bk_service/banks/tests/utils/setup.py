@@ -1,6 +1,6 @@
 
 # Datetime
-from datetime import date
+from datetime import datetime
 
 # Models
 from bk_service.users.models.users import *
@@ -12,9 +12,6 @@ from bk_service.locations.tests.utils.setup import create_locations
 
 # Utils Enums
 from bk_service.utils.enums.banks import PartnerType
-
-
-from datetime import date
 
 # Bk Core
 from bk_service.bk_core_sdk.bk_core import BkCore
@@ -165,7 +162,9 @@ def create_schedule_installment(
     capital_installment=90000,
     ordinary_interest_percentage=1,
     total_pay_installment=91000,
-    interest_calculated=1000,
+    ordinary_interest_calculated=1000,
+    delay_interest_percentage=0,
+    delay_interest_base_amount=0,
 ):
 
     if credit == None:
@@ -175,10 +174,12 @@ def create_schedule_installment(
         credit=credit,
         capital_installment=capital_installment,
         ordinary_interest_percentage=ordinary_interest_percentage,
-        interest_calculated=interest_calculated,
+        ordinary_interest_calculated=ordinary_interest_calculated,
+        delay_interest_percentage=delay_interest_percentage,
+        delay_interest_base_amount=delay_interest_base_amount,
         total_pay_installment=total_pay_installment,
         payment_status=PaymentStatus.pending,
-        payment_date=date.today(),
+        payment_date=datetime.now(),
         installment_number=0
     )
     return schedule_installment
@@ -202,13 +203,13 @@ def create_payment_schedules(credit=None, payment_schedule_request=None):
         partner=payment_schedule_request.partner,
         bank=payment_schedule_request.bank,
         capital_paid=payment_schedule_request.schedule_installment.capital_installment,
-        ordinary_interest_paid=payment_schedule_request.schedule_installment.interest_calculated,
+        ordinary_interest_paid=payment_schedule_request.schedule_installment.ordinary_interest_calculated,
     )
     return payment_schedule
 
 
 def create_meeting(bank):
-    meeting = Meeting.objects.create(bank=bank,)
+    meeting = Meeting.objects.create(bank=bank, close_date=datetime(2020, 1, 1),)
     return meeting
 
 
@@ -218,7 +219,7 @@ def create_earning_share(share=None, meeting=None, earning_by_share=10, total_ea
         share = create_share()
 
     if meeting == None:
-        meeting = Meeting.objects.create(bank=share.bank,)
+        meeting = Meeting.objects.create(bank=share.bank, close_date=datetime(2020, 1, 1))
 
     earning_share = EarningShare.objects.create(
         meeting=meeting,

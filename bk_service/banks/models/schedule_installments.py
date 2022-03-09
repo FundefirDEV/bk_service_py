@@ -10,19 +10,29 @@ from bk_service.utils.enums import PaymentStatus
 
 class ScheduleInstallment(BkServiceModel, models.Model):
     credit = models.ForeignKey('Credit', on_delete=models.PROTECT, related_name='schedule_installments')
-    capital_installment = models.DecimalField(max_digits=100, decimal_places=4, null=False)
-    ordinary_interest_percentage = models.DecimalField(max_digits=100, decimal_places=4, null=False)
-    interest_calculated = models.DecimalField(max_digits=100, decimal_places=4, null=False)
-    total_pay_installment = models.DecimalField(max_digits=100, decimal_places=4, null=False)
-    amount_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
+    # Capital
+    capital_installment = models.DecimalField(max_digits=100, decimal_places=4, null=False)
     capital_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+
+    # Ordinary interest
+    ordinary_interest_percentage = models.DecimalField(max_digits=100, decimal_places=4, null=False)
+    ordinary_interest_calculated = models.DecimalField(max_digits=100, decimal_places=4, null=False)
     ordinary_interest_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+
+    # Deplay interest
+    delay_interest_percentage = models.DecimalField(max_digits=100, decimal_places=4, null=False)
+    delay_interest_calculated = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    delay_interest_base_amount = models.DecimalField(max_digits=100, decimal_places=4, null=False)
     delay_interest_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
+    # Date
     payment_date = models.DateTimeField(null=False)
-    installment_number = models.PositiveIntegerField(null=False)
 
+    # Payment
+    total_pay_installment = models.DecimalField(max_digits=100, decimal_places=4, null=False)
+    amount_paid = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
+    installment_number = models.PositiveIntegerField(null=False)
     payment_status = models.CharField(
         max_length=20,
         null=False,
@@ -35,7 +45,10 @@ class ScheduleInstallment(BkServiceModel, models.Model):
         'capital_installment',
         'payment_date'
         'ordinary_interest_percentage',
-        'interest_calculated',
+        'delay_interest_percentage',
+        'delay_interest_calculated',
+        'delay_interest_base_amount',
+        'ordinary_interest_calculated',
         'total_pay_installment',
         'payment_status',
         'ordinary_interest_paid',
@@ -51,7 +64,7 @@ class ScheduleInstallment(BkServiceModel, models.Model):
             'capital_installment': self.capital_installment,
             'payment_date': self.payment_date,
             'ordinary_interest_percentage': self.ordinary_interest_percentage,
-            'interest_calculated': self.interest_calculated,
+            'ordinary_interest_calculated': self.ordinary_interest_calculated,
             'total_pay_installment': self.total_pay_installment,
             'payment_status': self.payment_status,
             'amount_paid': self.amount_paid,

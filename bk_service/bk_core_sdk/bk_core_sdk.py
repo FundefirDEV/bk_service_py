@@ -1,3 +1,6 @@
+# Python
+import datetime
+
 # Django
 from django.db.models import Sum
 
@@ -263,6 +266,8 @@ class BkCoreSDK():
             "total_credits_amount": total_credits_amount,
             "total_credits_quantity": total_credits_quantity,
             "total_capital": total_capital,
+
+            "close_date": datetime.now(),
 
             "total_earning": total_earning,
             "total_ordinary_interest_advance": total_ordinary_interest_advance,

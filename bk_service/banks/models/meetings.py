@@ -1,7 +1,9 @@
 """ Meetings models """
-
+# Python
+from datetime import datetime
 # Django
 from django.db import models
+from django.utils import timezone
 
 # Models
 # from .banks import Bank
@@ -32,6 +34,9 @@ class Meeting(BkServiceModel, models.Model):
     expenditure_fund = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
     reserve_fund_of_bad_debt = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
+    # Date
+    close_date = models.DateTimeField(null=False,)
+
     def __str__(self):
         """ Return meeting """
         return f'bank: {str(self.bank.name)} meeting_id: {self.id}'
@@ -47,5 +52,6 @@ class Meeting(BkServiceModel, models.Model):
         'earning_by_share',
         'total_delay_interest'
         'expenditure_fund',
-        'reserve_fund_of_bad_debt'
+        'reserve_fund_of_bad_debt',
+        'close_date',
     ]

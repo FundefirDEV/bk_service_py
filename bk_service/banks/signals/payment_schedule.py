@@ -39,7 +39,7 @@ def post_save_approve_payment_schedule_request(sender, instance, created, **kwar
             ordinary_interest_paid = bk_core.calculate_ordinary_interest_paid(
                 amount_paid=schedule_installment.amount_paid,
                 payment_schedule_request_amount=instance.amount,
-                schedule_installment_interest=schedule_installment.interest_calculated,
+                schedule_installment_interest=schedule_installment.ordinary_interest_calculated,
                 is_payment_advance=is_payment_advance
             )
 

@@ -19,7 +19,7 @@ class ScheduleInstallmentsTestCase(TestCase):
         self.assertEqual(schedule_installment.credit, credit)
         self.assertEqual(schedule_installment.capital_installment, 90000)
         self.assertEqual(schedule_installment.ordinary_interest_percentage, 1)
-        self.assertEqual(schedule_installment.interest_calculated, 1000)
+        self.assertEqual(schedule_installment.ordinary_interest_calculated, 1000)
         self.assertEqual(schedule_installment.total_pay_installment, 91000)
         self.assertEqual(schedule_installment.payment_status, PaymentStatus.pending)
         self.assertEqual(schedule_installment.credit, schedule_installment_created.credit)

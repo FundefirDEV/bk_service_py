@@ -21,7 +21,7 @@ class ScheduleInstallmentModelSerializer(serializers.ModelSerializer):
             'capital_installment',
             'payment_date',
             'ordinary_interest_percentage',
-            'interest_calculated',
+            'ordinary_interest_calculated',
             'total_pay_installment',
             'payment_status',
             'amount_paid',
