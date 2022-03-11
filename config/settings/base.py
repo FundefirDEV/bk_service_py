@@ -43,6 +43,7 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django_rest_passwordreset',
 ]
 
 THIRD_PARTY_APPS = [
