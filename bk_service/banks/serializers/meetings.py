@@ -25,7 +25,8 @@ class MeetingsModelSerializer(serializers.ModelSerializer):
             'earning_by_share',
             'total_delay_interest',
             'expenditure_fund',
-            'reserve_fund_of_bad_debt'
+            'reserve_fund_of_bad_debt',
+            'close_date',
         )
 
     def create(self, validated_data):

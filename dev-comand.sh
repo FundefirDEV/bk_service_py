@@ -35,21 +35,21 @@ case $COMMAND in
     docker-compose run --rm django python manage.py loaddata bk_service/users/fixtures/users.json
     echo "from django.contrib.auth import get_user_model ; User = get_user_model(); User.objects.create_superuser(username='admin' , first_name= 'admin' , last_name= 'admin', email='admin@admin.com', password='admin1234', phone_number='+123456789',city_id = 0, gender='M' , is_verified=True)" | docker-compose run --rm django python manage.py shell 
     ;;
-  "clear-db")
-    echo "cleaning db..."
-    echo "deleting migrations files..."
-    delete_migrations "users"
-    delete_migrations "banks"
-    delete_migrations "locations"
-    delete_migrations "requests"
+  # "clear-db")
+  #   echo "cleaning db..."
+  #   echo "deleting migrations files..."
+  #   delete_migrations "users"
+  #   delete_migrations "banks"
+  #   delete_migrations "locations"
+  #   delete_migrations "requests"
 
-    echo "downing containers..."
-    docker-compose down
-    echo 'database deleted: '
-    docker volume rm -f $(docker volume ls -q)
-    echo 're-build containers : '
-    docker-compose build
-    ;;
+  #   echo "downing containers..."
+  #   docker-compose down
+  #   echo 'database deleted: '
+  #   docker volume rm -f $(docker volume ls -q)
+  #   echo 're-build containers : '
+  #   docker-compose build
+  #   ;;
   "run-django")
     echo "runing django..."
     docker rm -f bk_service_py_django_1

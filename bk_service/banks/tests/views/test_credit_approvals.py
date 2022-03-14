@@ -105,7 +105,7 @@ class CreditApprovalsAPITestCase(APITestCase):
         self.assertEqual(credit.installments, self.credit_request.installments)
         # credit installments created
         self.assertEqual(len(schedule_installment), credit.installments)
-        self.assertEqual(schedule_installment[0].interest_calculated, 0)
+        self.assertEqual(schedule_installment[0].ordinary_interest_calculated, 0)
         # partner_detail "active_credit" need to change
         self.assertEqual(partner_detail.active_credit, float(credit.amount) - float(credit.total_interest))
         # cash balance need to change

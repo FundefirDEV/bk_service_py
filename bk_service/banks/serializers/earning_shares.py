@@ -10,6 +10,7 @@ from rest_framework import serializers
 # Models
 from bk_service.banks.models import EarningShare, Partner
 from bk_service.banks.models.shares import Share
+from bk_service.banks.models.banks import Bank
 
 # Bk core
 from bk_service.bk_core_sdk import BkCoreSDK
@@ -46,15 +47,16 @@ class ProfitPaymentSerializer(serializers.Serializer):
         partner = get_object_or_404(Partner, pk=partner_id, bank=bank)
         earning_shares = EarningShare.objects.filter(
             share__partner=partner,
+            is_paid=False,
             pk__in=earning_shares_ids
         )
-
-        earning_shares.update(is_paid=True)
 
         profit_amount = earning_shares.aggregate(
             Sum('total_earning_by_share'))["total_earning_by_share__sum"] or 0.0
 
         partner_detail = partner.partner_detail()
+
+        earning_shares.update(is_paid=True)
 
         self.update_partner_detail_and_bank(partner_detail, bank, profit_amount)
 
@@ -65,14 +67,16 @@ class ProfitPaymentSerializer(serializers.Serializer):
         share_request = bk_core_sdk.create_shares_request(quantity)
         bk_core_sdk.approve_shares_request(share_request.id)
 
-        share = Share.objects.get(share_request=share_request)
+        bank = Bank.objects.get(pk=bank.id)
+
+        # share = Share.objects.get(share_request=share_request)
 
         self.pay_earnings_shares(bank, partner_id, earning_shares_ids)
 
     def update_partner_detail_and_bank(self, partner_detail, bank, profit_amount):
-        new_earnings = partner_detail.earnings - profit_amount
-        new_profit_obtained = partner_detail.profit_obtained + profit_amount
-        new_cash_balance = bank.cash_balance - profit_amount
+        new_earnings = float(partner_detail.earnings) - float(profit_amount)
+        new_profit_obtained = float(partner_detail.profit_obtained) + float(profit_amount)
+        new_cash_balance = float(bank.cash_balance) - float(profit_amount)
 
         # Update partner detail and bank
         partner_detail.earnings = new_earnings

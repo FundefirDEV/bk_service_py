@@ -13,9 +13,6 @@ from bk_service.bk_core_sdk.bk_core import BkCore
 # Utils
 from bk_service.utils.enums.requests import ApprovalStatus
 
-# datetime
-from datetime import date
-
 
 @receiver(post_save, sender=Credit)
 def post_save_create_credit_schedule_installment(sender, instance, created, **kwargs):
@@ -39,7 +36,14 @@ def post_save_create_credit_schedule_installment(sender, instance, created, **kw
                 credit=instance,
                 capital_installment=schedule_installment['capital_value'],
                 ordinary_interest_percentage=bank_rules.ordinary_interest,
-                interest_calculated=schedule_installment['ordinary_insterest'],
+
+
+                # TODO: calculate deplay interest
+                # delay_interest_percentage=bank_rules.delay_interest,
+                delay_interest_percentage=0.0,
+                delay_interest_base_amount=0.0,
+
+                ordinary_interest_calculated=schedule_installment['ordinary_insterest'],
                 total_pay_installment=schedule_installment['capital_value'] +
                 schedule_installment['ordinary_insterest'],
                 payment_date=schedule_installment['installment_payment_date'],

@@ -79,7 +79,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             payment_schedule_request_approval_status=ApprovalStatus.approved,
             amount=self.schedule_installment.total_pay_installment,
             capital_paid=self.schedule_installment.capital_installment,
-            ordinary_interest_paid=self.schedule_installment.interest_calculated,
+            ordinary_interest_paid=self.schedule_installment.ordinary_interest_calculated,
             payment_type=self.credit.payment_type
         )
 
@@ -194,7 +194,7 @@ class PaymentScheduleApprovalsAPITestCase(APITestCase):
             capital_installment=90000,
             ordinary_interest_percentage=1,
             total_pay_installment=90000,
-            interest_calculated=0,
+            ordinary_interest_calculated=0,
         )
 
         payment_schedule_request = create_payment_schedule_request(

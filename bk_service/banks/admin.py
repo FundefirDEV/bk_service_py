@@ -82,9 +82,26 @@ class ScheduleInstallmentAdmin(admin.ModelAdmin):
 @admin.register(Meeting)
 class MeetingAdmin(admin.ModelAdmin):
     """ Meeting model admin """
-    # list_display = '__all__'
-    # search_fields = ('name', 'code',)
-    # list_filter = ('is_active', 'name', 'code',)
+    list_display = (
+        'bank',
+        'close_date',
+        'close_date',
+    )
+    fields = ('bank',
+              'total_shares_amount',
+              'total_credits_amount',
+              'total_shares_quantity',
+              'total_credits_quantity',
+              'total_ordinary_interest',
+              'total_capital',
+              'earning_by_share',
+              'total_delay_interest',
+              'expenditure_fund',
+              'reserve_fund_of_bad_debt',
+              'close_date',
+              )
+    search_fields = ('bank__name',)
+    list_filter = ('bank__name', 'created_at', 'updated_at')
 
 
 @admin.register(EarningShare)

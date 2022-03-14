@@ -95,6 +95,6 @@ class ProfitConvertSharesAPITestCase(APITestCase):
 
         self.assertEqual(new_partner_detail.earnings, pre_partner_detail.earnings - profit_amount)
         self.assertEqual(new_partner_detail.profit_obtained, pre_partner_detail.profit_obtained + profit_amount)
-        self.assertEqual(new_bank.cash_balance, pre_bank.cash_balance - profit_amount)
+        self.assertEqual(new_bank.cash_balance, pre_bank.cash_balance + 20000 - profit_amount)
 
         self.assertEqual(new_partner_detail.shares, pre_partner_detail.shares + 2)

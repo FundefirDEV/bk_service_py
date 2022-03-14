@@ -49,6 +49,8 @@ class BkCore():
 
     def calculate_schedule_installment(self, installments, payment_type, ordinary_interest, credit_amount, payment_period_of_installment):
 
+        # TODO: add deplay interest
+
         if payment_type == CreditPayType.installments:
             total_ordinary_interest = self.calculate_credit_total_interest(
                 amount=credit_amount, installments=installments, ordinary_interest=ordinary_interest)
