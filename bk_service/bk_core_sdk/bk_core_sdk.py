@@ -123,10 +123,10 @@ class BkCoreSDK():
 
         # update partner detail
         partner_detail = self.partner.partner_detail()
-        partner_detail.active_credit += debt
+        partner_detail.active_credit += credit.amount
         partner_detail.save()
         # update bank
-        self.bank.active_credits += debt
+        self.bank.active_credits += credit.amount
         self.bank.cash_balance -= debt
         self.bank.save()
 
