@@ -44,4 +44,10 @@ urlpatterns = [
     path('banks/profit-payment/', ProfitPaymentAPIView.as_view(), name="profit-payment"),
     path('banks/profit-convert-shares/', ProfitConvertSharesAPIView.as_view(), name="profit-convert-shares"),
 
+
+    path('banks/my-shares/', SharesModelAPIView.as_view(), name="my-shares"),
+    path('banks/my-credit/', CreditModelAPIView.as_view(), name="my-credit"),
+    path('banks/my-payment-schedule/', PaymentScheduleModelAPIView.as_view(), name="my-payment-schedule"),
+    path('banks/my-earning-shares/', EarningShareModelAPIView.as_view(), name="my-earning-shares"),
+
 ]

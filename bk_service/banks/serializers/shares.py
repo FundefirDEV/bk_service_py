@@ -26,4 +26,5 @@ class SharesModelSerializer(serializers.ModelSerializer):
             'amount',
             'quantity',
             'share_request',
+            'created_at',
         )

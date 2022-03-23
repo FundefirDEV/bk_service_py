@@ -31,5 +31,5 @@ class CreditsModelSerializer(serializers.ModelSerializer):
             'credit_use',
             'payment_type',
             'schedule_installments',
-            'total_interest'
+            'total_interest',
         )

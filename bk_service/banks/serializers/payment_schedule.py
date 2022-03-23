@@ -19,6 +19,7 @@ class PaymentScheduleModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaymentSchedule
         fields = (
+            'id',
             'bank',
             'partner',
             'payment_schedule_request',
@@ -27,4 +28,5 @@ class PaymentScheduleModelSerializer(serializers.ModelSerializer):
             'capital_paid',
             'delay_interest_paid',
             'payment_type',
+            'created_at',
         )

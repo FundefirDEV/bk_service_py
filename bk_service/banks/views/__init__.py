@@ -14,3 +14,7 @@ from .partner_admin import *
 from .profit_payment_partners import *
 from .profit_payment import *
 from .profit_convert_shares import *
+from .shares import *
+from .credits import *
+from .payment_schedules import *
+from .earningShares import *
