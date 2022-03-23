@@ -32,4 +32,5 @@ class CreditsModelSerializer(serializers.ModelSerializer):
             'payment_type',
             'schedule_installments',
             'total_interest',
+            'is_active',
         )
