@@ -18,3 +18,4 @@ from .shares import *
 from .credits import *
 from .payment_schedules import *
 from .earningShares import *
+from .reports import *
