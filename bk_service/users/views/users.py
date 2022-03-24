@@ -3,18 +3,22 @@
 # Django REST Framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
+from rest_framework import generics
 
 # Simple JWT
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
+from bk_service.users.models.users import User
+
 # Serializers
 from bk_service.users.serializers import (
     MyTokenObtainPairSerializer,
     UserSignUpSerializer,
-    UserModelSerializer
+    UserModelSerializer,
+    UpdateUserSerializer
 )
 
 # Locations Models
@@ -63,3 +67,33 @@ class UserSingUpAPIView(APIView):
         # pdb.set_trace()
 
         return Response(res)
+
+
+class UpdateProfileView(APIView):
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        data = request.data
+        serializer = UpdateUserSerializer()
+        serializer.validate_email(user=user, email=data['email'])
+        serializer.validate_phone(
+            user=user, phone_number=data['phone_number'],
+            phone_region_code=data['phone_region_code']
+        )
+        serializer.validate_username(
+            user=user,
+            username=data['username']
+        )
+        user.first_name = data['first_name']
+        user.last_name = data['last_name']
+        user.email = data['email']
+        user.username = data['username']
+        user.phone_number = data['phone_number']
+        user.gender = data['gender']
+        user.phone_region_code = data['phone_region_code']
+
+        user.save()
+        return Response('ok')
+
+        # serializer.is_valid(raise_exception=True)
+        # validated_data = dict(serializer.validated_data)

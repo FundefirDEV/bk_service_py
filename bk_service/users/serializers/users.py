@@ -230,3 +230,30 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # pdb.set_trace()
 
         return data
+
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'phone_number', 'gender', 'phone_region_code')
+        extra_kwargs = {
+            'username': {'required': True},
+            'first_name': {'required': True},
+            'last_name': {'required': True},
+            'email': {'required': True},
+            'phone_number': {'required': True},
+            'gender': {'required': True},
+            'phone_region_code': {'required': True},
+        }
+
+    def validate_email(self, user, email):
+        if User.objects.exclude(pk=user.pk).filter(email=email).exists():
+            raise serializers.ValidationError({"email": "This email is already in use."})
+
+    def validate_phone(self, user, phone_number, phone_region_code):
+        if User.objects.exclude(pk=user.pk).filter(phone_number=phone_number, phone_region_code=phone_region_code).exists():
+            raise serializers.ValidationError({"email": "This phone number is already in use."})
+
+    def validate_username(self, user, username):
+        if User.objects.exclude(pk=user.pk).filter(username=username).exists():
+            raise serializers.ValidationError({"username": "This username is already in use."})
