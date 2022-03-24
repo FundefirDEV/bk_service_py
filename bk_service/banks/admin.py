@@ -10,17 +10,21 @@ from bk_service.banks.models import *
 @admin.register(Partner)
 class PartnerAdmin(admin.ModelAdmin):
     """ Partner model admin """
-    # list_display = '__all__'
-    # search_fields = ('name', 'code',)
-    # list_filter = ('is_active', 'name', 'code',)
+    list_display = ('user',  'bank')
+    # fields = ('name', 'city', 'cash_balance', 'active_credits',
+    #           'shares', 'expenditure_fund', 'reserve_fund_of_bad_debt')
+    search_fields = ('user',)
+    list_filter = ('bank__name', 'user__city')
 
 
 @admin.register(PartnerDetail)
 class PartnerDetailAdmin(admin.ModelAdmin):
     """ PartnerDetail model admin """
-    # list_display = '__all__'
-    # search_fields = ('name', 'code',)
-    # list_filter = ('is_active', 'name', 'code',)
+    list_display = ('partner',)
+    # fields = ('name', 'city', 'cash_balance', 'active_credits',
+    #           'shares', 'expenditure_fund', 'reserve_fund_of_bad_debt')
+    search_fields = ('partner',)
+    # list_filter = ('bank__name', 'user__city')
 
 
 @admin.register(PartnerGuest)
@@ -34,17 +38,20 @@ class PartnerAdmin(admin.ModelAdmin):
 @admin.register(Bank)
 class BankAdmin(admin.ModelAdmin):
     """ Bank model admin """
-    # list_display = '__all__'
-    # search_fields = ('name', 'code',)
-    # list_filter = ('is_active', 'name', 'code',)
+
+    list_display = ('name', 'city',)
+    fields = ('name', 'city', 'cash_balance', 'active_credits',
+              'shares', 'expenditure_fund', 'reserve_fund_of_bad_debt')
+    search_fields = ('name',)
+    list_filter = ('name', 'city')
 
 
-@admin.register(BankRules)
-class BankRulesAdmin(admin.ModelAdmin):
-    """ BankRules model admin """
-    # list_display = '__all__'
-    # search_fields = ('name', 'code',)
-    # list_filter = ('is_active', 'name', 'code',)
+# @admin.register(BankRules)
+# class BankRulesAdmin(admin.ModelAdmin):
+#     """ BankRules model admin """
+#     # list_display = '__all__'
+#     # search_fields = ('name', 'code',)
+#     # list_filter = ('is_active', 'name', 'code',)
 
 
 @admin.register(Share)
