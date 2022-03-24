@@ -9,3 +9,6 @@ class UsersAppConfig(AppConfig):
     name = 'bk_service.users'
     default_auto_field = 'django.db.models.AutoField'
     verbose_name = 'Users'
+
+    def ready(self):
+        import bk_service.users.signals
