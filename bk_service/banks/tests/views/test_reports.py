@@ -84,5 +84,4 @@ class ReportsAPITestCase(APITestCase):
 
         self.assertEqual(len(shares['shares_per_partner']), 1)
         self.assertEqual(len(credits['credits_per_partner']), 1)
-
         self.assertEqual(len(meetings), 1)
