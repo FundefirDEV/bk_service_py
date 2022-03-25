@@ -50,4 +50,6 @@ urlpatterns = [
     path('banks/my-payment-schedule/', PaymentScheduleModelAPIView.as_view(), name="my-payment-schedule"),
     path('banks/my-earning-shares/', EarningShareModelAPIView.as_view(), name="my-earning-shares"),
 
+    path('banks/reports/', ReportsAPIView.as_view(), name="reports"),
+
 ]
