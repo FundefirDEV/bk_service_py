@@ -63,8 +63,8 @@ class ReportsAPITestCase(APITestCase):
 
         self.assertEqual(request.status_code, status.HTTP_200_OK)
 
-        import pdb
-        pdb.set_trace()
+        # import pdb
+        # pdb.set_trace()
 
         expenditure_fund = body['expenditure_fund']
         reserve_fund_of_bad_debt = body['reserve_fund_of_bad_debt']
@@ -77,3 +77,12 @@ class ReportsAPITestCase(APITestCase):
         self.assertEqual(total_shares_quantity, self.share.quantity)
         self.assertEqual(total_shares_amount, self.share.amount)
         self.assertEqual(total_earning, 8900.0)
+
+        shares = body['shares']
+        credits = body['credits']
+        meetings = body['meetings']
+
+        self.assertEqual(len(shares['shares_per_partner']), 1)
+        self.assertEqual(len(credits['credits_per_partner']), 1)
+
+        self.assertEqual(len(meetings), 1)

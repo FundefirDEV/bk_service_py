@@ -68,16 +68,13 @@ class ReportsAPIView(APIView):
             reserve_fund_of_bad_debt=float(reserve_fund_of_bad_debt)
         )
 
-        import pdb
-        pdb.set_trace()
-
         res = {
             "expenditure_fund": expenditure_fund,
             "reserve_fund_of_bad_debt": reserve_fund_of_bad_debt,
             "total_shares_quantity": total_shares_quantity,
             "total_shares_amount": total_shares_amount,
             "total_earning": total_earning,
-            "meetings_info": meeting_serializer.data,
+            "meetings": meeting_serializer.data,
             "shares": {
                 "shares_per_partner": share_serializer.data,
             },
