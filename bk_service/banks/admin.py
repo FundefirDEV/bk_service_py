@@ -46,12 +46,12 @@ class BankAdmin(admin.ModelAdmin):
     list_filter = ('name', 'city')
 
 
-# @admin.register(BankRules)
-# class BankRulesAdmin(admin.ModelAdmin):
-#     """ BankRules model admin """
-#     # list_display = '__all__'
-#     # search_fields = ('name', 'code',)
-#     # list_filter = ('is_active', 'name', 'code',)
+@admin.register(BankRules)
+class BankRulesAdmin(admin.ModelAdmin):
+    """ BankRules model admin """
+    list_display = ('bank', 'is_active',)
+    search_fields = ('bank',)
+    list_filter = ('bank',)
 
 
 @admin.register(Share)
