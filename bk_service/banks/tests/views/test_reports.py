@@ -81,7 +81,9 @@ class ReportsAPITestCase(APITestCase):
         shares = body['shares']
         credits = body['credits']
         meetings = body['meetings']
+        partners = body['partners']
 
         self.assertEqual(len(shares['shares_per_partner']), 1)
         self.assertEqual(len(credits['credits_per_partner']), 1)
         self.assertEqual(len(meetings), 1)
+        self.assertEqual(len(partners), 1)

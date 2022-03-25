@@ -31,11 +31,13 @@ class ReportsAPIView(APIView):
         shares = Share.objects.filter(bank=bank, is_active=True,).exclude(meeting=None)
         payments_schedule = PaymentSchedule.objects.filter(bank=bank,).exclude(meeting=None)
         meetings = Meeting.objects.filter(bank=bank,)
+        partner_details = PartnerDetail.objects.filter(partner__bank=bank, partner__is_active=True)
 
         # Serializers
         share_serializer = SharesModelSerializer(shares, many=True)
         credit_serializer = CreditsModelSerializer(credits, many=True)
         meeting_serializer = MeetingsModelSerializer(meetings, many=True)
+        partner_detail_serializer = PartnerDetailModelSerializer(partner_details, many=True)
 
         # Shares
         total_shares_quantity = shares.aggregate(Sum('quantity'))["quantity__sum"] or 0
@@ -75,6 +77,7 @@ class ReportsAPIView(APIView):
             "total_shares_amount": total_shares_amount,
             "total_earning": total_earning,
             "meetings": meeting_serializer.data,
+            "partners": partner_detail_serializer.data,
             "shares": {
                 "shares_per_partner": share_serializer.data,
             },
