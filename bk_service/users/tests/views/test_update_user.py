@@ -28,7 +28,7 @@ class UpdateProfileTestCase(APITestCase):
     def setUp(self):
         city = create_locations()
         self.user = create_user(username='ejample@mail.com', email='ejample@mail.com', city=city)
-        self.user2 = create_user(username='used@mail.com', email='used@mail.com', phone_number='3111111', city=city)
+        self.user2 = create_user(username='used@mail.com', email='used@mail.com', phone_number='3111111', city=city,phone_region_code='+57')
 
     def test_update_profile_success(self):
         """ success """
@@ -51,7 +51,7 @@ class UpdateProfileTestCase(APITestCase):
         self.assertEqual(user_validation.phone_region_code, body['phone_region_code'])
 
     def test_update_profile_fails_username_exist(self):
-        """ success """
+        """ Fail """
         url = '/users/update-profile/'
         body = {
             'username': 'used@mail.com',
@@ -64,3 +64,37 @@ class UpdateProfileTestCase(APITestCase):
         }
         request = post_with_token(URL=url, user=self.user, body=body)
         self.assertEqual(request.status_code, 400)
+        self.assertEqual(request.data, {'username': ErrorDetail(string='This username is already in use.', code='invalid')})
+
+    def test_update_profile_fails_email_exist(self):
+        """ Fail """
+        url = '/users/update-profile/'
+        body = {
+            'username': 'new@mail.com',
+            'first_name': 'new',
+            'last_name': 'new',
+            'email': 'used@mail.com',
+            'phone_number': '300000000',
+            'gender': 'F',
+            'phone_region_code': '+57'
+        }
+        request = post_with_token(URL=url, user=self.user, body=body)
+        self.assertEqual(request.status_code, 400)
+        self.assertEqual(request.data, {'email': ErrorDetail(string='This email is already in use.', code='invalid')})
+
+
+    def test_update_profile_fails_phone_exist(self):
+        """ Fail """
+        url = '/users/update-profile/'
+        body = {
+            'username': 'new@mail.com',
+            'first_name': 'new',
+            'last_name': 'new',
+            'email': 'new@mail.com',
+            'phone_number': '3111111',
+            'gender': 'F',
+            'phone_region_code': '+57'
+        }
+        request = post_with_token(URL=url, user=self.user, body=body)
+        self.assertEqual(request.status_code, 400)
+        self.assertEqual(request.data, {'phone_number': ErrorDetail(string='This phone number is already in use.', code='invalid')})

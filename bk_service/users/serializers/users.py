@@ -252,7 +252,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 
     def validate_phone(self, user, phone_number, phone_region_code):
         if User.objects.exclude(pk=user.pk).filter(phone_number=phone_number, phone_region_code=phone_region_code).exists():
-            raise serializers.ValidationError({"email": "This phone number is already in use."})
+            raise serializers.ValidationError({"phone_number": "This phone number is already in use."})
 
     def validate_username(self, user, username):
         if User.objects.exclude(pk=user.pk).filter(username=username).exists():
