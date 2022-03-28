@@ -174,3 +174,10 @@ class CreditApprovalsAPITestCase(APITestCase):
 
         self.assertEqual(new_schedule_installment.delay_interest_calculated,
                          schedule_installment.delay_interest_base_amount)
+
+        bk_core_sdk.add_delay_interest()
+
+        new_schedule_installment_2 = ScheduleInstallment.objects.get(pk=schedule_installment.pk)
+
+        self.assertEqual(new_schedule_installment_2.delay_interest_calculated,
+                         schedule_installment.delay_interest_base_amount)

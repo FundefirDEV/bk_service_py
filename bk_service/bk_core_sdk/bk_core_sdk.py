@@ -1,5 +1,6 @@
 # Python
 import datetime
+from datetime import timedelta
 
 # Django
 from django.db.models import Sum
@@ -292,5 +293,9 @@ class BkCoreSDK():
 
         for schedule_installment in schedule_installments:
             delay_interest_base_amount = schedule_installment.delay_interest_base_amount
+            payment_period_of_installment = schedule_installment.credit.bank.get_bank_rules().payment_period_of_installment
+
             schedule_installment.delay_interest_calculated += delay_interest_base_amount
+            schedule_installment.payment_date = now + timedelta(days=payment_period_of_installment)
+
             schedule_installment.save()
