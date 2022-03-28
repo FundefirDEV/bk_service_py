@@ -23,6 +23,10 @@ class BkCore():
         res = (amount * (ordinary_interest / 100)) * installments
         return round(res, 4)
 
+    def calculate_delay_interest_base_amount(self, capital_amount, delay_interest):
+        res = (capital_amount * (delay_interest / 100))
+        return round(res, 4)
+
     def calculate_expenditure_fund(self, total_interest, expenditure_fund_percentage):
         res = total_interest * (expenditure_fund_percentage / 100)
         return round(res, 4)
@@ -47,7 +51,7 @@ class BkCore():
 
         return round(res, 4)
 
-    def calculate_schedule_installment(self, installments, payment_type, ordinary_interest, credit_amount, payment_period_of_installment):
+    def calculate_schedule_installment(self, installments, payment_type, ordinary_interest, delay_interest, credit_amount, payment_period_of_installment):
 
         # TODO: add deplay interest
 
@@ -80,11 +84,15 @@ class BkCore():
             # days_to_pay = bank_rules.payment_period_of_installment * installment_number
             days_to_pay = payment_period_of_installment * (i+1)
             installment_payment_date = today + timedelta(days=days_to_pay)
+            capital_value = installment_value - installment_ordinary_interest
+            delay_interest_base_amount = BkCore().calculate_delay_interest_base_amount(
+                delay_interest=delay_interest, capital_amount=capital_value)
 
             schedules_installments.append({'installment_value': installment_value,
                                            'ordinary_insterest': installment_ordinary_interest,
-                                           'capital_value': installment_value - installment_ordinary_interest,
-                                           'installment_payment_date': installment_payment_date})
+                                           'capital_value': capital_value,
+                                           'installment_payment_date': installment_payment_date,
+                                           'delay_interest_base_amount': delay_interest_base_amount})
         return schedules_installments
 
     def calculate_ordinary_interest_paid(
@@ -111,3 +119,27 @@ class BkCore():
                 ordinary_interest_paid = payment_schedule_request_amount
 
         return ordinary_interest_paid
+
+    def calculate_delay_interest_paid(
+        self,
+        delay_interest_calculated,
+        delay_interest_paid,
+        payment_schedule_request_amount,
+    ):
+
+        if delay_interest_calculated == 0:
+            return 0.0
+
+        delay_interest_paid = 0.0
+
+        if(delay_interest_paid >= delay_interest_calculated):
+            delay_interest_paid = 0.0
+        else:
+            pending_delay_interest = delay_interest_calculated - delay_interest_paid
+
+            if(payment_schedule_request_amount >= pending_delay_interest):
+                delay_interest_paid = pending_delay_interest
+            else:
+                delay_interest_paid = payment_schedule_request_amount
+
+        return delay_interest_paid

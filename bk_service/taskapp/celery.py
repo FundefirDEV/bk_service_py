@@ -1,9 +1,24 @@
 """Celery app config."""
 
+# Python
 import os
-from celery import Celery
+from datetime import timedelta
+
+
+# Django
 from django.apps import apps, AppConfig
 from django.conf import settings
+from django.utils import timezone
+
+# Celery
+from celery import Celery
+# from celery.decorators import periodic_task
+
+# Models
+# from bk_service.banks.models import ScheduleInstallment
+
+# Utils
+# from bk_service.utils.enums import PaymentStatus
 
 
 if not settings.configured:
@@ -31,3 +46,6 @@ class CeleryAppConfig(AppConfig):
 @app.task(bind=True)
 def debug_task(self):
     print(f'Request: {self.request!r}')  # pragma: no cover
+
+
+# @periodic_task(name='add_delay_interest', run_every=timedelta(seconds=5))

@@ -25,6 +25,7 @@ def post_save_create_credit_schedule_installment(sender, instance, created, **kw
         # installment_value = total_credit_value % instance.installments (decimal, integer)
         schedule_installments_core = BkCore().calculate_schedule_installment(
             ordinary_interest=bank_rules.ordinary_interest,
+            delay_interest=bank_rules.delay_interest,
             credit_amount=instance.amount,
             installments=instance.installments,
             payment_period_of_installment=bank_rules.payment_period_of_installment,
@@ -37,11 +38,9 @@ def post_save_create_credit_schedule_installment(sender, instance, created, **kw
                 capital_installment=schedule_installment['capital_value'],
                 ordinary_interest_percentage=bank_rules.ordinary_interest,
 
-
                 # TODO: calculate deplay interest
-                # delay_interest_percentage=bank_rules.delay_interest,
-                delay_interest_percentage=0.0,
-                delay_interest_base_amount=0.0,
+                delay_interest_percentage=bank_rules.delay_interest,
+                delay_interest_base_amount=schedule_installment['delay_interest_base_amount'],
 
                 ordinary_interest_calculated=schedule_installment['ordinary_insterest'],
                 total_pay_installment=schedule_installment['capital_value'] +

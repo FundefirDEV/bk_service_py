@@ -1,3 +1,6 @@
+# Python
+from datetime import timedelta
+
 #  Django REST Framework
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -24,6 +27,9 @@ from bk_service.utils.enums.requests import ApprovalStatus
 
 # Utils Enums
 from bk_service.utils.enums import PartnerType, CreditPayType
+
+# BkCore
+from bk_service.bk_core_sdk import BkCoreSDK
 
 URL = '/banks/approvals/'
 
@@ -73,6 +79,8 @@ class CreditApprovalsAPITestCase(APITestCase):
         self.assertEqual(credit.installments, self.credit_request.installments)
         # credit installments created
         self.assertEqual(len(schedule_installment), credit.installments)
+        self.assertEqual(schedule_installment[0].delay_interest_base_amount, 5000.0)
+
         # partner_detail "active_credit" need to change
         self.assertEqual(partner_detail.active_credit, credit.amount)
         # cash balance need to change
@@ -106,6 +114,8 @@ class CreditApprovalsAPITestCase(APITestCase):
         # credit installments created
         self.assertEqual(len(schedule_installment), credit.installments)
         self.assertEqual(schedule_installment[0].ordinary_interest_calculated, 0)
+        self.assertEqual(schedule_installment[0].delay_interest_base_amount, 5000.0)
+
         # partner_detail "active_credit" need to change
         # self.assertEqual(partner_detail.active_credit, float(credit.amount) - float(credit.total_interest))
         self.assertEqual(partner_detail.active_credit, float(credit.amount))
@@ -131,3 +141,36 @@ class CreditApprovalsAPITestCase(APITestCase):
         self.assertEqual(body, 'credit rejected success !')
         self.assertEqual(partner_detail.active_credit, 0)
         self.assertEqual(post_bank_info.cash_balance, self.previous_bank_info.cash_balance)
+
+    def test_credit_installments_add_delay_interest(self):
+        """ Credit installment approvals approve requests success """
+        request_body = {
+            'type_request': 'credit',
+            'request_id': self.credit_request.id,
+            'approval_status': 'approved'
+        }
+        request = post_with_token(URL=URL, user=self.partner.user, body=request_body)
+        post_bank_info = Bank.objects.get(pk=self.partner.bank.id)
+        body = request.data
+        credit = Credit.objects.get(credit_request=self.credit_request)
+        schedule_installments = ScheduleInstallment.objects.filter(credit=credit)
+
+        self.assertEqual(request.status_code, status.HTTP_200_OK)
+        self.assertEqual(body, 'credit approved success !')
+
+        schedule_installment = schedule_installments[0]
+        today = datetime.now()
+
+        new_payment_date = today - timedelta(days=5)
+        schedule_installment.payment_date = new_payment_date
+
+        schedule_installment.save()
+
+        bk_core_sdk = BkCoreSDK(partner=self.partner)
+
+        bk_core_sdk.add_delay_interest()
+
+        new_schedule_installment = ScheduleInstallment.objects.get(pk=schedule_installment.pk)
+
+        self.assertEqual(new_schedule_installment.delay_interest_calculated,
+                         schedule_installment.delay_interest_base_amount)
