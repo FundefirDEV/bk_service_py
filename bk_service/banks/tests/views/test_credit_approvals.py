@@ -29,7 +29,7 @@ from bk_service.utils.enums.requests import ApprovalStatus
 from bk_service.utils.enums import PartnerType, CreditPayType
 
 # BkCore
-from bk_service.bk_core_sdk import BkCoreSDK
+from bk_service.bk_core_sdk import add_delay_interest
 
 URL = '/banks/approvals/'
 
@@ -166,16 +166,14 @@ class CreditApprovalsAPITestCase(APITestCase):
 
         schedule_installment.save()
 
-        bk_core_sdk = BkCoreSDK(partner=self.partner)
-
-        bk_core_sdk.add_delay_interest()
+        add_delay_interest()
 
         new_schedule_installment = ScheduleInstallment.objects.get(pk=schedule_installment.pk)
 
         self.assertEqual(new_schedule_installment.delay_interest_calculated,
                          schedule_installment.delay_interest_base_amount)
 
-        bk_core_sdk.add_delay_interest()
+        add_delay_interest()
 
         new_schedule_installment_2 = ScheduleInstallment.objects.get(pk=schedule_installment.pk)
 

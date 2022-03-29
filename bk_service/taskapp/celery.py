@@ -11,11 +11,8 @@ from django.conf import settings
 from django.utils import timezone
 
 # Celery
-from celery import Celery
-# from celery.decorators import periodic_task
-
-# Models
-# from bk_service.banks.models import ScheduleInstallment
+from celery import Celery, shared_task
+from celery.schedules import crontab
 
 # Utils
 # from bk_service.utils.enums import PaymentStatus
@@ -43,9 +40,17 @@ class CeleryAppConfig(AppConfig):
         app.autodiscover_tasks(lambda: installed_apps, force=True)
 
 
-@app.task(bind=True)
-def debug_task(self):
-    print(f'Request: {self.request!r}')  # pragma: no cover
+# BkCore
+
+@shared_task(name='add_delay_interest_task')
+def add_delay_interest_task():
+    from bk_service.bk_core_sdk import add_delay_interest
+    add_delay_interest()
 
 
-# @periodic_task(name='add_delay_interest', run_every=timedelta(seconds=5))
+app.conf.beat_schedule = {
+    'disable-finished-rides': {
+        'task': 'add_delay_interest_task',
+        'schedule': crontab(hour=5, minute=1),
+    }
+}

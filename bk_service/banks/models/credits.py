@@ -38,3 +38,8 @@ class Credit(BankOperationsBaseModel, models.Model):
         'credit_use',
         'payment_type',
     ]
+
+    def __str__(self):
+        """ return credit info """
+
+        return str(f'{self.bank.name} : {self.partner}')

@@ -81,9 +81,9 @@ class PaymentScheduleAdmin(admin.ModelAdmin):
 @admin.register(ScheduleInstallment)
 class ScheduleInstallmentAdmin(admin.ModelAdmin):
     """ ScheduleInstallment model admin """
-    # list_display = '__all__'
-    # search_fields = ('name', 'code',)
-    # list_filter = ('is_active', 'name', 'code',)
+    list_display = ('credit', 'installment_number', 'payment_status', 'payment_date')
+    search_fields = ('credit__partner', 'credit__bank')
+    list_filter = ('credit__partner', 'credit__bank', 'payment_status', 'payment_date')
 
 
 @admin.register(Meeting)

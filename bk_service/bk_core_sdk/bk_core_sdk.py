@@ -283,19 +283,22 @@ class BkCoreSDK():
 
         return meeting_data
 
-    def add_delay_interest(self):
 
-        now = timezone.now()
-        schedule_installments = ScheduleInstallment.objects.filter(
-            payment_status=PaymentStatus.pending,
-            payment_date__lte=now
-        )
+def add_delay_interest():
 
-        for schedule_installment in schedule_installments:
-            delay_interest_base_amount = schedule_installment.delay_interest_base_amount
-            payment_period_of_installment = schedule_installment.credit.bank.get_bank_rules().payment_period_of_installment
+    now = timezone.now()
+    schedule_installments = ScheduleInstallment.objects.filter(
+        payment_status=PaymentStatus.pending,
+        payment_date__lte=now,
+        credit__is_active=True,
+        credit__partner__is_active=True,
+    )
 
-            schedule_installment.delay_interest_calculated += delay_interest_base_amount
-            schedule_installment.payment_date = now + timedelta(days=payment_period_of_installment)
+    for schedule_installment in schedule_installments:
+        delay_interest_base_amount = schedule_installment.delay_interest_base_amount
+        payment_period_of_installment = schedule_installment.credit.bank.get_bank_rules().payment_period_of_installment
 
-            schedule_installment.save()
+        schedule_installment.delay_interest_calculated += delay_interest_base_amount
+        schedule_installment.payment_date = now + timedelta(days=payment_period_of_installment)
+
+        schedule_installment.save()
