@@ -57,25 +57,25 @@ class BankRulesAdmin(admin.ModelAdmin):
 @admin.register(Share)
 class ShareAdmin(admin.ModelAdmin):
     """ Share model admin """
-    # list_display = '__all__'
-    # search_fields = ('name', 'code',)
-    # list_filter = ('is_active', 'name', 'code',)
+    list_display = ('bank', 'partner', 'amount', 'quantity', 'is_active',)
+    search_fields = ('bank__name', 'partner', 'quantity')
+    list_filter = ('bank',)
 
 
 @admin.register(Credit)
 class CreditAdmin(admin.ModelAdmin):
     """ Credit model admin """
-    # list_display = '__all__'
-    # search_fields = ('name', 'code',)
-    # list_filter = ('is_active', 'name', 'code',)
+    list_display = ('bank', 'partner', 'amount', 'payment_type', 'is_active',)
+    search_fields = ('bank', 'partner',)
+    list_filter = ('bank', 'payment_type',)
 
 
 @admin.register(PaymentSchedule)
 class PaymentScheduleAdmin(admin.ModelAdmin):
     """ PaymentSchedule model admin """
-    # list_display = '__all__'
-    # search_fields = ('name', 'code',)
-    # list_filter = ('is_active', 'name', 'code',)
+    list_display = ('bank', 'partner', 'amount', 'payment_type',)
+    search_fields = ('bank', 'partner',)
+    list_filter = ('bank', 'payment_type',)
 
 
 @admin.register(ScheduleInstallment)
