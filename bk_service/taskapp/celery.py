@@ -40,17 +40,15 @@ class CeleryAppConfig(AppConfig):
         app.autodiscover_tasks(lambda: installed_apps, force=True)
 
 
-# BkCore
-
-@shared_task(name='add_delay_interest_task')
-def add_delay_interest_task():
-    from bk_service.bk_core_sdk import add_delay_interest
-    add_delay_interest()
+# @shared_task(name='add_delay_interest_task')
+# def add_delay_interest_task():
+#     from bk_service.bk_core_sdk import add_delay_interest
+#     add_delay_interest()
 
 
-app.conf.beat_schedule = {
-    'disable-finished-rides': {
-        'task': 'add_delay_interest_task',
-        'schedule': crontab(hour=5, minute=1),
-    }
-}
+# app.conf.beat_schedule = {
+#     'disable-finished-rides': {
+#         'task': 'add_delay_interest_task',
+#         'schedule': crontab(hour=5, minute=1),
+#     }
+# }
