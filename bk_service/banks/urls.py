@@ -30,6 +30,8 @@ urlpatterns = [
 
     path('banks/approvals/', ApprovalsAPIView.as_view(), name="approvals"),
 
+    path('banks/special-credit/', SpecialCreditAPIView.as_view(), name="special_credit"),
+
     path('banks/meetings/', MeetingsGetAPIView.as_view(), name="meetings"),
     path('banks/meetings/close/', CloseMeetingsAPIView.as_view(), name="close_meetings"),
 
