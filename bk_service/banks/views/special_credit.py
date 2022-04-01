@@ -9,7 +9,7 @@ from bk_service.banks.serializers.special_credit import SpecialCreditSerializer
 
 from bk_service.utils.enums.banks import PartnerType
 
-from bk_service.banks.models import Credit, Partner
+from bk_service.banks.models import Credit, Partner, ScheduleInstallment
 from bk_service.requests.models import CreditRequest
 
 # Errors
@@ -18,7 +18,8 @@ from bk_service.utils.exceptions_errors import CustomException
 from bk_service.utils.constants_errors import PARTNER_IS_NOT_ADMIN, CASH_BALANCE_EXCCEDED
 from bk_service.utils.enums.requests import ApprovalStatus
 
-
+# BkCore
+from bk_service.bk_core_sdk.bk_core import BkCore
 class SpecialCreditAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
@@ -60,4 +61,27 @@ class SpecialCreditAPIView(APIView):
             is_special=True,
         )
 
-        return Response({"message": "Credit Created"})
+        schedule_installments_core = BkCore().calculate_schedule_installment(
+            ordinary_interest=validated_data['ordinary_interest'],
+            delay_interest=validated_data['delay_interest'],
+            credit_amount=credit.amount,
+            installments=credit.installments,
+            payment_period_of_installment=validated_data['payment_period_of_installments'],
+            payment_type=credit.payment_type
+        )
+
+        for index, schedule_installment in enumerate(schedule_installments_core):
+            schedule = ScheduleInstallment.objects.create(
+                credit=credit,
+                capital_installment=schedule_installment['capital_value'],
+                ordinary_interest_percentage=validated_data['ordinary_interest'],
+                delay_interest_percentage=validated_data['delay_interest'],
+                delay_interest_base_amount=schedule_installment['delay_interest_base_amount'],
+                ordinary_interest_calculated=schedule_installment['ordinary_insterest'],
+                total_pay_installment=schedule_installment['capital_value'] +
+                schedule_installment['ordinary_insterest'],
+                payment_date=schedule_installment['installment_payment_date'],
+                payment_status=ApprovalStatus.pending,
+                installment_number=index
+            )
+        return Response({"message": "Special Credit Created"})
