@@ -12,7 +12,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
 from bk_service.users.models.users import User
-
+from bk_service.banks.models import PartnerDetail
 # Serializers
 from bk_service.users.serializers import (
     MyTokenObtainPairSerializer,
@@ -91,8 +91,18 @@ class UpdateProfileView(APIView):
         user.phone_number = data['phone_number']
         user.gender = data['gender']
         user.phone_region_code = data['phone_region_code']
+        user.partner.phone_number = data['phone_number']
+        user.partner.phone_region_code = data['phone_region_code']
+        detail = PartnerDetail.objects.get(partner=user.partner)
 
+        detail.document_number = data['document_number']
+        detail.profession = data['profession']
+        detail.scholarship = data['profession']
+        detail.birth_date = data['birth_date']
         user.save()
+        user.partner.save()
+        detail.save()
+
         return Response('ok')
 
         # serializer.is_valid(raise_exception=True)
