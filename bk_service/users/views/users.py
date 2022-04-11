@@ -97,7 +97,7 @@ class UpdateProfileView(APIView):
 
         detail.document_number = data['document_number']
         detail.profession = data['profession']
-        detail.scholarship = data['profession']
+        detail.scholarship = data['scholarship']
         detail.birth_date = data['birth_date']
         user.save()
         user.partner.save()
