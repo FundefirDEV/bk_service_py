@@ -1,18 +1,18 @@
 """ Credits Signals """
 
 # Django
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 # Models
-from bk_service.banks.models import PartnerDetail, Bank, Credit
+from bk_service.banks.models import PartnerDetail, Bank, Credit, ScheduleInstallment
 from bk_service.requests.models import CreditRequest
 
 # core
 from bk_service.bk_core_sdk.bk_core_sdk import BkCoreSDK, BkCore
 
 # Utils
-from bk_service.utils.enums.requests import ApprovalStatus
+from bk_service.utils.enums.requests import ApprovalStatus, CreditPayType
 
 
 @receiver(post_save, sender=CreditRequest)
@@ -42,3 +42,27 @@ def post_save_approve_credit_request(sender, instance, created, **kwargs):
                 total_interest=total_interest)
             BkCoreSDK(partner=instance.partner).update_bank_partner_active_credit(
                 credit=credit, ordinary_interest=ordinary_interest)
+
+
+# @receiver(post_delete, sender=Credit)
+# def post_delete_share(sender, instance, **kwargs):
+
+#     partner_detail = instance.partner.partner_detail()
+#     bank = instance.bank
+
+#     partner_detail.active_credit -= instance.amount
+#     partner_detail.save()
+
+#     if instance.payment_type == CreditPayType.advance:
+#         interest = instance.total_interest
+#     else:
+#         interest = 0
+
+#     bank.cash_balance += (instance.amount - interest)
+#     bank.active_credits -= (instance.amount)
+
+#     bank.save()
+
+#     # Delete schedule installments
+#     schedule = ScheduleInstallment.objects.filter(credit=instance)
+#     schedule.delete()

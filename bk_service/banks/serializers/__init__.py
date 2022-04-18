@@ -6,6 +6,7 @@ from .meetings import *
 from .credits import *
 from .schedule_installments import *
 from .shares import *
+from .special_credit import *
 from .payment_schedule import *
 from .partner_details import *
 from .earning_shares import *

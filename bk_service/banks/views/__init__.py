@@ -16,6 +16,7 @@ from .profit_payment import *
 from .profit_convert_shares import *
 from .shares import *
 from .credits import *
+from .special_credit import *
 from .payment_schedules import *
 from .earningShares import *
 from .reports import *

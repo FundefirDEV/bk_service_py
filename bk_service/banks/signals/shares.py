@@ -1,7 +1,7 @@
 """ Shares Signals """
 
 # Django
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 # Models
@@ -38,3 +38,18 @@ def post_save_approve_share_request(sender, instance, created, **kwargs):
             bank.shares += instance.quantity
             bank.cash_balance += instance.amount
             bank.save()
+
+
+@receiver(post_delete, sender=Share)
+def post_delete_share(sender, instance, **kwargs):
+
+    partner_detail = instance.partner.partner_detail()
+    bank = instance.bank
+
+    partner_detail.shares -= instance.quantity
+    partner_detail.save()
+
+    bank.shares -= instance.quantity
+    bank.cash_balance -= instance.amount
+
+    bank.save()

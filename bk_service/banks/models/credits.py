@@ -27,6 +27,7 @@ class Credit(BankOperationsBaseModel, models.Model):
     total_interest = models.DecimalField(max_digits=100, decimal_places=4, null=False, default=0.0)
 
     is_active = models.BooleanField(default=True)
+    is_special = models.BooleanField(default=False)
 
     REQUIRED_FIELDS = [
         'bank',

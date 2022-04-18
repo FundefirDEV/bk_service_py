@@ -4,6 +4,7 @@ from .base import *  # NOQA
 from .base import env
 
 # Base
+# DEBUG = env.bool('DJANGO_DEBUG', False)
 DEBUG = True
 
 # Security
@@ -27,9 +28,9 @@ CACHES = {
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # NOQA
 
 # Email
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+# EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
 
 # django-extensions
 INSTALLED_APPS += ['django_extensions']  # noqa F405
