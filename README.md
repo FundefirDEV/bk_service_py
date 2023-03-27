@@ -5,6 +5,7 @@
 
 # Bk_service
 
+## Para correr el proyecto en local como un contenedor de dockers
 
 1. Clonar proyecto
 2. Ubicar el archivo ```Local .py``` en la siguiente carpeta:
