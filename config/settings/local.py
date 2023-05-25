@@ -5,7 +5,7 @@ from .base import env
 
 # Base
 # DEBUG = env.bool('DJANGO_DEBUG', False)
-DEBUG = True
+DEBUG = False
 
 # Security
 SECRET_KEY = env('DJANGO_SECRET_KEY', default='PB3aGvTmCkzaLGRAxDc3aMayKTPTDd5usT8gw4pCmKOk5AlJjh12pTrnNgQyOHCH')
@@ -14,6 +14,7 @@ ALLOWED_HOSTS = [
     "0.0.0.0",
     "127.0.0.1",
     "192.168.0.19",
+    "172.174.23.198"
 ]
 
 # Cache
